@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RIV Solar — Call Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root {
+  --bg:#f8f7f4;--surface:#fff;--surface2:#f2f0ec;--border:#e2ddd6;
+  --purple:#5c3d8f;--purple-light:#7b5cb8;--purple-dim:#ede8f5;
+  --gold:#c9a84c;--text:#1a1714;--text2:#5a534a;--text3:#9c9287;
+  --green:#2d7a4f;--green-dim:#e6f4ed;--red:#c0392b;--red-dim:#fbeaea;
+  --yellow:#b8860b;--yellow-dim:#fdf6e3;--blue:#1a5276;--blue-dim:#eaf2fb;
+  --radius:10px;--shadow:0 2px 12px rgba(0,0,0,0.08);--shadow-md:0 4px 24px rgba(0,0,0,0.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+h1,h2,h3{font-family:'Playfair Display',serif;}
+
+/* LOGIN */
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#1a0f2e 0%,#2d1b5e 50%,#4a2d8a 100%);}
+.login-box{background:var(--surface);border-radius:16px;padding:48px 40px;width:100%;max-width:420px;box-shadow:var(--shadow-md);}
+.login-logo{text-align:center;margin-bottom:32px;}
+.login-logo h1{font-size:2rem;color:var(--purple);letter-spacing:2px;}
+.login-logo p{color:var(--text3);font-size:0.85rem;margin-top:4px;text-transform:uppercase;letter-spacing:1px;}
+.login-tabs{display:flex;border:1.5px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:20px;}
+.login-tab{flex:1;padding:10px;text-align:center;font-size:0.88rem;font-weight:600;cursor:pointer;color:var(--text2);background:var(--bg);transition:all 0.15s;}
+.login-tab.active{background:var(--purple);color:#fff;}
+.login-box label{display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:6px;margin-top:16px;}
+.login-box input,.login-box select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.95rem;background:var(--bg);color:var(--text);outline:none;}
+.login-box input:focus,.login-box select:focus{border-color:var(--purple);}
+.btn-primary{width:100%;padding:14px;background:var(--purple);color:#fff;border:none;border-radius:8px;font-family:'Outfit',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;margin-top:20px;transition:background 0.2s;}
+.btn-primary:hover{background:var(--purple-light);}
+.login-err{color:var(--red);font-size:0.85rem;margin-top:10px;text-align:center;min-height:20px;}
+.login-info{color:var(--text3);font-size:0.82rem;margin-top:8px;text-align:center;}
+
+/* LOADING */
+#loading-screen{display:none;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:16px;background:var(--bg);}
+.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--purple);border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* SHELL */
+#app{display:none;min-height:100vh;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.topbar-left{display:flex;align-items:center;gap:16px;}
+.topbar-logo{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--purple);font-weight:700;letter-spacing:1px;}
+.topbar-role{font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;font-weight:600;padding:3px 10px;border-radius:20px;}
+.role-admin{background:var(--purple-dim);color:var(--purple);}
+.role-manager{background:var(--blue-dim);color:var(--blue);}
+.role-rep{background:var(--green-dim);color:var(--green);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.topbar-user{font-size:0.88rem;color:var(--text2);}
+.btn-logout{font-size:0.8rem;padding:6px 14px;border:1.5px solid var(--border);border-radius:6px;background:none;cursor:pointer;color:var(--text2);font-family:'Outfit',sans-serif;}
+.btn-logout:hover{border-color:var(--purple);color:var(--purple);}
+
+/* NAV */
+.nav-tabs{background:var(--surface);border-bottom:1px solid var(--border);display:flex;padding:0 24px;overflow-x:auto;}
+.nav-tab{padding:14px 20px;font-size:0.88rem;font-weight:500;color:var(--text2);cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap;transition:all 0.15s;}
+.nav-tab:hover{color:var(--purple);}
+.nav-tab.active{color:var(--purple);border-bottom-color:var(--purple);font-weight:600;}
+
+/* CONTENT */
+.content{padding:28px 24px;max-width:1100px;margin:0 auto;}
+.section{display:none;}
+.section.active{display:block;}
+
+/* STAT GRID */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:28px;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
+.stat-label{font-size:0.73rem;text-transform:uppercase;letter-spacing:1px;color:var(--text3);font-weight:600;}
+.stat-val{font-family:'Playfair Display',serif;font-size:2rem;color:var(--purple);margin-top:4px;}
+.stat-sub{font-size:0.78rem;color:var(--text3);margin-top:2px;}
+
+/* CARD */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px;}
+.card-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--text);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:0.88rem;}
+th{text-align:left;font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--text3);font-weight:600;padding:10px 12px;border-bottom:2px solid var(--border);}
+td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--bg);}
+
+/* PILLS */
+.pill{display:inline-block;font-size:0.72rem;font-weight:600;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:0.5px;}
+.pill-green{background:var(--green-dim);color:var(--green);}
+.pill-red{background:var(--red-dim);color:var(--red);}
+.pill-yellow{background:var(--yellow-dim);color:var(--yellow);}
+.pill-blue{background:var(--blue-dim);color:var(--blue);}
+.pill-purple{background:var(--purple-dim);color:var(--purple);}
+.pill-grey{background:var(--surface2);color:var(--text3);}
+
+/* FORM */
+.form-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+.form-group{flex:1;min-width:140px;}
+.form-group label{display:block;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text2);margin-bottom:5px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:7px;font-family:'Outfit',sans-serif;font-size:0.9rem;color:var(--text);background:var(--bg);outline:none;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--purple);}
+.form-group textarea{resize:vertical;min-height:72px;}
+.btn{padding:9px 18px;border-radius:7px;font-family:'Outfit',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;border:none;transition:all 0.15s;}
+.btn-sm{padding:6px 12px;font-size:0.8rem;}
+.btn-purple{background:var(--purple);color:#fff;}
+.btn-purple:hover{background:var(--purple-light);}
+.btn-outline{background:none;border:1.5px solid var(--border);color:var(--text2);}
+.btn-outline:hover{border-color:var(--purple);color:var(--purple);}
+.btn-green{background:var(--green);color:#fff;}
+.btn-red{background:var(--red);color:#fff;}
+
+/* SECTION HEADER */
+.section-header{margin-bottom:24px;}
+.section-header h2{font-size:1.6rem;color:var(--text);}
+.section-header p{color:var(--text2);margin-top:4px;font-size:0.92rem;}
+
+/* SCRIPT */
+.script-step{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;}
+.script-step-num{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--purple);margin-bottom:6px;}
+.script-step-title{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px;}
+.script-step-body{font-size:0.9rem;color:var(--text2);line-height:1.65;}
+.objection-block{background:var(--red-dim);border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:12px 16px;margin-top:10px;font-size:0.88rem;color:var(--text2);}
+.rebuttal-block{background:var(--green-dim);border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:12px 16px;margin-top:6px;font-size:0.88rem;color:var(--text2);}
+
+/* MODULES */
+.module-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;display:flex;align-items:flex-start;gap:16px;cursor:pointer;transition:border-color 0.15s;}
+.module-card:hover{border-color:var(--purple);}
+.module-icon{width:44px;height:44px;border-radius:10px;background:var(--purple-dim);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.module-info{flex:1;}
+.module-info h4{font-size:0.95rem;font-weight:600;margin-bottom:4px;}
+.module-info p{font-size:0.82rem;color:var(--text2);}
+.module-progress{font-size:0.78rem;color:var(--text3);margin-top:4px;}
+.progress-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:6px;}
+.progress-fill{height:100%;background:var(--purple);border-radius:3px;transition:width 0.4s;}
+
+/* LEADS */
+.lead-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px;}
+.lead-name{font-weight:600;font-size:0.95rem;}
+.lead-meta{font-size:0.82rem;color:var(--text2);margin-top:3px;}
+.lead-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:center;justify-content:center;padding:16px;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--surface);border-radius:14px;padding:32px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-md);}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;}
+
+/* LEADERBOARD */
+.lb-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);}
+.lb-row:last-child{border-bottom:none;}
+.lb-rank{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--purple);width:30px;flex-shrink:0;}
+.lb-rank.gold{color:var(--gold);}
+.lb-name{flex:1;font-weight:500;}
+.lb-region{font-size:0.78rem;color:var(--text3);}
+.lb-stats{display:flex;gap:16px;}
+.lb-stat{text-align:center;}
+.lb-stat span{display:block;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);}
+.lb-stat strong{font-size:1rem;color:var(--text);}
+
+/* DISP BUTTONS */
+.disp-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.disp-btn{padding:8px 14px;border-radius:6px;font-size:0.82rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;font-family:'Outfit',sans-serif;transition:all 0.15s;}
+.disp-na{background:var(--surface2);color:var(--text2);border-color:var(--border);}
+.disp-vm{background:var(--blue-dim);color:var(--blue);border-color:var(--blue);}
+.disp-ni{background:var(--red-dim);color:var(--red);border-color:var(--red);}
+.disp-cb{background:var(--yellow-dim);color:var(--yellow);border-color:var(--yellow);}
+.disp-as{background:var(--green-dim);color:var(--green);border-color:var(--green);}
+
+/* RESOURCE */
+.resource-item{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);}
+.resource-item:last-child{border-bottom:none;}
+.resource-icon{width:38px;height:38px;border-radius:8px;background:var(--purple-dim);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.resource-info{flex:1;}
+.resource-info h5{font-size:0.92rem;font-weight:600;}
+.resource-info p{font-size:0.8rem;color:var(--text2);margin-top:2px;}
+
+/* UPLOAD */
+.upload-zone{border:2px dashed var(--border);border-radius:var(--radius);padding:32px;text-align:center;cursor:pointer;transition:border-color 0.2s;}
+.upload-zone:hover{border-color:var(--purple);}
+.upload-zone p{color:var(--text2);font-size:0.9rem;margin-top:8px;}
+
+/* TOAST */
+#toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:#fff;padding:12px 20px;border-radius:8px;font-size:0.88rem;z-index:999;display:none;box-shadow:var(--shadow-md);max-width:300px;}
+
+@media(max-width:600px){
+  .content{padding:16px;}
+  .stat-grid{grid-template-columns:1fr 1fr;}
+  .topbar{padding:0 14px;}
+  .nav-tabs{padding:0 14px;}
+  .topbar-user{display:none;}
+  .login-box{padding:32px 24px;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loading-screen">
+  <div class="spinner"></div>
+  <p style="color:var(--text2);font-size:0.9rem">Loading...</p>
+</div>
+
+<!-- LOGIN -->
+<div id="login-screen" style="display:none">
+  <div class="login-box">
+    <div class="login-logo">
+      <h1>RIV SOLAR</h1>
+      <p>Call Center Operations</p>
+    </div>
+    <div class="login-tabs">
+      <div class="login-tab active" id="tab-signin" onclick="showAuthTab('signin')">Sign In</div>
+      <div class="login-tab" id="tab-signup" onclick="showAuthTab('signup')">Register</div>
+    </div>
+
+    <!-- SIGN IN -->
+    <div id="form-signin">
+      <label>Email</label>
+      <input type="email" id="si-email" placeholder="you@example.com">
+      <label>Password</label>
+      <input type="password" id="si-pass" placeholder="••••••••">
+      <button class="btn-primary" onclick="doSignIn()">Sign In</button>
+      <div class="login-err" id="si-err"></div>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="form-signup" style="display:none">
+      <label>Full Name</label>
+      <input type="text" id="su-name" placeholder="First Last">
+      <label>Email</label>
+      <input type="email" id="su-email" placeholder="you@example.com">
+      <label>Password</label>
+      <input type="password" id="su-pass" placeholder="Min 6 characters">
+      <label>Role</label>
+      <select id="su-role">
+        <option value="rep">Rep</option>
+        <option value="manager">Manager</option>
+        <option value="admin">Admin</option>
+      </select>
+      <label>Region</label>
+      <select id="su-region">
+        <option value="Mamba U">Mamba U — SoCal</option>
+        <option value="Spartan U">Spartan U — NorCal</option>
+        <option value="Solar X">Solar X — Puerto Rico</option>
+      </select>
+      <button class="btn-primary" onclick="doSignUp()">Create Account</button>
+      <div class="login-err" id="su-err"></div>
+      <div class="login-info">After registering, sign in with your email & password.</div>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-logo">RIV SOLAR</div>
+      <div class="topbar-role" id="role-badge"></div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-user" id="user-display"></div>
+      <button class="btn-logout" onclick="doSignOut()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="nav-tabs" id="nav-tabs">
+    <div class="nav-tab active" onclick="switchTab('dashboard')">Dashboard</div>
+    <div class="nav-tab" onclick="switchTab('leads')">My Leads</div>
+    <div class="nav-tab" onclick="switchTab('calllog')">Call Log</div>
+    <div class="nav-tab" onclick="switchTab('training')">Training</div>
+    <div class="nav-tab" onclick="switchTab('resources')">Resources</div>
+    <div class="nav-tab" id="tab-territory" style="display:none" onclick="switchTab('territory')">Territory</div>
+    <div class="nav-tab" id="tab-admin" style="display:none" onclick="switchTab('admin')">Admin</div>
+  </div>
+
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div class="section active" id="sec-dashboard">
+      <div class="section-header">
+        <h2 id="dash-greeting">Dashboard</h2>
+        <p id="dash-sub">Your performance overview.</p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-label">Dials Today</div><div class="stat-val" id="s-dials">—</div><div class="stat-sub">Goal: 80</div></div>
+        <div class="stat-card"><div class="stat-label">Contacts</div><div class="stat-val" id="s-contacts">—</div><div class="stat-sub">Goal: 20</div></div>
+        <div class="stat-card"><div class="stat-label">Appts Set</div><div class="stat-val" id="s-appts">—</div><div class="stat-sub">Goal: 3</div></div>
+        <div class="stat-card"><div class="stat-label">Conv. Rate</div><div class="stat-val" id="s-conv">—</div><div class="stat-sub">Contact → Appt</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Team Leaderboard <span style="font-family:Outfit;font-size:0.78rem;color:var(--text3);font-weight:400" id="lb-label"></span></div>
+        <div id="leaderboard-list"><div style="color:var(--text3);font-size:0.88rem">Loading...</div></div>
+      </div>
+      <div class="card" id="team-overview-card" style="display:none">
+        <div class="card-title">All Regions Overview</div>
+        <div id="team-overview"></div>
+      </div>
+    </div>
+
+    <!-- LEADS -->
+    <div class="section" id="sec-leads">
+      <div class="section-header">
+        <h2>My Leads</h2>
+        <p>Your assigned leads. Log every call immediately.</p>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap">
+        <select id="lead-filter" onchange="renderLeads()" style="padding:8px 12px;border:1.5px solid var(--border);border-radius:7px;font-family:Outfit,sans-serif;font-size:0.85rem;background:var(--bg);color:var(--text);outline:none;">
+          <option value="all">All Leads</option>
+          <option value="New">New</option>
+          <option value="No Answer">No Answer</option>
+          <option value="Voicemail">Voicemail</option>
+          <option value="Callback">Callback</option>
+          <option value="Not Interested">Not Interested</option>
+          <option value="Appt Set">Appt Set</option>
+        </select>
+        <input type="text" id="lead-search" placeholder="Search name or address..." onkeyup="renderLeads()" style="padding:8px 12px;border:1.5px solid var(--border);border-radius:7px;font-family:Outfit,sans-serif;font-size:0.85rem;min-width:200px;outline:none;background:var(--bg);">
+      </div>
+      <div id="leads-list"><div style="color:var(--text3);text-align:center;padding:32px">Loading leads...</div></div>
+    </div>
+
+    <!-- CALL LOG -->
+    <div class="section" id="sec-calllog">
+      <div class="section-header">
+        <h2>Call Log</h2>
+        <p>Every disposition, timestamped.</p>
+      </div>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Time</th><th>Name</th><th>Phone</th><th>Disposition</th><th>Notes</th><th id="th-rep" style="display:none">Rep</th></tr></thead>
+            <tbody id="calllog-tbody"><tr><td colspan="6" style="text-align:center;color:var(--text3);padding:24px">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRAINING -->
+    <div class="section" id="sec-training">
+      <div class="section-header">
+        <h2>Training Hub</h2>
+        <p>Master the script before your first dial. No shortcuts.</p>
+      </div>
+      <div id="training-home">
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-title">Your Progress</div>
+          <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center">
+            <div><div style="font-size:0.8rem;color:var(--text2);margin-bottom:4px">Modules Completed</div><div style="font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--purple)" id="prog-count">0 / 5</div></div>
+            <div style="flex:1;min-width:160px"><div style="font-size:0.78rem;color:var(--text3);margin-bottom:6px">Overall completion</div><div class="progress-bar"><div class="progress-fill" id="prog-bar" style="width:0%"></div></div></div>
+          </div>
+        </div>
+        <div class="module-card" onclick="openModule('script')"><div class="module-icon">📞</div><div class="module-info"><h4>Cold Call Script</h4><p>Step-by-step intro, pitch, and close.</p><div class="module-progress" id="mp-script">Not started</div></div><div style="color:var(--text3)">›</div></div>
+        <div class="module-card" onclick="openModule('objections')"><div class="module-icon">🛡️</div><div class="module-info"><h4>Objection Handling</h4><p>Top 8 objections and word-for-word comebacks.</p><div class="module-progress" id="mp-objections">Not started</div></div><div style="color:var(--text3)">›</div></div>
+        <div class="module-card" onclick="openModule('voicemail')"><div class="module-icon">🎙️</div><div class="module-info"><h4>Voicemail Formula</h4><p>20-second voicemails that actually get callbacks.</p><div class="module-progress" id="mp-voicemail">Not started</div></div><div style="color:var(--text3)">›</div></div>
+        <div class="module-card" onclick="openModule('followup')"><div class="module-icon">🔁</div><div class="module-info"><h4>Follow-Up Strategy</h4><p>Callback scheduling and persistence that converts.</p><div class="module-progress" id="mp-followup">Not started</div></div><div style="color:var(--text3)">›</div></div>
+        <div class="module-card" onclick="openModule('mindset')"><div class="module-icon">🔥</div><div class="module-info"><h4>Mindset & Daily Habits</h4><p>How elite reps show up every single day.</p><div class="module-progress" id="mp-mindset">Not started</div></div><div style="color:var(--text3)">›</div></div>
+      </div>
+      <div id="training-module" style="display:none">
+        <button class="btn btn-outline" style="margin-bottom:20px" onclick="closeModule()">← Back to Training</button>
+        <div id="module-content"></div>
+        <div style="margin-top:24px;text-align:center"><button class="btn btn-purple" id="module-done-btn" onclick="markModuleDone()">Mark Complete ✓</button></div>
+      </div>
+    </div>
+
+    <!-- RESOURCES -->
+    <div class="section" id="sec-resources">
+      <div class="section-header"><h2>Resources</h2><p>Scripts, product info, and team contacts.</p></div>
+      <div class="card">
+        <div class="card-title">Quick Reference</div>
+        <div class="resource-item"><div class="resource-icon">📋</div><div class="resource-info"><h5>Full Cold Call Script (PDF)</h5><p>Print-friendly offline reference</p></div><button class="btn btn-outline btn-sm" onclick="showToast('Add PDF file to your GitHub repo to enable download')">Download</button></div>
+        <div class="resource-item"><div class="resource-icon">⚡</div><div class="resource-info"><h5>Objection Cheat Sheet</h5><p>One-page: top 8 objections and comebacks</p></div><button class="btn btn-outline btn-sm" onclick="showToast('Add file to GitHub repo to enable download')">Download</button></div>
+        <div class="resource-item"><div class="resource-icon">☀️</div><div class="resource-info"><h5>Solar Product Overview</h5><p>Panel specs, financing, warranty</p></div><button class="btn btn-outline btn-sm" onclick="showToast('Add file to GitHub repo to enable download')">Download</button></div>
+        <div class="resource-item"><div class="resource-icon">💰</div><div class="resource-info"><h5>Pay Structure & Comp Plan</h5><p>Setter tiers, closer splits, bonuses explained</p></div><button class="btn btn-outline btn-sm" onclick="showToast('Add file to GitHub repo to enable download')">Download</button></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Team Contacts</div>
+        <div class="resource-item"><div class="resource-icon">👑</div><div class="resource-info"><h5>Victor & Will Silva</h5><p>Co-Founders — RIV Solar</p></div></div>
+        <div class="resource-item"><div class="resource-icon">🟣</div><div class="resource-info"><h5>Christopher Buckland</h5><p>Mamba U Manager — Southern California</p></div></div>
+        <div class="resource-item"><div class="resource-icon">🔵</div><div class="resource-info"><h5>Antonio Russo</h5><p>Spartan U Manager — Northern California</p></div></div>
+        <div class="resource-item"><div class="resource-icon">🟢</div><div class="resource-info"><h5>Solar X Manager</h5><p>Solar X — Puerto Rico</p></div></div>
+      </div>
+    </div>
+
+    <!-- TERRITORY -->
+    <div class="section" id="sec-territory">
+      <div class="section-header"><h2>Territory Manager</h2><p>Upload leads via CSV. Auto-assigns round-robin to your reps.</p></div>
+      <div class="card">
+        <div class="card-title">Upload Lead List</div>
+        <p style="font-size:0.85rem;color:var(--text2);margin-bottom:14px">CSV columns: <strong>FirstName, LastName, Phone, Address, City, State, Zip</strong></p>
+        <div class="upload-zone" onclick="document.getElementById('csv-file').click()">
+          <div style="font-size:2rem">📂</div>
+          <p>Click to upload CSV</p>
+          <p style="font-size:0.78rem;color:var(--text3);margin-top:4px">Leads auto-assigned round-robin to reps in your region</p>
+        </div>
+        <input type="file" id="csv-file" accept=".csv" style="display:none" onchange="handleCSV(event)">
+        <div id="csv-preview" style="display:none;margin-top:16px">
+          <div style="font-size:0.85rem;color:var(--green);font-weight:600;margin-bottom:10px" id="csv-summary"></div>
+          <button class="btn btn-purple" onclick="importLeads()">Import Leads</button>
+          <button class="btn btn-outline" style="margin-left:8px" onclick="cancelCSV()">Cancel</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Rep Roster</div>
+        <div id="rep-roster-table"><div style="color:var(--text3);font-size:0.88rem">Loading...</div></div>
+      </div>
+    </div>
+
+    <!-- ADMIN -->
+    <div class="section" id="sec-admin">
+      <div class="section-header"><h2>Admin Panel</h2><p>Full system visibility across all regions.</p></div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-label">Total Reps</div><div class="stat-val" id="adm-reps">—</div><div class="stat-sub">All regions</div></div>
+        <div class="stat-card"><div class="stat-label">Total Leads</div><div class="stat-val" id="adm-leads">—</div><div class="stat-sub">In system</div></div>
+        <div class="stat-card"><div class="stat-label">Total Appts</div><div class="stat-val" id="adm-appts">—</div><div class="stat-sub">All time</div></div>
+        <div class="stat-card"><div class="stat-label">Total Dials</div><div class="stat-val" id="adm-dials">—</div><div class="stat-sub">All time</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">All Reps</div>
+        <div id="admin-reps-table"><div style="color:var(--text3);font-size:0.88rem">Loading...</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Add Rep Manually</div>
+        <p style="font-size:0.85rem;color:var(--text2);margin-bottom:14px">Reps can also self-register via the Register tab on the login screen.</p>
+        <div class="form-row">
+          <div class="form-group"><label>Full Name</label><input type="text" id="add-rep-name" placeholder="First Last"></div>
+          <div class="form-group"><label>Email</label><input type="email" id="add-rep-email" placeholder="rep@example.com"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Role</label><select id="add-rep-role"><option value="rep">Rep</option><option value="manager">Manager</option></select></div>
+          <div class="form-group"><label>Region</label><select id="add-rep-region"><option>Mamba U</option><option>Spartan U</option><option>Solar X</option></select></div>
+        </div>
+        <button class="btn btn-purple" onclick="adminAddRep()">Add Rep</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LOG CALL MODAL -->
+<div class="modal-overlay" id="modal-log">
+  <div class="modal">
+    <div class="modal-title" id="modal-log-title">Log Call</div>
+    <input type="hidden" id="modal-lead-id">
+    <div style="margin-bottom:12px">
+      <div style="font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text2);margin-bottom:8px">Disposition</div>
+      <div class="disp-btns">
+        <button class="disp-btn disp-na" onclick="setDisp('No Answer')">No Answer</button>
+        <button class="disp-btn disp-vm" onclick="setDisp('Voicemail')">Voicemail</button>
+        <button class="disp-btn disp-ni" onclick="setDisp('Not Interested')">Not Interested</button>
+        <button class="disp-btn disp-cb" onclick="setDisp('Callback')">Callback</button>
+        <button class="disp-btn disp-as" onclick="setDisp('Appt Set')">🎯 Appt Set</button>
+      </div>
+      <div style="font-size:0.85rem;color:var(--purple);margin-top:10px;font-weight:600" id="selected-disp-label">Select a disposition above</div>
+    </div>
+    <div class="form-group">
+      <label>Notes (optional)</label>
+      <textarea id="call-notes" placeholder="Callback time, objection raised, anything relevant..."></textarea>
+    </div>
+    <div id="callback-row" style="display:none" class="form-group">
+      <label>Callback Date / Time</label>
+      <input type="datetime-local" id="callback-dt">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('modal-log')">Cancel</button>
+      <button class="btn btn-purple" id="save-call-btn" onclick="saveCall()">Save Call</button>
+    </div>
+  </div>
+</div>
+
+<!-- REASSIGN MODAL -->
+<div class="modal-overlay" id="modal-reassign">
+  <div class="modal">
+    <div class="modal-title">Reassign Lead</div>
+    <input type="hidden" id="reassign-lead-id">
+    <div class="form-group">
+      <label>Assign To</label>
+      <select id="reassign-rep-select"></select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('modal-reassign')">Cancel</button>
+      <button class="btn btn-purple" onclick="saveReassign()">Reassign</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ─────────────────────────────────────────
+//  SUPABASE INIT
+// ─────────────────────────────────────────
+var SUPA_URL = 'https://zjwbgnoiymqypuzgsllc.supabase.co';
+var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpqd2Jnbm9peW1xeXB1emdzbGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExMzk1MzgsImV4cCI6MjA5NjcxNTUzOH0.Qx74wQMe1q6L_N_LwbQ-TqNe1Kx7ANQkXFHUJvzukio';
+var sb = supabase.createClient(SUPA_URL, SUPA_KEY);
+
+// ─────────────────────────────────────────
+//  GLOBAL STATE
+// ─────────────────────────────────────────
+var CUR = { user: null, rep: null, leads: [], logs: [], reps: [] };
+var csvPending = [];
+var currentDisp = '';
+var currentModule = '';
+
+// ─────────────────────────────────────────
+//  BOOT
+// ─────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  showScreen('loading');
+  sb.auth.getSession().then(function(r) {
+    if (r.data && r.data.session) {
+      CUR.user = r.data.session.user;
+      loadRepProfile(CUR.user.id).then(function() {
+        showScreen('app');
+        initApp();
+      });
+    } else {
+      showScreen('login');
+    }
+  });
+});
+
+function showScreen(name) {
+  document.getElementById('loading-screen').style.display = name === 'loading' ? 'flex' : 'none';
+  document.getElementById('login-screen').style.display = name === 'login' ? 'flex' : 'none';
+  document.getElementById('app').style.display = name === 'app' ? 'block' : 'none';
+}
+
+// ─────────────────────────────────────────
+//  AUTH
+// ─────────────────────────────────────────
+function showAuthTab(t) {
+  document.getElementById('tab-signin').className = 'login-tab' + (t === 'signin' ? ' active' : '');
+  document.getElementById('tab-signup').className = 'login-tab' + (t === 'signup' ? ' active' : '');
+  document.getElementById('form-signin').style.display = t === 'signin' ? '' : 'none';
+  document.getElementById('form-signup').style.display = t === 'signup' ? '' : 'none';
+}
+
+function doSignIn() {
+  var email = document.getElementById('si-email').value.trim();
+  var pass = document.getElementById('si-pass').value;
+  document.getElementById('si-err').textContent = '';
+  if (!email || !pass) { document.getElementById('si-err').textContent = 'Enter email and password.'; return; }
+  showScreen('loading');
+  sb.auth.signInWithPassword({ email: email, password: pass }).then(function(r) {
+    if (r.error) { showScreen('login'); document.getElementById('si-err').textContent = r.error.message; return; }
+    CUR.user = r.data.user;
+    loadRepProfile(CUR.user.id).then(function() { showScreen('app'); initApp(); });
+  });
+}
+
+function doSignUp() {
+  var name = document.getElementById('su-name').value.trim();
+  var email = document.getElementById('su-email').value.trim();
+  var pass = document.getElementById('su-pass').value;
+  var role = document.getElementById('su-role').value;
+  var region = document.getElementById('su-region').value;
+  document.getElementById('su-err').textContent = '';
+  if (!name || !email || !pass) { document.getElementById('su-err').textContent = 'All fields required.'; return; }
+  if (pass.length < 6) { document.getElementById('su-err').textContent = 'Password must be 6+ characters.'; return; }
+  showScreen('loading');
+  sb.auth.signUp({ email: email, password: pass }).then(function(r) {
+    if (r.error) { showScreen('login'); document.getElementById('su-err').textContent = r.error.message; return; }
+    var uid = r.data.user.id;
+    sb.from('reps').insert([{ id: uid, name: name, email: email, role: role, region: region }]).then(function(ins) {
+      showScreen('login');
+      showAuthTab('signin');
+      document.getElementById('si-err').textContent = '';
+      showToast('Account created! Sign in now.');
+    });
+  });
+}
+
+function doSignOut() {
+  sb.auth.signOut().then(function() {
+    CUR = { user: null, rep: null, leads: [], logs: [], reps: [] };
+    showScreen('login');
+  });
+}
+
+// ─────────────────────────────────────────
+//  REP PROFILE
+// ─────────────────────────────────────────
+function loadRepProfile(uid) {
+  return sb.from('reps').select('*').eq('id', uid).single().then(function(r) {
+    if (r.data) CUR.rep = r.data;
+  });
+}
+
+// ─────────────────────────────────────────
+//  INIT APP
+// ─────────────────────────────────────────
+function initApp() {
+  var rep = CUR.rep;
+  if (!rep) { showToast('Profile not found. Contact admin.'); showScreen('login'); return; }
+  document.getElementById('user-display').textContent = rep.name + ' · ' + rep.region;
+  var badge = document.getElementById('role-badge');
+  badge.textContent = rep.role.toUpperCase();
+  badge.className = 'topbar-role role-' + rep.role;
+  var hr = new Date().getHours();
+  document.getElementById('dash-greeting').textContent = (hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening') + ', ' + rep.name.split(' ')[0] + '.';
+  // Show tabs based on role
+  if (rep.role === 'manager' || rep.role === 'admin') document.getElementById('tab-territory').style.display = '';
+  if (rep.role === 'admin') document.getElementById('tab-admin').style.display = '';
+  if (rep.role === 'manager') document.getElementById('dash-sub').textContent = 'Your team overview for ' + rep.region + '.';
+  if (rep.role === 'admin') { document.getElementById('dash-sub').textContent = 'Full system overview — all regions.'; document.getElementById('team-overview-card').style.display = ''; }
+  if (rep.role !== 'rep') document.getElementById('th-rep').style.display = '';
+  loadAllData();
+}
+
+// ─────────────────────────────────────────
+//  LOAD DATA
+// ─────────────────────────────────────────
+function loadAllData() {
+  var rep = CUR.rep;
+  var leadsQ = rep.role === 'admin'
+    ? sb.from('leads').select('*').order('created_at', { ascending: false })
+    : rep.role === 'manager'
+      ? sb.from('leads').select('*').eq('region', rep.region).order('created_at', { ascending: false })
+      : sb.from('leads').select('*').eq('assigned_to', rep.id).order('created_at', { ascending: false });
+
+  var logsQ = rep.role === 'admin'
+    ? sb.from('call_log').select('*, leads(first_name,last_name,phone,address), reps(name)').order('logged_at', { ascending: false }).limit(200)
+    : rep.role === 'manager'
+      ? sb.from('call_log').select('*, leads(first_name,last_name,phone,address), reps(name,region)').order('logged_at', { ascending: false }).limit(200)
+      : sb.from('call_log').select('*, leads(first_name,last_name,phone,address)').eq('rep_id', rep.id).order('logged_at', { ascending: false }).limit(200);
+
+  var repsQ = rep.role === 'admin'
+    ? sb.from('reps').select('*').order('appts', { ascending: false })
+    : sb.from('reps').select('*').eq('region', rep.region).order('appts', { ascending: false });
+
+  Promise.all([leadsQ, logsQ, repsQ]).then(function(results) {
+    CUR.leads = results[0].data || [];
+    CUR.logs = results[1].data || [];
+    CUR.reps = results[2].data || [];
+    renderDashboard();
+    renderLeads();
+    renderCallLog();
+    renderTrainingProgress();
+    if (CUR.rep.role !== 'rep') renderRepRoster();
+    if (CUR.rep.role === 'admin') renderAdminPanel();
+  });
+}
+
+// ─────────────────────────────────────────
+//  TAB SWITCH
+// ─────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+  var tab = document.querySelector('[onclick="switchTab(\'' + name + '\')"]');
+  if (tab) tab.classList.add('active');
+  var sec = document.getElementById('sec-' + name);
+  if (sec) sec.classList.add('active');
+  if (name === 'leads') renderLeads();
+  if (name === 'calllog') renderCallLog();
+  if (name === 'territory') renderRepRoster();
+  if (name === 'admin') renderAdminPanel();
+}
+
+// ─────────────────────────────────────────
+//  DASHBOARD
+// ─────────────────────────────────────────
+function renderDashboard() {
+  var rep = CUR.rep;
+  document.getElementById('s-dials').textContent = rep.dials || 0;
+  document.getElementById('s-contacts').textContent = rep.contacts || 0;
+  document.getElementById('s-appts').textContent = rep.appts || 0;
+  var conv = rep.contacts > 0 ? Math.round((rep.appts / rep.contacts) * 100) : 0;
+  document.getElementById('s-conv').textContent = conv + '%';
+
+  var reps = CUR.reps.slice().sort(function(a,b) { return (b.appts||0)-(a.appts||0); });
+  document.getElementById('lb-label').textContent = rep.role === 'admin' ? 'All Regions' : rep.region;
+  var lb = document.getElementById('leaderboard-list');
+  if (!reps.length) { lb.innerHTML = '<p style="color:var(--text3);font-size:0.88rem;padding:12px 0">No reps in system yet.</p>'; }
+  else {
+    lb.innerHTML = reps.map(function(r, i) {
+      return '<div class="lb-row"><div class="lb-rank' + (i===0?' gold':'') + '">' + (i+1) + '</div>'
+        + '<div class="lb-name">' + r.name + '<div class="lb-region">' + r.region + '</div></div>'
+        + '<div class="lb-stats"><div class="lb-stat"><strong>' + (r.appts||0) + '</strong><span>Appts</span></div>'
+        + '<div class="lb-stat"><strong>' + (r.contacts||0) + '</strong><span>Contacts</span></div>'
+        + '<div class="lb-stat"><strong>' + (r.dials||0) + '</strong><span>Dials</span></div></div></div>';
+    }).join('');
+  }
+
+  if (rep.role === 'admin') renderTeamOverview();
+}
+
+function renderTeamOverview() {
+  var regions = ['Mamba U','Spartan U','Solar X'];
+  var allReps = CUR.reps;
+  var html = '<table><thead><tr><th>Region</th><th>Reps</th><th>Leads</th><th>Dials</th><th>Contacts</th><th>Appts</th></tr></thead><tbody>';
+  regions.forEach(function(reg) {
+    var rr = allReps.filter(function(r){ return r.region===reg; });
+    var leads = CUR.leads.filter(function(l){ return l.region===reg; }).length;
+    html += '<tr><td><strong>' + reg + '</strong></td><td>' + rr.length + '</td><td>' + leads + '</td>'
+      + '<td>' + rr.reduce(function(s,r){return s+(r.dials||0);},0) + '</td>'
+      + '<td>' + rr.reduce(function(s,r){return s+(r.contacts||0);},0) + '</td>'
+      + '<td><strong style="color:var(--green)">' + rr.reduce(function(s,r){return s+(r.appts||0);},0) + '</strong></td></tr>';
+  });
+  document.getElementById('team-overview').innerHTML = html + '</tbody></table>';
+}
+
+// ─────────────────────────────────────────
+//  LEADS
+// ─────────────────────────────────────────
+function renderLeads() {
+  var filter = document.getElementById('lead-filter').value;
+  var search = document.getElementById('lead-search').value.toLowerCase();
+  var leads = CUR.leads.slice();
+  if (filter !== 'all') leads = leads.filter(function(l){ return l.status===filter; });
+  if (search) leads = leads.filter(function(l){
+    return ((l.first_name||'')+' '+(l.last_name||'')).toLowerCase().includes(search)
+      || (l.address||'').toLowerCase().includes(search);
+  });
+  var el = document.getElementById('leads-list');
+  if (!leads.length) {
+    el.innerHTML = '<div style="text-align:center;padding:48px;color:var(--text3)"><div style="font-size:2rem;margin-bottom:8px">📋</div><p>' + (CUR.rep.role==='rep'?'No leads assigned yet. Contact your manager.':'No leads found. Upload a CSV in Territory.') + '</p></div>';
+    return;
+  }
+  el.innerHTML = leads.map(function(l) {
+    var pill = statusPill(l.status);
+    var canReassign = CUR.rep.role !== 'rep';
+    return '<div class="lead-card">'
+      + '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">'
+      + '<div><div class="lead-name">' + (l.first_name||'') + ' ' + (l.last_name||'') + '</div>'
+      + '<div class="lead-meta">📍 ' + [l.address,l.city,l.zip].filter(Boolean).join(', ') + '</div>'
+      + '<div class="lead-meta">📞 ' + (l.phone||'No phone') + '</div>'
+      + (l.callback_dt ? '<div class="lead-meta" style="color:var(--yellow)">🕐 Callback: ' + new Date(l.callback_dt).toLocaleString() + '</div>' : '')
+      + (l.last_note ? '<div class="lead-meta" style="font-style:italic;margin-top:4px">' + esc(l.last_note) + '</div>' : '')
+      + '</div><span class="pill ' + pill + '">' + (l.status||'New') + '</span></div>'
+      + '<div class="lead-actions">'
+      + '<button class="btn btn-purple btn-sm" onclick="openLogModal(\'' + l.id + '\')">Log Call</button>'
+      + (canReassign ? '<button class="btn btn-outline btn-sm" onclick="openReassignModal(\'' + l.id + '\')">Reassign</button>' : '')
+      + '</div></div>';
+  }).join('');
+}
+
+function statusPill(s) {
+  return {'New':'pill-blue','No Answer':'pill-grey','Voicemail':'pill-blue','Callback':'pill-yellow','Not Interested':'pill-red','Appt Set':'pill-green'}[s]||'pill-grey';
+}
+
+// ─────────────────────────────────────────
+//  LOG CALL MODAL
+// ─────────────────────────────────────────
+function openLogModal(leadId) {
+  var lead = CUR.leads.find(function(l){ return l.id===leadId; });
+  if (!lead) return;
+  currentDisp = '';
+  document.getElementById('modal-lead-id').value = leadId;
+  document.getElementById('modal-log-title').textContent = 'Log Call — ' + (lead.first_name||'') + ' ' + (lead.last_name||'');
+  document.getElementById('call-notes').value = '';
+  document.getElementById('callback-dt').value = '';
+  document.getElementById('selected-disp-label').textContent = 'Select a disposition above';
+  document.getElementById('callback-row').style.display = 'none';
+  document.getElementById('modal-log').classList.add('open');
+}
+
+function setDisp(d) {
+  currentDisp = d;
+  document.getElementById('selected-disp-label').textContent = '✓ ' + d;
+  document.getElementById('callback-row').style.display = d==='Callback' ? '' : 'none';
+}
+
+function saveCall() {
+  if (!currentDisp) { showToast('Select a disposition first.'); return; }
+  var leadId = document.getElementById('modal-lead-id').value;
+  var notes = document.getElementById('call-notes').value.trim();
+  var cbDt = document.getElementById('callback-dt').value || null;
+  var btn = document.getElementById('save-call-btn');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  var leadUpdate = { status: currentDisp, last_note: notes };
+  if (cbDt) leadUpdate.callback_dt = cbDt;
+
+  sb.from('leads').update(leadUpdate).eq('id', leadId).then(function() {
+    var repUpdate = { dials: (CUR.rep.dials||0)+1 };
+    if (currentDisp !== 'No Answer' && currentDisp !== 'Voicemail') repUpdate.contacts = (CUR.rep.contacts||0)+1;
+    if (currentDisp === 'Appt Set') repUpdate.appts = (CUR.rep.appts||0)+1;
+
+    sb.from('reps').update(repUpdate).eq('id', CUR.rep.id).then(function() {
+      sb.from('call_log').insert([{ lead_id: leadId, rep_id: CUR.rep.id, disposition: currentDisp, notes: notes }]).then(function() {
+        // update local state
+        var lead = CUR.leads.find(function(l){ return l.id===leadId; });
+        if (lead) { lead.status=currentDisp; lead.last_note=notes; if(cbDt) lead.callback_dt=cbDt; }
+        CUR.rep.dials = repUpdate.dials;
+        if (repUpdate.contacts !== undefined) CUR.rep.contacts = repUpdate.contacts;
+        if (repUpdate.appts !== undefined) CUR.rep.appts = repUpdate.appts;
+        // reload full logs
+        loadLogs().then(function() {
+          closeModal('modal-log');
+          btn.disabled = false; btn.textContent = 'Save Call';
+          showToast('Call logged: ' + currentDisp);
+          renderLeads(); renderDashboard(); renderCallLog();
+        });
+      });
+    });
+  });
+}
+
+function loadLogs() {
+  var rep = CUR.rep;
+  var q = rep.role === 'admin'
+    ? sb.from('call_log').select('*, leads(first_name,last_name,phone,address), reps(name)').order('logged_at',{ascending:false}).limit(200)
+    : rep.role === 'manager'
+      ? sb.from('call_log').select('*, leads(first_name,last_name,phone,address), reps(name,region)').order('logged_at',{ascending:false}).limit(200)
+      : sb.from('call_log').select('*, leads(first_name,last_name,phone,address)').eq('rep_id',rep.id).order('logged_at',{ascending:false}).limit(200);
+  return q.then(function(r){ CUR.logs = r.data||[]; });
+}
+
+// ─────────────────────────────────────────
+//  CALL LOG TABLE
+// ─────────────────────────────────────────
+function renderCallLog() {
+  var tbody = document.getElementById('calllog-tbody');
+  if (!CUR.logs.length) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:24px">No calls logged yet.</td></tr>'; return; }
+  tbody.innerHTML = CUR.logs.map(function(l) {
+    var lead = l.leads || {};
+    var repName = l.reps ? l.reps.name : '';
+    return '<tr>'
+      + '<td style="white-space:nowrap;font-size:0.8rem">' + new Date(l.logged_at).toLocaleString() + '</td>'
+      + '<td><strong>' + (lead.first_name||'') + ' ' + (lead.last_name||'') + '</strong></td>'
+      + '<td>' + (lead.phone||'—') + '</td>'
+      + '<td><span class="pill ' + statusPill(l.disposition) + '">' + l.disposition + '</span></td>'
+      + '<td style="font-size:0.82rem;color:var(--text2)">' + esc(l.notes||'—') + '</td>'
+      + '<td style="font-size:0.82rem" id="th-rep">' + repName + '</td>'
+      + '</tr>';
+  }).join('');
+}
+
+// ─────────────────────────────────────────
+//  REASSIGN MODAL
+// ─────────────────────────────────────────
+function openReassignModal(leadId) {
+  document.getElementById('reassign-lead-id').value = leadId;
+  var reps = CUR.reps.filter(function(r){ return r.role==='rep'; });
+  document.getElementById('reassign-rep-select').innerHTML = reps.map(function(r){
+    return '<option value="' + r.id + '">' + r.name + ' (' + r.region + ')</option>';
+  }).join('');
+  document.getElementById('modal-reassign').classList.add('open');
+}
+
+function saveReassign() {
+  var leadId = document.getElementById('reassign-lead-id').value;
+  var repId = document.getElementById('reassign-rep-select').value;
+  var repName = document.getElementById('reassign-rep-select').options[document.getElementById('reassign-rep-select').selectedIndex].text;
+  sb.from('leads').update({ assigned_to: repId }).eq('id', leadId).then(function() {
+    var lead = CUR.leads.find(function(l){ return l.id===leadId; });
+    if (lead) lead.assigned_to = repId;
+    closeModal('modal-reassign');
+    showToast('Lead reassigned to ' + repName.split(' (')[0]);
+    renderLeads();
+  });
+}
+
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// ─────────────────────────────────────────
+//  CSV UPLOAD
+// ─────────────────────────────────────────
+function handleCSV(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var lines = e.target.result.split('\n').filter(function(l){ return l.trim(); });
+    csvPending = [];
+    for (var i=1; i<lines.length; i++) {
+      var c = lines[i].split(',').map(function(x){ return x.trim().replace(/^"|"$/g,''); });
+      if (!c[0] && !c[1]) continue;
+      csvPending.push({ first_name:c[0]||'', last_name:c[1]||'', phone:c[2]||'', address:c[3]||'', city:c[4]||'', state:c[5]||'', zip:c[6]||'', region:CUR.rep.region, status:'New', last_note:'' });
+    }
+    document.getElementById('csv-summary').textContent = csvPending.length + ' leads ready to import.';
+    document.getElementById('csv-preview').style.display = '';
+  };
+  reader.readAsText(file);
+}
+
+function cancelCSV() { csvPending=[]; document.getElementById('csv-preview').style.display='none'; document.getElementById('csv-file').value=''; }
+
+function importLeads() {
+  if (!csvPending.length) return;
+  var reps = CUR.reps.filter(function(r){ return r.role==='rep' && r.region===CUR.rep.region; });
+  if (!reps.length) { showToast('No reps in your region to assign leads to.'); return; }
+  var idx = 0;
+  csvPending.forEach(function(lead) { lead.assigned_to = reps[idx%reps.length].id; idx++; });
+  sb.from('leads').insert(csvPending).then(function(r) {
+    if (r.error) { showToast('Import error: ' + r.error.message); return; }
+    showToast(csvPending.length + ' leads imported.');
+    csvPending = [];
+    document.getElementById('csv-preview').style.display='none';
+    document.getElementById('csv-file').value='';
+    loadAllData();
+  });
+}
+
+// ─────────────────────────────────────────
+//  REP ROSTER
+// ─────────────────────────────────────────
+function renderRepRoster() {
+  var reps = CUR.reps;
+  var el = document.getElementById('rep-roster-table');
+  if (!reps.length) { el.innerHTML='<p style="color:var(--text3);font-size:0.88rem">No reps yet.</p>'; return; }
+  el.innerHTML = '<table><thead><tr><th>Name</th><th>Region</th><th>Role</th><th>Leads</th><th>Dials</th><th>Appts</th></tr></thead><tbody>'
+    + reps.map(function(r) {
+      var leads = CUR.leads.filter(function(l){ return l.assigned_to===r.id; }).length;
+      return '<tr><td><strong>' + r.name + '</strong></td><td>' + r.region + '</td>'
+        + '<td><span class="pill ' + (r.role==='manager'?'pill-blue':'pill-grey') + '">' + r.role + '</span></td>'
+        + '<td>' + leads + '</td><td>' + (r.dials||0) + '</td><td>' + (r.appts||0) + '</td></tr>';
+    }).join('') + '</tbody></table>';
+}
+
+// ─────────────────────────────────────────
+//  ADMIN PANEL
+// ─────────────────────────────────────────
+function renderAdminPanel() {
+  sb.from('reps').select('*').then(function(rr) {
+    sb.from('leads').select('id',{count:'exact',head:true}).then(function(ll) {
+      var reps = rr.data||[];
+      document.getElementById('adm-reps').textContent = reps.length;
+      document.getElementById('adm-leads').textContent = ll.count||0;
+      document.getElementById('adm-appts').textContent = reps.reduce(function(s,r){return s+(r.appts||0);},0);
+      document.getElementById('adm-dials').textContent = reps.reduce(function(s,r){return s+(r.dials||0);},0);
+      if (!reps.length) { document.getElementById('admin-reps-table').innerHTML='<p style="color:var(--text3)">No reps yet.</p>'; return; }
+      document.getElementById('admin-reps-table').innerHTML = '<table><thead><tr><th>Name</th><th>Email</th><th>Region</th><th>Role</th><th>Dials</th><th>Contacts</th><th>Appts</th><th>Conv%</th><th></th></tr></thead><tbody>'
+        + reps.map(function(r) {
+          var conv = r.contacts>0 ? Math.round((r.appts/r.contacts)*100) : 0;
+          return '<tr><td><strong>' + r.name + '</strong></td><td style="font-size:0.82rem">' + r.email + '</td>'
+            + '<td>' + r.region + '</td><td>' + r.role + '</td>'
+            + '<td>' + (r.dials||0) + '</td><td>' + (r.contacts||0) + '</td>'
+            + '<td><strong style="color:var(--green)">' + (r.appts||0) + '</strong></td>'
+            + '<td>' + conv + '%</td>'
+            + '<td><button class="btn btn-sm btn-outline" onclick="removeRep(\'' + r.id + '\',\'' + esc(r.name) + '\')">Remove</button></td></tr>';
+        }).join('') + '</tbody></table>';
+    });
+  });
+}
+
+function adminAddRep() {
+  var name = document.getElementById('add-rep-name').value.trim();
+  var email = document.getElementById('add-rep-email').value.trim();
+  var role = document.getElementById('add-rep-role').value;
+  var region = document.getElementById('add-rep-region').value;
+  if (!name || !email) { showToast('Name and email required.'); return; }
+  sb.from('reps').insert([{ name:name, email:email, role:role, region:region }]).then(function(r) {
+    if (r.error) { showToast('Error: ' + r.error.message); return; }
+    document.getElementById('add-rep-name').value='';
+    document.getElementById('add-rep-email').value='';
+    showToast('Rep added: ' + name);
+    renderAdminPanel();
+    loadAllData();
+  });
+}
+
+function removeRep(id, name) {
+  if (!confirm('Remove ' + name + ' from the system?')) return;
+  sb.from('reps').delete().eq('id', id).then(function() {
+    showToast(name + ' removed.');
+    renderAdminPanel();
+    loadAllData();
+  });
+}
+
+// ─────────────────────────────────────────
+//  TRAINING MODULES
+// ─────────────────────────────────────────
+var MODULES = {
+  script: { title:'Cold Call Script', body: function() {
+    return step(1,'The Hook — First 5 Seconds','You have five seconds to earn the next thirty.<br><br><em>"Hey [Name], this is [Your Name] calling from RIV Solar — quick question: are you the homeowner at [Address]?"</em><br><br><strong>Why it works:</strong> Confirms right person, signals relevance before they hang up.')
+    +step(2,'The Bridge','<em>"The reason I\'m calling — we\'re working with homeowners in your area who are paying [Utility] and helping them lock in a lower fixed rate on their electricity. Are you familiar with how solar works out here?"</em><br><br>Connects to a pain point and opens a curiosity loop.')
+    +step(3,'Qualify','<em>"Quick question — do you own your home, and are you paying more than $100/month on your electric bill?"</em><br><br><strong>Yes → pitch. No → </strong><em>"Totally understand, won\'t waste your time."</em> Move on.')
+    +step(4,'The Pitch','<em>"We put solar on your roof at little to no upfront cost, and your new payment is typically lower than what you\'re paying the utility — most homeowners save money from day one. I just want to set up 20 minutes with our energy consultant to show you the numbers. Does that sound fair?"</em>')
+    +step(5,'Book the Appointment','<em>"I have [Day] at [Time] or [Day] at [Time] — which works better?"</em><br><br><strong>Always offer two options.</strong> Open-ended = "let me check my schedule" = never hear from them again.')
+    +step(6,'Confirm & Close','<em>"Perfect. They\'ll call you [Day] at [Time] — what\'s the best number? Great. You\'ll hear from us then."</em><br><br>Repeat the time back. Set the expectation. End on a high note.');
+  }},
+  objections: { title:'Objection Handling', body: function() {
+    var list = [
+      ['Not interested','Most people say that before they see the numbers. I\'m not selling anything today — just want 20 minutes to show you what neighbors are saving. Does [Day] or [Day] work?'],
+      ['I rent / don\'t own','No worries at all — solar is strictly for homeowners. Have a great day!'],
+      ['I already have solar','That\'s awesome — you\'re ahead of the curve. Are you happy with your system and installer? [If issues: we may be able to help.]'],
+      ['Send me information','The savings are specific to your home\'s usage, so a one-pager won\'t give the full picture. That\'s exactly why we do the 20-minute call. Can I grab you [Day] or [Day]?'],
+      ['I\'m too busy','That\'s why it\'s only 20 minutes on the phone — you can literally be in your driveway. Would [Day] or [Day] work?'],
+      ['I don\'t want panels on my roof','A lot of people say that before seeing what modern installs look like. Our consultant can show you photos from your exact neighborhood. Zero obligation — 20 minutes. Can I set that up?'],
+      ['We\'re thinking of moving soon','Homes with solar sell faster and often at a premium. Worth hearing the numbers before you list. Could we do a quick call this week?'],
+      ['I need to talk to my spouse','Smart move. Our consultants prefer presenting to both of you together. Could we set a time when you\'re both available?']
+    ];
+    return list.map(function(o,i){
+      return '<div class="script-step"><div class="script-step-num">Objection '+(i+1)+'</div><div class="script-step-title">'+o[0]+'</div>'
+        +'<div class="objection-block"><strong>They say:</strong> "'+o[0]+'"</div>'
+        +'<div class="rebuttal-block"><strong>You say:</strong> "'+o[1]+'"</div></div>';
+    }).join('');
+  }},
+  voicemail: { title:'Voicemail Formula', body: function() {
+    return step('Formula','Short. Specific. Curious.','20 seconds max. Creates curiosity without giving everything away.<br><br><em>"Hey [Name], this is [Your Name] at RIV Solar — I was reaching out because based on your address it looks like you may qualify for a program saving homeowners in [City] around $100–$200 a month on their electric bill. Wanted to talk for just a couple minutes — call me back at [Number]. Again, [Name] at [Number]. Talk soon."</em>')
+    +step('Rules','What Makes or Breaks a Voicemail','<strong>✓ DO:</strong><br>• Speak slowly and clearly — especially on your number<br>• Lead with value before saying "solar"<br>• Sound like you\'re calling a friend<br>• Repeat your number twice<br><br><strong>✗ DON\'T:</strong><br>• Say "solar" in your first sentence<br>• Leave a voicemail over 30 seconds<br>• Sound like you\'re reading a script<br>• Leave more than 2 voicemails total');
+  }},
+  followup: { title:'Follow-Up Strategy', body: function() {
+    return step('The Framework','Callbacks Become Appointments','<strong>Day 1:</strong> First call. Log disposition.<br><strong>Day 2:</strong> Second attempt — different time of day.<br><strong>Day 4:</strong> Third attempt + second VM if no contact.<br><strong>Day 7:</strong> Final attempt. If still no answer, mark and move.<br><br><strong>Rule:</strong> Never call more than once per day. Never leave more than 2 voicemails.')
+    +step('Callbacks','When They Say "Call Me Back"','Log exact date/time. Set your reminder. <strong>Call exactly when you said you would.</strong><br><br><em>"Hey [Name], this is [Your Name] from RIV Solar — calling you back as we agreed on [Day]. Good timing?"</em>');
+  }},
+  mindset: { title:'Mindset & Daily Habits', body: function() {
+    return step('The Math','It\'s a Numbers Game','80 dials → 20 contacts → 3 appointments. At 2 closes per 10 appointments, that\'s roughly 1 close per 3–4 days of solid calling. The reps who win aren\'t the most talented — they\'re the most disciplined.')
+    +step('Non-Negotiables','Before Your First Dial','<strong>Morning:</strong><br>• Pull your lead list — know who you\'re calling<br>• Read the script once, out loud<br>• Sit or stand with good posture — it affects your voice<br>• Set your dial goal for the day<br><br><strong>During:</strong><br>• Log every call immediately — never batch<br>• Break every 90 minutes<br>• Smile before you dial — people hear it<br><br><strong>End of day:</strong><br>• Review your numbers<br>• Write 1 thing you\'ll do better tomorrow');
+  }}
+};
+
+function step(num, title, body) {
+  return '<div class="script-step"><div class="script-step-num">'+num+'</div><div class="script-step-title">'+title+'</div><div class="script-step-body">'+body+'</div></div>';
+}
+
+function openModule(key) {
+  currentModule = key;
+  var mod = MODULES[key];
+  document.getElementById('training-home').style.display='none';
+  document.getElementById('training-module').style.display='';
+  var prog = getModProg();
+  var btn = document.getElementById('module-done-btn');
+  btn.textContent = prog[key] ? '✓ Completed' : 'Mark Complete ✓';
+  btn.style.background = prog[key] ? 'var(--green)' : '';
+  document.getElementById('module-content').innerHTML = '<h2 style="margin-bottom:20px;font-size:1.4rem">'+mod.title+'</h2>'+mod.body();
+}
+function closeModule() { document.getElementById('training-home').style.display=''; document.getElementById('training-module').style.display='none'; renderTrainingProgress(); }
+function markModuleDone() {
+  var prog = getModProg(); prog[currentModule]=true; saveModProg(prog);
+  var btn = document.getElementById('module-done-btn'); btn.textContent='✓ Completed'; btn.style.background='var(--green)';
+  showToast('Module completed!'); renderTrainingProgress();
+}
+function getModProg() { try { return JSON.parse(localStorage.getItem('riv_tp_'+(CUR.rep?CUR.rep.id:''))||'{}'); } catch(e){return{};} }
+function saveModProg(p) { try { localStorage.setItem('riv_tp_'+CUR.rep.id, JSON.stringify(p)); } catch(e){} }
+function renderTrainingProgress() {
+  var prog = getModProg();
+  var keys = ['script','objections','voicemail','followup','mindset'];
+  var done = keys.filter(function(k){return prog[k];}).length;
+  document.getElementById('prog-count').textContent = done+' / '+keys.length;
+  document.getElementById('prog-bar').style.width = Math.round((done/keys.length)*100)+'%';
+  keys.forEach(function(k){ var el=document.getElementById('mp-'+k); if(el){el.textContent=pro
