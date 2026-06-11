@@ -1,0 +1,2520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="RIV Solar">
+<meta name="theme-color" content="#5c3d8f">
+<title>RIV Solar — Call Center</title>
+<link rel="manifest" href="data:application/json,{%22name%22:%22RIV%20Solar%22,%22short_name%22:%22RIV%22,%22display%22:%22standalone%22,%22background_color%22:%22%23ffffff%22,%22theme_color%22:%22%235c3d8f%22}">
+
+<!-- PWA Icon inline SVG as apple-touch-icon -->
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAKwUlEQVR4nO3deVCU9x3H8WcXEEQQEEVREfBoVKriBSoIXlEBAUFY0KgzaUzqpJ2Y1CvWNk0ySdQ61jNp04zVOmoc2QUEvPBCkUO08SJTUwUVbDzA6tqVY4Hd/kEHifDd/e7u8+zhfF6TPzL42+f3G3m7z7O/fRZker1eAOiM3NYLAPuFOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOIDkLPoR9+/bu3L5B2Y/XCaTubi4uLi4eHh6+nj79PLzCwgICB44MCTk56NCQ729fay8yKKSsqDg4Je++Oevdnz26SechxdfuBQYGGjy+mi7d+1cu+ZDzsgTpwqGh4RYMpf4cVhIr9drtVqtVvv8+fOHDx7cuPHPtj+Sy+UjRoycHRObnJLSv3+ADRc5L0Wx7vPPWlpajI7MVGZ8sHyFiFOrlErOsOEhIRaWITjWaUWn0129emXD+i8mho1b+s6SW7du2molfn5+0VOmckYqlQdFnPfO7dvf/eMSZ6Qibb7l0zlSHG10Ol1uzqEZU6ds27pFr9fbZA1p6ay/ff63k0OlyuAMc3Z2Tp6XYvl0DhlHq6Ym7YZ1n//63aWcp3fRzZw128vLmzNSmcH6jnKolKxDTZs+w9fX1/LpHDiOVtlZmb9bu8b683bp0iUxKYkzMudQdnNTk+UzXrp48e6dO5yRirR0y6cTXoE4BEHYs3vXifzj1p83jfc9ePLkP6dOnbR8OuY5xcenx+uvz7R8OuHViEMQhE8/+YP1Ty6ho8cMGfIzzkiVxZelTU3anOxszsik5GRnFxcLp2v1isRRWVFxWox/naZKTUvjDDuRn/9MrbZkolMnTz59+oQzUsG7UuZ4ReIQBCE7K9P6k6akKJycnIwO02q1ubk5lkyUyTunDB02bMSIkZZM1J4tN8E6bj42NjZqNJrq6qry69ePHM47d7aA/0q1uLhIgjUa0btPn8lRUQVnzhgdqco4+MbCRebN8kytPpGfzxmpUIhzKdrKvp45XF1dfX19Q0NHL1y0eP+Bg6rsHP5LskcPH9bU1Ei6vE4xt5vKyi5UV1ebN0VOziGtVmt0mLOzc3JKqnlTdMq+4nhJePiE3Xv2ymQy5vjqqruSrqdTs2Niu3t5GR2m1+szebsUHTEfOGXqtF69epk3RafsOg5BEMaMHTdt+gzmYLX6maSL6ZSrq2tCQiJnpHlb6dXV1WVlFzgjRdkyb8/e4xAEYcrUacyRjY0Nkq6Ewtx0qqyouHL5O1MPnqnM4Fx4eXv7zJwlzvZGGweIIygoiDnSw8NDyoWQxo4bP2jQYM5IM7bSmVvmc5OSXVy6mHpwwxwgjm7sbznn3C8R5oZHzqGs5uZm/mGvXLlcUXGLM1KRLubrlFYOEMd/n7GuJGQymbi31ZgkJVUhlxv/y3z8+HHBmdP8w6oyWJcpr702dNSoUP5hmRwgjtuVlZxhQcHBzLdJpeDv3zdychRnpJL3/RYEobm5OedQNmck83nLVA4QB/Ndq4iISKlXYhjzsjT/+DHmc+HZgjO1tbVGhzk5Oc2bJ+b2Rht7j6OkuKjw3FnOyPT5C6RejGExsXGenp5GhzU2Nubl5XIOyHyOiY6e4te7N2ekqew6jqLzhUt+8SZn5PiwsNFjxkq9HsPc3NzieRsenCsJjUaTf/wY52givtP2Evu6wVir1Wo0mqq7d65fu5aXl3u+8BznUc7OzuvWb5R6bRyKtPn79+01Oqy0tOTevWrD90gfzsttaDC+bdPdy2vW7BgTlmgKW8YRMTFMlON89PGnw4YPF+VQFhofFhY8cKDRK2i9Xp+pUr237H0DY5jnlMS5SV26iLy90cauTyscy1esemvJ27ZexQupqawXDobfLrl//8fSkmLOcZh3o5nHgePw8PD4+pudv1mx0tYL+YkUhYLzTuHNm/+6du0q9aeZKqVOpzN6kMGDh0h6peWQcTg5OaXPX3C2sHhOfIKt1/Kyfv36T+K9qDZwWZrJ++SSFLui7TlYHP7+fd9b9n5hUemmzVv7+PvbejmdY254ZGdldrqV/n15efvP+VHkcrlE2xsvppD06KJrbm56qlbb6oNMTHFz4jlvAdbW1p47W9Dx68x39qOio6X+5+FgcdTU1OzZvSsqcuKG9V+Y9A6WNXXt2pV5vuv4kqSlpYV5M6zod2905GBxtGppadm2ZfObixfW19fbei2dS+WdWY4fO6rRaNp/5XzhuUcPHxp9oGf37rNjYs1cHJtDxtHq9OlTS99ZYpPPQhoVHj4hkHEbSkNDw+GfbqUz795ITJzr6upq3tr4HDgOQRBOnsj/4/p1tl5FJ2QyGXPDo30NdXV1R48c5jxKrA88GmbLOIpKyv79oKb1v8q79y5fLT9wULn03V/17NmTf5CvvtxeYosPJRiVokjjbHiUFBfdv/9j6/8fPXK4rq7O6EMGDho0dtx4S9fHYC/PHK6urn69e0+Oiv79Rx8XlV5cuGgx84E6nW7VyuVNTcbv3LeygICACRMnGR2m0+kyVf/f1WCeU1JF/XCKAfYSR3seHh4bNm4y/NZDe5UVFX/9+i9SrshMabxNKlVGhiAIjx494rzRKJfLU1Kl3d54MZd1pjHD6jVrY+PmMAfv2L5NrX4q5XLMETcnoVu3bkaH/fDDjfLr17MzVZyL64jIyX379hNjdcbZbxyCIGzYuIl5/fFMrf5y+3ap12Mqd3f32Lh4zkil8iBz78s6l6Kt7DqOHj16rPrwt8zBf9v5jU0+DmkY88zy7b6935eXGx3m6enJfza1nF3HIQjC/AVvDB06jDOyvr5+x7YtEi/HZBMmTgoIMP6DD1/aCqPEJyS6ublZvCgue49DLpevWLWaOXjP33e3vSy0EzKZLEUh2q3hVnud0sre4xAEISY2buTIUZyRWq12y+Y/Sb0eU6Uq0vmfBTcgKDg4LDzc8uPwOUAcgiCsXM36mb2CIBz4dn9VVZWkizFVYGBgePgEy48j7s/e4HCMOKZNn8HcE2xuatq8yS5uNm6P+T6cATKZbJ61tjfaOEYcgiCsYj95qJQZlRUVki7GVPEJie7u7pYcYVJEpPV/ordM9Btn2n7mfNZWEZ5LgSMsjfUpKVM5zDMHWB/iABLiABLiABLiAJKEn5VNWlZqeECnvyGL45dvv5XH+4HAkyIiM1RZHb9u4a/xMpupv+NMJpMVX7g0YMAAsRZgEvFfysIrA6cVICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOICEOIP0P/pr+JiDz5AkAAAAASUVORK5CYII=">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--surface:#fff;--s2:#f2f0ec;--border:#e2ddd6;
+  --purple:#5c3d8f;--pl:#7b5cb8;--pdim:#ede8f5;
+  --gold:#c9a84c;--text:#1a1714;--t2:#5a534a;--t3:#9c9287;
+  --green:#2d7a4f;--gdim:#e6f4ed;
+  --red:#c0392b;--rdim:#fbeaea;
+  --yellow:#b8860b;--ydim:#fdf6e3;
+  --blue:#1a5276;--bdim:#eaf2fb;
+  --r:10px;--sh:0 2px 12px rgba(0,0,0,.08);--shmd:0 4px 24px rgba(0,0,0,.13);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+h1,h2,h3{font-family:'Playfair Display',serif}
+button{font-family:'Outfit',sans-serif;cursor:pointer}
+input,select,textarea{font-family:'Outfit',sans-serif}
+
+/* ── SCREENS ── */
+.screen{display:none;min-height:100vh}
+.screen.active{display:flex}
+#s-loading{align-items:center;justify-content:center;flex-direction:column;gap:16px;background:var(--bg)}
+#s-onboard{align-items:center;justify-content:center;background:linear-gradient(135deg,#1a0f2e,#2d1b5e,#4a2d8a);padding:20px}
+#s-app{flex-direction:column}
+
+/* ── SPINNER ── */
+.spin{width:42px;height:42px;border:3px solid var(--border);border-top-color:var(--purple);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── ONBOARD BOX ── */
+.ob-box{background:var(--surface);border-radius:18px;padding:36px 28px;width:100%;max-width:400px;box-shadow:var(--shmd)}
+.ob-logo{text-align:center;margin-bottom:24px}
+.ob-logo-mark{display:inline-flex;flex-direction:column;align-items:center;gap:4px}
+.ob-riv{font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--purple);letter-spacing:4px;line-height:1}
+.ob-gold-line{width:60px;height:2px;background:var(--gold)}
+.ob-sub{font-size:.75rem;text-transform:uppercase;letter-spacing:2px;color:var(--t3);margin-top:4px}
+.ob-tabs{display:flex;border:1.5px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:16px}
+.ob-tab{flex:1;padding:10px;text-align:center;font-size:.86rem;font-weight:600;cursor:pointer;color:var(--t2);background:var(--bg);transition:all .15s}
+.ob-tab.on{background:var(--purple);color:#fff}
+.ob-box label{display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--t2);margin-bottom:4px;margin-top:13px}
+.ob-box input,.ob-box select{width:100%;padding:11px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:.92rem;background:var(--bg);color:var(--text);outline:none}
+.ob-box input:focus,.ob-box select:focus{border-color:var(--purple)}
+.ob-btn{width:100%;padding:13px;background:var(--purple);color:#fff;border:none;border-radius:8px;font-size:.95rem;font-weight:700;margin-top:16px;transition:background .2s;letter-spacing:.5px}
+.ob-btn:hover{background:var(--pl)}
+.ob-err{color:var(--red);font-size:.8rem;margin-top:8px;text-align:center;min-height:16px}
+.ob-note{color:var(--t3);font-size:.75rem;margin-top:7px;text-align:center}
+.pw-wrap{position:relative;margin-top:0}
+.pw-wrap input{width:100%;padding-right:44px}
+.pw-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--t3);padding:4px;line-height:1}
+
+/* ── FORCED TRAINING GATE ── */
+#s-training-gate{align-items:center;justify-content:center;background:linear-gradient(135deg,#1a0f2e,#2d1b5e);padding:20px;flex-direction:column}
+.gate-box{background:var(--surface);border-radius:18px;padding:32px 24px;width:100%;max-width:420px;box-shadow:var(--shmd)}
+.gate-title{font-size:1.4rem;color:var(--text);margin-bottom:6px}
+.gate-sub{font-size:.88rem;color:var(--t2);margin-bottom:20px;line-height:1.5}
+.gate-mod{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px}
+.gate-mod.done{border-color:var(--green);background:var(--gdim)}
+.gate-mod-icon{font-size:1.3rem;flex-shrink:0}
+.gate-mod-info{flex:1}
+.gate-mod-name{font-weight:600;font-size:.9rem}
+.gate-mod-status{font-size:.75rem;color:var(--t3);margin-top:2px}
+.gate-mod.done .gate-mod-status{color:var(--green)}
+.gate-start-btn{width:100%;padding:13px;background:var(--purple);color:#fff;border:none;border-radius:8px;font-size:.95rem;font-weight:700;margin-top:8px;opacity:.4;pointer-events:none;transition:all .2s}
+.gate-start-btn.unlocked{opacity:1;pointer-events:auto}
+
+/* ── MODULE READER ── */
+#s-module-reader{align-items:flex-start;justify-content:flex-start;flex-direction:column;background:var(--bg)}
+.mr-header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:10;width:100%}
+.mr-back{padding:7px 14px;border:1.5px solid var(--border);border-radius:7px;background:none;color:var(--t2);font-size:.83rem;font-weight:600}
+.mr-title{font-family:'Playfair Display',serif;font-size:1.1rem;flex:1}
+.mr-prog{font-size:.75rem;color:var(--t3)}
+.mr-content{padding:20px;max-width:680px;width:100%;margin:0 auto;flex:1}
+.mr-step{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:12px}
+.mr-step-num{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--purple);margin-bottom:5px}
+.mr-step-title{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px}
+.mr-step-body{font-size:.88rem;color:var(--t2);line-height:1.65}
+.mr-script{background:var(--pdim);border-left:3px solid var(--purple);border-radius:0 8px 8px 0;padding:12px 16px;margin:10px 0;font-size:.9rem;color:var(--text);font-style:italic;line-height:1.6}
+.mr-obj{background:var(--rdim);border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:10px 14px;margin-top:8px;font-size:.85rem;color:var(--t2)}
+.mr-reb{background:var(--gdim);border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:10px 14px;margin-top:5px;font-size:.85rem;color:var(--t2)}
+.tone-badge{display:inline-block;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:20px;margin-bottom:6px}
+.tone-fast{background:#fff0f0;color:var(--red)}
+.tone-norm{background:#eaf2fb;color:var(--blue)}
+.tone-slow{background:var(--gdim);color:var(--green)}
+.mr-done-btn{width:100%;padding:13px;background:var(--purple);color:#fff;border:none;border-radius:8px;font-size:.95rem;font-weight:700;margin-top:16px;margin-bottom:32px}
+.mr-done-btn.completed{background:var(--green)}
+
+/* ── APP SHELL ── */
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 18px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;flex-shrink:0}
+.tb-left{display:flex;align-items:center;gap:10px}
+.tb-logo{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--purple);font-weight:700;letter-spacing:2px}
+.tb-role{font-size:.65rem;text-transform:uppercase;letter-spacing:1px;font-weight:700;padding:3px 8px;border-radius:20px}
+.role-admin{background:var(--pdim);color:var(--purple)}
+.role-manager{background:var(--bdim);color:var(--blue)}
+.role-rep{background:var(--gdim);color:var(--green)}
+.tb-right{display:flex;align-items:center;gap:8px}
+.tb-name{font-size:.8rem;color:var(--t2)}
+.btn-logout{font-size:.75rem;padding:5px 11px;border:1.5px solid var(--border);border-radius:6px;background:none;color:var(--t2)}
+.nav-bar{background:var(--surface);border-bottom:1px solid var(--border);display:flex;padding:0 18px;overflow-x:auto;-webkit-overflow-scrolling:touch;flex-shrink:0}
+.nav-bar::-webkit-scrollbar{display:none}
+.nt{padding:12px 14px;font-size:.83rem;font-weight:500;color:var(--t2);cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap;transition:all .15s}
+.nt.on{color:var(--purple);border-bottom-color:var(--purple);font-weight:600}
+.main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.pg{display:none;padding:22px 18px;max-width:1080px;margin:0 auto}
+.pg.on{display:block}
+.ph{margin-bottom:20px}
+.ph h2{font-size:1.45rem}
+.ph p{color:var(--t2);margin-top:4px;font-size:.88rem}
+
+/* ── STAT GRID ── */
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:22px}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+.sc-label{font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:var(--t3);font-weight:700}
+.sc-val{font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--purple);margin-top:3px}
+.sc-sub{font-size:.72rem;color:var(--t3);margin-top:2px}
+.sc-score .sc-val{color:var(--gold)}
+
+/* ── CARD ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:16px}
+.ct{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--text);margin-bottom:13px;padding-bottom:11px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+/* ── PILLS ── */
+.pill{display:inline-block;font-size:.66rem;font-weight:700;padding:3px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.pg{background:var(--gdim);color:var(--green)}
+.pr{background:var(--rdim);color:var(--red)}
+.py{background:var(--ydim);color:var(--yellow)}
+.pb{background:var(--bdim);color:var(--blue)}
+.pp{background:var(--pdim);color:var(--purple)}
+.pgr{background:var(--s2);color:var(--t3)}
+
+/* ── BTNS ── */
+.btn{padding:8px 15px;border-radius:7px;font-size:.84rem;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-sm{padding:5px 10px;font-size:.76rem}
+.bpu{background:var(--purple);color:#fff}.bpu:hover{background:var(--pl)}
+.bou{background:none;border:1.5px solid var(--border);color:var(--t2)}.bou:hover{border-color:var(--purple);color:var(--purple)}
+.bgr{background:var(--green);color:#fff}
+.brd{background:var(--red);color:#fff}
+
+/* ── TABLE ── */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:.84rem}
+th{text-align:left;font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:var(--t3);font-weight:700;padding:9px 10px;border-bottom:2px solid var(--border)}
+td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--t2);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg)}
+
+/* ── FORMS ── */
+.fr{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.fg{flex:1;min-width:130px}
+.fg label{display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--t2);margin-bottom:4px}
+.fg input,.fg select,.fg textarea{width:100%;padding:9px 11px;border:1.5px solid var(--border);border-radius:7px;font-size:.87rem;color:var(--text);background:var(--bg);outline:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--purple)}
+.fg textarea{resize:vertical;min-height:66px}
+
+/* ── LEAD CARD ── */
+.lc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:9px}
+.lc-name{font-weight:600;font-size:.92rem}
+.lc-meta{font-size:.78rem;color:var(--t2);margin-top:3px}
+.lc-actions{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap}
+
+/* ── LEADERBOARD ── */
+.lb-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
+.lb-row:last-child{border-bottom:none}
+.lb-rank{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--purple);width:26px;flex-shrink:0}
+.lb-rank.gold{color:var(--gold)}
+.lb-rank.silver{color:#8a9ba8}
+.lb-rank.bronze{color:#a0714f}
+.lb-name{flex:1;font-weight:500;font-size:.88rem}
+.lb-region{font-size:.72rem;color:var(--t3)}
+.lb-stats{display:flex;gap:12px}
+.lb-s{text-align:center}
+.lb-s span{display:block;font-size:.65rem;text-transform:uppercase;letter-spacing:.5px;color:var(--t3)}
+.lb-s strong{font-size:.92rem;color:var(--text)}
+.lb-score{background:var(--pdim);border-radius:6px;padding:3px 9px;font-size:.85rem;font-weight:700;color:var(--purple)}
+
+/* ── CALL FLOW ── */
+.cf-panel{background:var(--surface);border:2px solid var(--purple);border-radius:var(--r);padding:20px;margin-bottom:14px}
+.cf-step-num{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--purple);margin-bottom:4px}
+.cf-step-title{font-family:'Playfair Display',serif;font-size:1.05rem;margin-bottom:10px}
+.cf-script{background:var(--pdim);border-radius:8px;padding:14px 16px;font-size:.9rem;color:var(--text);font-style:italic;line-height:1.65;margin-bottom:12px}
+.cf-notes{font-size:.8rem;color:var(--t2);line-height:1.6}
+.cf-notes li{margin-bottom:4px;margin-left:16px}
+.cf-nav{display:flex;gap:10px;margin-top:14px}
+.cf-progress{height:4px;background:var(--border);border-radius:2px;margin-bottom:16px;overflow:hidden}
+.cf-prog-fill{height:100%;background:var(--purple);border-radius:2px;transition:width .3s}
+
+/* ── DISP BTNS ── */
+.db{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.dp{padding:14px 10px;border-radius:8px;font-size:.84rem;font-weight:700;cursor:pointer;border:1.5px solid transparent;transition:all .15s;min-height:48px;display:flex;align-items:center;justify-content:center;text-align:center;-webkit-tap-highlight-color:transparent}
+.dp-na{background:var(--s2);color:var(--t2);border-color:var(--border)}
+.dp-vm{background:var(--bdim);color:var(--blue);border-color:var(--blue)}
+.dp-ni{background:var(--rdim);color:var(--red);border-color:var(--red)}
+.dp-cb{background:var(--ydim);color:var(--yellow);border-color:var(--yellow)}
+.dp-as{background:var(--gdim);color:var(--green);border-color:var(--green);font-size:.9rem;grid-column:1/-1;min-height:54px;font-size:.95rem}
+
+/* ── TRAINING MODULES ── */
+.mod-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px;display:flex;align-items:flex-start;gap:13px;cursor:pointer;transition:border-color .15s}
+.mod-card:hover{border-color:var(--purple)}
+.mod-card.done{border-color:var(--green)}
+.mod-icon{width:40px;height:40px;border-radius:9px;background:var(--pdim);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.mod-card.done .mod-icon{background:var(--gdim)}
+.mod-info{flex:1}
+.mod-name{font-weight:600;font-size:.9rem;margin-bottom:3px}
+.mod-desc{font-size:.79rem;color:var(--t2)}
+.mod-status{font-size:.73rem;color:var(--t3);margin-top:3px}
+.mod-card.done .mod-status{color:var(--green);font-weight:600}
+.pbar{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:5px}
+.pfill{height:100%;background:var(--purple);border-radius:3px;transition:width .4s}
+
+/* ── RESOURCE ── */
+.ri{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--border)}
+.ri:last-child{border-bottom:none}
+.ri-icon{width:36px;height:36px;border-radius:7px;background:var(--pdim);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.ri-info{flex:1}
+.ri-info h5{font-size:.88rem;font-weight:600}
+.ri-info p{font-size:.76rem;color:var(--t2);margin-top:1px}
+
+/* ── UPLOAD ── */
+.uzone{border:2px dashed var(--border);border-radius:var(--r);padding:26px;text-align:center;cursor:pointer;transition:border-color .2s}
+.uzone:hover{border-color:var(--purple)}
+.uzone p{color:var(--t2);font-size:.87rem;margin-top:6px}
+
+
+/* ── LANGUAGE TOGGLE ── */
+.lang-bar{display:flex;gap:5px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.lang-btn{padding:5px 11px;border-radius:20px;font-size:.73rem;font-weight:700;cursor:pointer;border:1.5px solid var(--border);background:var(--bg);color:var(--t2);letter-spacing:.5px;transition:all .15s}
+.lang-btn.on{background:var(--purple);color:#fff;border-color:var(--purple)}
+.lang-bar-app{position:sticky;top:54px;z-index:99;background:var(--surface);border-bottom:1px solid var(--border);padding:7px 14px;display:flex;gap:5px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.lang-bar-app::-webkit-scrollbar{display:none}
+.lba{padding:4px 12px;border-radius:20px;font-size:.72rem;font-weight:700;cursor:pointer;border:1.5px solid var(--border);background:var(--bg);color:var(--t2);white-space:nowrap;transition:all .15s;flex-shrink:0}
+.lba.on{background:var(--purple);color:#fff;border-color:var(--purple)}
+
+/* ── LANG SELECT MULTI ── */
+.lang-check-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+.lang-check{display:flex;align-items:center;gap:7px;padding:7px 10px;border:1.5px solid var(--border);border-radius:7px;cursor:pointer;font-size:.82rem;transition:all .15s}
+.lang-check.sel{border-color:var(--purple);background:var(--pdim)}
+.lang-check input{accent-color:var(--purple)}
+
+/* ── QUICK OBJECTIONS ── */
+.qo-toggle{width:100%;padding:12px 16px;background:var(--ydim);border:1.5px solid var(--yellow);border-radius:8px;color:var(--yellow);font-weight:700;font-size:.86rem;text-align:left;display:flex;align-items:center;justify-content:space-between;margin-top:12px;cursor:pointer}
+.qo-panel{display:none;margin-top:6px;border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.qo-panel.open{display:block}
+.qo-item{padding:12px 14px;border-bottom:1px solid var(--border)}
+.qo-item:last-child{border-bottom:none}
+.qo-obj{font-size:.8rem;font-weight:700;color:var(--red);margin-bottom:4px}
+.qo-reb{font-size:.8rem;color:var(--t2);line-height:1.5;font-style:italic}
+
+/* ── MODAL ── */
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:200;align-items:flex-end;justify-content:center;padding:0}
+@media(min-width:600px){.mo{align-items:center;padding:16px}}
+.mo.open{display:flex}
+.mb{background:var(--surface);border-radius:18px 18px 0 0;padding:26px 22px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;box-shadow:var(--shmd)}
+@media(min-width:600px){.mb{border-radius:14px}}
+.mt{font-family:'Playfair Display',serif;font-size:1.15rem;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.ma{display:flex;gap:9px;justify-content:flex-end;margin-top:16px}
+
+/* ── SCORE BADGE ── */
+.score-ring{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;border:3px solid var(--gold);background:var(--pdim)}
+.score-ring-val{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--purple);line-height:1}
+.score-ring-lbl{font-size:.55rem;text-transform:uppercase;letter-spacing:1px;color:var(--t3)}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:#fff;padding:11px 20px;border-radius:8px;font-size:.84rem;z-index:999;display:none;box-shadow:var(--shmd);white-space:nowrap;max-width:90vw;text-align:center}
+
+/* ── EMPTY STATE ── */
+.empty{text-align:center;padding:44px 20px;color:var(--t3)}
+.empty-icon{font-size:2.2rem;margin-bottom:10px}
+.empty p{font-size:.88rem;line-height:1.5}
+
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE SYSTEM
+   Mobile:  < 768px  (default — already styled)
+   Tablet:  768px–1199px
+   Desktop: 1200px+
+═══════════════════════════════════════════ */
+
+/* ── MOBILE ONLY tweaks ── */
+@media(max-width:580px){
+  .pg{padding:16px 14px}
+  .sg{grid-template-columns:1fr 1fr}
+  .topbar{padding:0 14px}
+  .nav-bar{padding:0 14px}
+  .tb-name{display:none}
+  .lc-actions{flex-direction:column}
+  .lc-actions .btn{width:100%;text-align:center}
+}
+
+/* ── TABLET (768px – 1199px) ── */
+@media(min-width:768px){
+  /* Topbar */
+  .topbar{height:60px;padding:0 28px}
+  .tb-logo{font-size:1.35rem;letter-spacing:3px}
+  .tb-name{display:block}
+  .btn-logout{font-size:.8rem;padding:6px 14px}
+
+  /* Nav — all tabs fit without scroll */
+  .nav-bar{padding:0 28px;overflow-x:visible}
+  .nt{padding:14px 18px;font-size:.88rem}
+  .lang-bar-app{padding:8px 28px}
+
+  /* Pages */
+  .pg{padding:28px 28px;max-width:960px}
+  .ph h2{font-size:1.7rem}
+
+  /* Stat grid — 4 across on tablet */
+  .sg{grid-template-columns:repeat(4,1fr);gap:14px}
+  .sc{padding:18px 20px}
+  .sc-val{font-size:2.1rem}
+
+  /* Cards */
+  .card{padding:24px;margin-bottom:20px}
+
+  /* Forms — 2 col */
+  .fr{gap:14px}
+  .fg{min-width:180px}
+
+  /* Lead cards — horizontal layout */
+  .lc{padding:16px 18px}
+  .lc-actions{flex-direction:row}
+
+  /* Table font */
+  table{font-size:.88rem}
+  th{font-size:.72rem;padding:10px 12px}
+  td{padding:10px 12px}
+
+  /* Leaderboard */
+  .lb-row{padding:13px 0}
+  .lb-rank{font-size:1.3rem;width:30px}
+  .lb-name{font-size:.92rem}
+
+  /* Module reader */
+  .mr-header{padding:16px 28px}
+  .mr-content{padding:24px;max-width:760px}
+  .mr-step{padding:22px}
+
+  /* Onboard box */
+  .ob-box{padding:44px 36px;max-width:440px}
+
+  /* Modals */
+  .mb{max-width:560px}
+
+  /* Call flow */
+  .cf-panel{padding:24px}
+  .cf-script{font-size:.95rem;padding:16px 18px}
+
+  /* Disposition buttons — 3 across */
+  .db{grid-template-columns:1fr 1fr 1fr}
+  .dp-as{grid-column:1/-1}
+
+  /* Training modules */
+  .mod-card{padding:18px 20px}
+  .mod-icon{width:46px;height:46px;font-size:1.4rem}
+}
+
+/* ── DESKTOP (1200px+) ── */
+@media(min-width:1200px){
+  /* App layout — sidebar + content */
+  #s-app{flex-direction:row;flex-wrap:wrap}
+
+  /* Sidebar nav replaces top nav */
+  .topbar{
+    width:220px;
+    height:100vh;
+    position:fixed;
+    top:0;left:0;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:flex-start;
+    padding:28px 0 0 0;
+    border-right:1px solid var(--border);
+    border-bottom:none;
+    z-index:100;
+    overflow-y:auto;
+    gap:0;
+  }
+  .tb-left{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+    padding:0 24px 24px 24px;
+    border-bottom:1px solid var(--border);
+    width:100%;
+  }
+  .tb-logo{font-size:1.5rem;letter-spacing:4px}
+  .tb-right{
+    padding:16px 24px;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+    width:100%;
+    margin-top:auto;
+    border-top:1px solid var(--border);
+    position:absolute;
+    bottom:0;
+    left:0;
+  }
+  .tb-name{font-size:.85rem;color:var(--t2)}
+  .btn-logout{width:100%;text-align:center;padding:8px}
+
+  /* Vertical nav bar */
+  .nav-bar{
+    width:220px;
+    position:fixed;
+    top:110px;
+    left:0;
+    height:calc(100vh - 175px);
+    flex-direction:column;
+    overflow-y:auto;
+    overflow-x:hidden;
+    border-bottom:none;
+    border-right:1px solid var(--border);
+    padding:8px 0;
+    background:var(--surface);
+    z-index:99;
+    -webkit-overflow-scrolling:touch;
+  }
+  .nav-bar::-webkit-scrollbar{display:none}
+  .nt{
+    padding:12px 24px;
+    border-bottom:none;
+    border-left:3px solid transparent;
+    border-radius:0;
+    font-size:.88rem;
+    width:100%;
+    box-sizing:border-box;
+  }
+  .nt.on{
+    border-left-color:var(--purple);
+    border-bottom:none;
+    background:var(--pdim);
+  }
+
+  /* Language bar — below nav items */
+  .lang-bar-app{
+    width:220px;
+    position:fixed;
+    bottom:60px;
+    left:0;
+    flex-direction:column;
+    border-right:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    border-top:1px solid var(--border);
+    padding:10px 16px;
+    gap:6px;
+    background:var(--surface);
+    z-index:98;
+    overflow-x:hidden;
+  }
+  .lba{
+    width:100%;
+    text-align:left;
+    padding:6px 10px;
+    border-radius:6px;
+    font-size:.75rem;
+  }
+
+  /* Main content — offset for sidebar */
+  .main{
+    margin-left:220px;
+    width:calc(100% - 220px);
+    min-height:100vh;
+  }
+
+  /* Pages — wider, two-column dashboard */
+  .pg{padding:32px 36px;max-width:1200px}
+  .ph h2{font-size:1.9rem}
+  .ph p{font-size:.95rem}
+
+  /* Stat grid — 4 across, larger cards */
+  .sg{grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+  .sc{padding:22px 24px}
+  .sc-label{font-size:.72rem;letter-spacing:1.2px}
+  .sc-val{font-size:2.4rem}
+
+  /* Dashboard — side by side leaderboard + overview */
+  #pg-dashboard .card:first-of-type{display:inline-block;width:calc(60% - 10px);vertical-align:top}
+  #overview-card{display:inline-block!important;width:calc(40% - 10px);vertical-align:top;margin-left:16px}
+
+  /* Cards */
+  .card{padding:28px;margin-bottom:22px}
+  .ct{font-size:1.1rem}
+
+  /* Tables — full width, comfortable padding */
+  table{font-size:.9rem}
+  th{font-size:.74rem;padding:11px 14px}
+  td{padding:11px 14px}
+
+  /* Lead cards — 2 column grid */
+  #leads-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .lc{margin-bottom:0}
+
+  /* Forms */
+  .fr{gap:16px}
+  .fg{min-width:200px}
+
+  /* Module reader — centered, readable width */
+  .mr-content{max-width:820px;padding:32px 40px}
+  .mr-step{padding:26px}
+  .mr-step-title{font-size:1.1rem}
+
+  /* Call flow — wider script panel */
+  .cf-script{font-size:.96rem;line-height:1.75;padding:18px 22px}
+  .cf-panel{padding:28px}
+
+  /* Disposition grid — 5 across on desktop */
+  .db{grid-template-columns:repeat(5,1fr)}
+  .dp-as{grid-column:auto}
+  .dp{min-height:52px;font-size:.85rem}
+
+  /* Training */
+  #training-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .mod-card{margin-bottom:0}
+
+  /* Quick objections panel wider */
+  .qo-panel{max-width:100%}
+
+  /* Gate box */
+  .gate-box{max-width:520px;padding:40px}
+
+  /* Onboard */
+  .ob-box{max-width:480px;padding:48px 40px}
+
+  /* Doc viewer modal — side panel on desktop */
+  #mo-doc > div{max-width:760px;margin:0 auto;border-radius:12px;height:90vh;margin-top:5vh;box-shadow:0 8px 40px rgba(0,0,0,.18)}
+
+  /* Toast — bottom right on desktop */
+  #toast{left:auto;right:24px;transform:none;bottom:24px}
+}
+
+/* ── EXTRA WIDE (1440px+) ── */
+@media(min-width:1440px){
+  .topbar{width:260px}
+  .nav-bar{width:260px}
+  .lang-bar-app{width:260px}
+  .main{margin-left:260px;width:calc(100% - 260px)}
+  .pg{max-width:1360px;padding:36px 44px}
+  .sg{gap:20px}
+  .sc{padding:24px 28px}
+  .sc-val{font-size:2.6rem}
+  #leads-list{grid-template-columns:1fr 1fr 1fr}
+  #training-list{grid-template-columns:1fr 1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ LOADING ══ -->
+<div class="screen active" id="s-loading">
+  <div class="spin"></div>
+  <p style="color:var(--t2);font-size:.87rem">Loading R-I-V...</p>
+</div>
+
+<!-- ══ ONBOARD (AUTH) ══ -->
+<div class="screen" id="s-onboard">
+  <div class="ob-box">
+    <div class="ob-logo">
+      <div class="ob-logo-mark">
+        <div class="ob-riv">RIV</div>
+        <div class="ob-gold-line"></div>
+        <div class="ob-sub">Call Center</div>
+      </div>
+    </div>
+    <div class="lang-bar">
+      <button class="lang-btn on" onclick="setLang('en',this)">EN</button>
+      <button class="lang-btn" onclick="setLang('es',this)">ES</button>
+      <button class="lang-btn" onclick="setLang('zh',this)">中文</button>
+      <button class="lang-btn" onclick="setLang('ar',this)">عربي</button>
+    </div>
+    <div class="ob-tabs">
+      <div class="ob-tab on" id="tab-si" onclick="authTab('si')">Sign In</div>
+      <div class="ob-tab" id="tab-su" onclick="authTab('su')">Register</div>
+    </div>
+    <div id="f-si">
+      <label>Email</label><input type="email" id="si-em" placeholder="you@example.com" autocomplete="email">
+      <label>Password</label>
+      <div class="pw-wrap">
+        <input type="password" id="si-pw" placeholder="••••••••" autocomplete="current-password">
+        <button class="pw-eye" onclick="togglePw('si-pw',this)" type="button">👁️</button>
+      </div>
+      <button class="ob-btn" onclick="doSignIn()">Sign In</button>
+      <div class="ob-err" id="si-err"></div>
+    </div>
+    <div id="f-su" style="display:none">
+      <label id="lbl-fullname">Full Name</label><input type="text" id="su-nm" placeholder="First Last">
+      <label id="lbl-email">Email</label><input type="email" id="su-em" placeholder="you@example.com">
+      <label id="lbl-password">Password</label>
+      <div class="pw-wrap">
+        <input type="password" id="su-pw" placeholder="Min 6 characters">
+        <button class="pw-eye" onclick="togglePw('su-pw',this)" type="button">👁️</button>
+      </div>
+      <label id="lbl-languages">Languages You Speak</label>
+      <div style="font-size:.75rem;color:var(--t3);margin-bottom:6px">English is included for everyone. Select any additional languages:</div>
+      <div class="lang-check-grid" id="su-langs">
+        <label class="lang-check"><input type="checkbox" value="Spanish"> Spanish</label>
+        <label class="lang-check"><input type="checkbox" value="Mandarin"> Mandarin</label>
+        <label class="lang-check"><input type="checkbox" value="Vietnamese"> Vietnamese</label>
+        <label class="lang-check"><input type="checkbox" value="Tagalog"> Tagalog</label>
+        <label class="lang-check"><input type="checkbox" value="Korean"> Korean</label>
+        <label class="lang-check"><input type="checkbox" value="Armenian"> Armenian</label>
+        <label class="lang-check"><input type="checkbox" value="Arabic"> Arabic</label>
+        <label class="lang-check"><input type="checkbox" value="Persian"> Persian</label>
+        <label class="lang-check"><input type="checkbox" value="Hindi"> Hindi</label>
+        <label class="lang-check"><input type="checkbox" value="Tagalog/Ilocano"> Tagalog/Ilocano</label>
+      </div>
+      <button class="ob-btn" onclick="doRegister()" id="lbl-create-btn">Create Account</button>
+      <div class="ob-err" id="su-err"></div>
+      <div class="ob-note" id="lbl-ob-note">Your account will be reviewed by your manager.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TRAINING GATE ══ -->
+<div class="screen" id="s-training-gate" style="display:none;flex-direction:column">
+  <div class="gate-box">
+    <h2 class="gate-title">Welcome to R-I-V.</h2>
+    <p class="gate-sub">Before you access your leads, you need to complete all 6 training modules. This is not optional. Know the system before you dial.</p>
+    <div id="gate-modules"></div>
+    <button class="gate-start-btn" id="gate-start-btn" onclick="startNextModule()">Start Training</button>
+  </div>
+</div>
+
+<!-- ══ MODULE READER ══ -->
+<div class="screen" id="s-module-reader" style="display:none">
+  <div class="mr-header">
+    <button class="mr-back btn" onclick="exitModule()">← Back</button>
+    <div class="mr-title" id="mr-title"></div>
+    <div class="mr-prog" id="mr-prog"></div>
+  </div>
+  <div class="mr-content" id="mr-content"></div>
+</div>
+
+<!-- ══ APP ══ -->
+<div class="screen" id="s-app" style="display:none">
+  <div class="topbar">
+    <div class="tb-left">
+      <div class="tb-logo">R·I·V</div>
+      <div class="tb-role" id="tb-role"></div>
+    </div>
+    <div class="tb-right">
+      <div class="tb-name" id="tb-name"></div>
+      <button class="btn-logout" onclick="doSignOut()" id="lbl-out-btn">Out</button>
+    </div>
+  </div>
+  <div class="nav-bar" id="nav-bar">
+    <div class="nt on" onclick="goPage('dashboard')" data-page="dashboard">Dashboard</div>
+    <div class="nt" onclick="goPage('leads')" data-page="leads">My Leads</div>
+    <div class="nt" onclick="goPage('callflow')" data-page="callflow">Call Flow</div>
+    <div class="nt" onclick="goPage('calllog')" data-page="calllog">Call Log</div>
+    <div class="nt" onclick="goPage('training')" data-page="training">Training</div>
+    <div class="nt" onclick="goPage('resources')" data-page="resources">Resources</div>
+    <div class="nt" id="nt-territory" style="display:none" onclick="goPage('territory')" data-page="territory">Territory</div>
+    <div class="nt" id="nt-admin" style="display:none" onclick="goPage('admin')" data-page="admin">Admin</div>
+  </div>
+  <div class="lang-bar-app" id="app-lang-bar">
+    <button class="lba on" onclick="setLang('en',this)">EN — English</button>
+    <button class="lba" onclick="setLang('es',this)">ES — Español</button>
+    <button class="lba" onclick="setLang('zh',this)">中文 — Mandarin</button>
+    <button class="lba" onclick="setLang('ar',this)" style="font-family:serif">عربي — Arabic</button>
+  </div>
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div class="pg on" id="pg-dashboard">
+      <div class="ph"><h2 id="dash-greet">Dashboard</h2><p id="dash-sub">Your performance overview.</p></div>
+      <div class="sg">
+        <div class="sc"><div class="sc-label">Dials Today</div><div class="sc-val" id="d-dials">0</div><div class="sc-sub">Goal: 80</div></div>
+        <div class="sc"><div class="sc-label">Contacts</div><div class="sc-val" id="d-contacts">0</div><div class="sc-sub">Goal: 20</div></div>
+        <div class="sc"><div class="sc-label">Appts Set</div><div class="sc-val" id="d-appts">0</div><div class="sc-sub">Goal: 3</div></div>
+        <div class="sc sc-score"><div class="sc-label">Score</div><div class="sc-val" id="d-score">0</div><div class="sc-sub">All time</div></div>
+      </div>
+      <div class="card">
+        <div class="ct">Leaderboard <span style="font-family:Outfit;font-size:.75rem;color:var(--t3);font-weight:400" id="lb-label"></span></div>
+        <div id="lb-list"><div style="color:var(--t3);font-size:.85rem">Loading...</div></div>
+      </div>
+      <div class="card" id="overview-card" style="display:none">
+        <div class="ct">All Regions</div>
+        <div id="overview-table"></div>
+      </div>
+    </div>
+
+    <!-- LEADS -->
+    <div class="pg" id="pg-leads">
+      <div class="ph"><h2>My Leads</h2><p>Log every call immediately.</p></div>
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+        <select id="lf-filter" onchange="renderLeads()" style="padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:.82rem;background:var(--bg);color:var(--text);outline:none">
+          <option value="all">All Leads</option>
+          <option value="New">New</option>
+          <option value="No Answer">No Answer</option>
+          <option value="Voicemail">Voicemail</option>
+          <option value="Callback">Callback</option>
+          <option value="Not Interested">Not Interested</option>
+          <option value="Appt Set">Appt Set</option>
+        </select>
+        <input type="text" id="lf-search" placeholder="Search name or address..." onkeyup="renderLeads()" style="padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:.82rem;min-width:170px;outline:none;background:var(--bg);flex:1">
+      </div>
+      <div id="leads-list"><div class="empty"><div class="empty-icon">📋</div><p>Loading leads...</p></div></div>
+    </div>
+
+    <!-- CALL FLOW -->
+    <div class="pg" id="pg-callflow">
+      <div class="ph"><h2>Live Call Flow</h2><p>Follow this during every dial. Step by step.</p></div>
+      <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center">
+        <select id="cf-lead-sel" style="flex:1;padding:9px 11px;border:1.5px solid var(--border);border-radius:7px;font-size:.84rem;background:var(--bg);color:var(--text);outline:none">
+          <option value="">Select a lead to call...</option>
+        </select>
+        <button class="btn bpu" onclick="startCallFlow()">Start Call</button>
+      </div>
+      <div id="cf-container" style="display:none">
+        <div class="cf-progress"><div class="cf-prog-fill" id="cf-prog-fill" style="width:0%"></div></div>
+        <div class="cf-panel" id="cf-panel"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn bou" id="cf-prev" onclick="cfMove(-1)">← Previous</button>
+          <button class="btn bpu" id="cf-next" onclick="cfMove(1)">Next Step →</button>
+          <button class="btn brd" onclick="endCall()" style="margin-left:auto">End Call</button>
+        </div>
+        <div class="card" style="margin-top:12px" id="cf-log-panel">
+          <div class="ct">Log This Call</div>
+          <!-- Quick Objections -->
+          <button class="qo-toggle" onclick="toggleQO(this)">⚡ Quick Objections <span id="qo-arrow">▼</span></button>
+          <div class="qo-panel" id="qo-panel">
+            <div class="qo-item"><div class="qo-obj">"Not interested"</div><div class="qo-reb">"Fair — is that because you already looked into this, or just not something you're thinking about right now?"</div></div>
+            <div class="qo-item"><div class="qo-obj">"I'm busy"</div><div class="qo-reb">"I got you — I'll be quick. Real quick — are you still the homeowner at [Address]?"</div></div>
+            <div class="qo-item"><div class="qo-obj">"Already have solar"</div><div class="qo-reb">"Got it — are you under NEM 2 or did you add battery backup with it?" [If unsure: continue]</div></div>
+            <div class="qo-item"><div class="qo-obj">"Send me info"</div><div class="qo-reb">"Would you rather see general info or what it looks like for your home specifically?"</div></div>
+            <div class="qo-item"><div class="qo-obj">"Is this solar?"</div><div class="qo-reb">"It's an SGIP upgrade — solar is part of it but the main benefit is just the bill reduction."</div></div>
+            <div class="qo-item"><div class="qo-obj">"Need to talk to my spouse"</div><div class="qo-reb">"Smart move — our consultants prefer both of you there. When are you both usually available?"</div></div>
+            <div class="qo-item"><div class="qo-obj">"How much does it cost?"</div><div class="qo-reb">"That's what the consultation covers — it's based on your usage. That's the whole point of the 20 minutes."</div></div>
+            <div class="qo-item"><div class="qo-obj">"Thinking of moving"</div><div class="qo-reb">"Homes with solar sell faster and at a higher price. Worth seeing what you qualify for before you list."</div></div>
+          </div>
+          <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--t2);margin-top:14px;margin-bottom:8px">Disposition</div>
+          <div class="db">
+            <button class="dp dp-na" onclick="setDisp('No Answer')">No Answer</button>
+            <button class="dp dp-vm" onclick="setDisp('Voicemail')">Voicemail</button>
+            <button class="dp dp-ni" onclick="setDisp('Not Interested')">Not Interested</button>
+            <button class="dp dp-cb" onclick="setDisp('Callback')">Callback</button>
+            <button class="dp dp-as" onclick="setDisp('Appt Set')">🎯 Appt Set</button>
+          </div>
+          <div style="font-size:.83rem;color:var(--purple);margin-top:9px;font-weight:600" id="cf-disp-label">Select disposition above</div>
+          <div class="fg" style="margin-top:10px"><label>Notes</label><textarea id="cf-notes" placeholder="Anything relevant..."></textarea></div>
+          <div class="fg" id="cf-cb-row" style="display:none"><label>Callback Date/Time</label><input type="datetime-local" id="cf-cb-dt"></div>
+          <button class="btn bpu" style="width:100%;margin-top:12px" id="cf-save-btn" onclick="saveCallFromFlow()">Save & Log Call</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALL LOG -->
+    <div class="pg" id="pg-calllog">
+      <div class="ph"><h2>Call Log</h2><p>Every call, timestamped.</p></div>
+      <div class="card">
+        <div class="tw">
+          <table>
+            <thead><tr><th>Time</th><th>Name</th><th>Disposition</th><th>Notes</th><th id="th-rep" style="display:none">Rep</th></tr></thead>
+            <tbody id="log-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRAINING -->
+    <div class="pg" id="pg-training">
+      <div class="ph"><h2>Training Hub</h2><p>Study every day. Come back constantly.</p></div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="ct">Your Progress</div>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center">
+          <div><div style="font-size:.78rem;color:var(--t2);margin-bottom:3px">Completed</div><div style="font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--purple)" id="tp-count">0 / 6</div></div>
+          <div style="flex:1;min-width:140px"><div style="font-size:.72rem;color:var(--t3);margin-bottom:5px">Overall</div><div class="pbar"><div class="pfill" id="tp-bar" style="width:0%"></div></div></div>
+        </div>
+      </div>
+      <div id="training-list"></div>
+    </div>
+
+    <!-- RESOURCES -->
+    <div class="pg" id="pg-resources">
+      <div class="ph"><h2 id="lbl-res-title">Resources</h2><p id="lbl-res-sub">Scripts, product info, and contacts.</p></div>
+      <div class="card">
+        <div class="ct">Downloads</div>
+        <div class="ri"><div class="ri-icon">📋</div><div class="ri-info"><h5>Full Call Center Playbook</h5><p>Complete pitch, objections, psychology & training</p></div><button class="btn bpu btn-sm" onclick="openDoc('playbook')">View</button></div>
+        <div class="ri"><div class="ri-icon">⚡</div><div class="ri-info"><h5>SGIP Objection Cheat Sheet</h5><p>One-page quick reference for every objection</p></div><button class="btn bpu btn-sm" onclick="openDoc('objections')">View</button></div>
+        <div class="ri"><div class="ri-icon">☀️</div><div class="ri-info"><h5>Solar Product Overview</h5><p>Panel specs, financing, warranty info</p></div><button class="btn bpu btn-sm" onclick="openDoc('product')">View</button></div>
+        <div class="ri"><div class="ri-icon">💰</div><div class="ri-info"><h5>Pay Structure & Comp Plan</h5><p>Setter tiers, closer splits, bonuses</p></div><button class="btn bpu btn-sm" onclick="openDoc('comp')">View</button></div>
+      </div>
+      <div class="card">
+        <div class="ct">Team Contacts</div>
+        <div class="ri"><div class="ri-icon">👑</div><div class="ri-info"><h5>Victor & Will Silva</h5><p>Co-Founders — R-I-V Solar</p></div></div>
+        <div class="ri"><div class="ri-icon">🟣</div><div class="ri-info"><h5>Christopher Buckland</h5><p>Mamba U Manager — Southern California</p></div></div>
+        <div class="ri"><div class="ri-icon">🔵</div><div class="ri-info"><h5>Antonio Russo</h5><p>Spartan U Manager — Northern California</p></div></div>
+        <div class="ri"><div class="ri-icon">🟢</div><div class="ri-info"><h5>Solar X Manager</h5><p>Solar X — Puerto Rico</p></div></div>
+      </div>
+    </div>
+
+    <!-- DOC VIEWER MODAL -->
+    <div class="mo" id="mo-doc" style="align-items:flex-start;padding:0;overflow:hidden">
+      <div style="background:var(--surface);width:100%;height:100vh;display:flex;flex-direction:column;position:relative">
+        <div style="background:var(--surface);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0">
+          <button class="btn bou btn-sm" onclick="closeMo('mo-doc')">← Back</button>
+          <div style="font-family:Playfair Display,serif;font-size:1rem;font-weight:600" id="doc-title"></div>
+        </div>
+        <div id="doc-content" style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 18px 60px 18px;max-width:680px;margin:0 auto;width:100%;font-size:.88rem;line-height:1.7;color:var(--t2)"></div>
+      </div>
+    </div>
+
+    <!-- TERRITORY -->
+    <div class="pg" id="pg-territory">
+      <div class="ph"><h2>Territory Manager</h2><p>Upload leads. Auto-assigns round-robin to your reps.</p></div>
+      <div class="card">
+        <div class="ct">Upload Lead List</div>
+        <p style="font-size:.82rem;color:var(--t2);margin-bottom:12px">CSV: <strong>FirstName, LastName, Phone, Address, City, State, Zip</strong></p>
+        <div class="uzone" onclick="document.getElementById('csv-in').click()">
+          <div style="font-size:1.8rem">📂</div>
+          <p>Tap to upload CSV</p>
+          <p style="font-size:.73rem;color:var(--t3);margin-top:3px">Auto-assigned round-robin to reps in your region</p>
+        </div>
+        <input type="file" id="csv-in" accept=".csv" style="display:none" onchange="handleCSV(event)">
+        <div id="csv-prev" style="display:none;margin-top:13px">
+          <div style="font-size:.82rem;color:var(--green);font-weight:600;margin-bottom:8px" id="csv-msg"></div>
+          <button class="btn bpu" onclick="importLeads()">Import Leads</button>
+          <button class="btn bou" style="margin-left:7px" onclick="cancelCSV()">Cancel</button>
+        </div>
+      </div>
+      <div class="card"><div class="ct">Rep Roster</div><div id="roster-tbl"></div></div>
+    </div>
+
+    <!-- ADMIN -->
+    <div class="pg" id="pg-admin">
+      <div class="ph"><h2 id="lbl-admin-title">Admin Panel</h2><p id="lbl-admin-sub">Full system — all regions.</p></div>
+      <div class="sg" id="adm-stats-grid">
+        <div class="sc"><div class="sc-label">Total Reps</div><div class="sc-val" id="adm-reps">—</div></div>
+        <div class="sc"><div class="sc-label">Total Leads</div><div class="sc-val" id="adm-leads">—</div></div>
+        <div class="sc"><div class="sc-label">Total Appts</div><div class="sc-val" id="adm-appts">—</div></div>
+        <div class="sc sc-score"><div class="sc-label">Top Score</div><div class="sc-val" id="adm-top">—</div></div>
+      </div>
+      <!-- LEADS TABLE — admin only -->
+      <div class="card" id="adm-leads-card">
+        <div class="ct">All Leads <span id="adm-lead-count" style="font-family:Outfit;font-size:.75rem;color:var(--t3);font-weight:400"></span></div>
+        <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+          <select id="adm-lf" onchange="renderAdminLeads()" style="padding:7px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:.8rem;background:var(--bg);color:var(--text);outline:none">
+            <option value="all">All Status</option>
+            <option value="new">New</option>
+            <option value="in_call">In Call</option>
+            <option value="callback">Callback</option>
+            <option value="archived">Archived</option>
+            <option value="appointment_locked">Appt Locked</option>
+          </select>
+          <input type="text" id="adm-ls" placeholder="Search leads..." onkeyup="renderAdminLeads()" style="flex:1;padding:7px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:.8rem;background:var(--bg);outline:none">
+        </div>
+        <div id="adm-leads-list" class="tw"></div>
+      </div>
+      <div class="card"><div class="ct">All Reps</div><div id="admin-reps-tbl"></div></div>
+      <div class="card">
+        <div class="ct" id="lbl-add-rep-title">Add Rep Manually</div>
+        <p style="font-size:.82rem;color:var(--t2);margin-bottom:13px" id="lbl-add-rep-note">Creates a full account. Rep signs in with email + temp password <strong style="color:var(--purple)">RIV2024!</strong></p>
+        <div class="fr">
+          <div class="fg"><label>Name</label><input type="text" id="ar-nm" placeholder="Full name"></div>
+          <div class="fg"><label>Email</label><input type="email" id="ar-em" placeholder="rep@example.com"></div>
+        </div>
+        <div class="fr">
+          <div class="fg"><label>Role</label><select id="ar-rl"><option value="rep">Rep</option><option value="manager">Manager</option></select></div>
+          <div class="fg"><label>Languages</label><select id="ar-lang"><option value="English">English</option><option value="Spanish">Spanish</option><option value="Mandarin">Mandarin</option><option value="Arabic">Arabic</option><option value="Vietnamese">Vietnamese</option><option value="Tagalog">Tagalog</option></select></div>
+        </div>
+        <button class="btn bpu" onclick="adminAddRep()">Add Rep</button>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- LOG MODAL -->
+<div class="mo" id="mo-log">
+  <div class="mb">
+    <div class="mt" id="mo-log-title">Log Call</div>
+    <input type="hidden" id="mo-lead-id">
+    <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--t2);margin-bottom:8px">Disposition</div>
+    <div class="db">
+      <button class="dp dp-na" onclick="setDisp('No Answer')">No Answer</button>
+      <button class="dp dp-vm" onclick="setDisp('Voicemail')">Voicemail</button>
+      <button class="dp dp-ni" onclick="setDisp('Not Interested')">Not Interested</button>
+      <button class="dp dp-cb" onclick="setDisp('Callback')">Callback</button>
+      <button class="dp dp-as" onclick="setDisp('Appt Set')">🎯 Appt Set</button>
+    </div>
+    <div style="font-size:.82rem;color:var(--purple);margin-top:9px;font-weight:600" id="disp-label">Select a disposition</div>
+    <div class="fg" style="margin-top:10px"><label>Notes</label><textarea id="mo-notes" placeholder="Callback time, objection raised..."></textarea></div>
+    <div class="fg" id="mo-cb-row" style="display:none"><label>Callback Date/Time</label><input type="datetime-local" id="mo-cb-dt"></div>
+    <div class="ma">
+      <button class="btn bou" onclick="closeMo('mo-log')">Cancel</button>
+      <button class="btn bpu" id="mo-save-btn" onclick="saveCall()">Save Call</button>
+    </div>
+  </div>
+</div>
+
+<!-- REASSIGN MODAL -->
+<div class="mo" id="mo-rs">
+  <div class="mb">
+    <div class="mt">Reassign Lead</div>
+    <input type="hidden" id="rs-lid">
+    <div class="fg"><label>Assign To</label><select id="rs-sel"></select></div>
+    <div class="ma">
+      <button class="btn bou" onclick="closeMo('mo-rs')">Cancel</button>
+      <button class="btn bpu" onclick="saveReassign()">Reassign</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ==================================================
+//  CONFIG
+// ==================================================
+var SB = 'https://zjwbgnoiymqypuzgsllc.supabase.co';
+var SK = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpqd2Jnbm9peW1xeXB1emdzbGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExMzk1MzgsImV4cCI6MjA5NjcxNTUzOH0.Qx74wQMe1q6L_N_LwbQ-TqNe1Kx7ANQkXFHUJvzukio';
+
+var SCORE_MAP = { dial:1, contact:5, voicemail:2, not_interested:1, callback:3, appointment:25, show:50 };
+
+// ==================================================
+//  SUPABASE REST
+// ==================================================
+function sbH(extra) {
+  var h = { apikey:SK, Authorization:'Bearer '+SK, 'Content-Type':'application/json' };
+  if (extra) Object.assign(h, extra);
+  return h;
+}
+function sbGet(t, q) { return fetch(SB+'/rest/v1/'+t+'?'+(q||''), {headers:sbH()}).then(function(r){return r.json();}); }
+function sbPost(t, b) { return fetch(SB+'/rest/v1/'+t, {method:'POST', headers:sbH({'Prefer':'return=representation'}), body:JSON.stringify(b)}).then(function(r){return r.json();}); }
+function sbPatch(t, q, b) { return fetch(SB+'/rest/v1/'+t+'?'+q, {method:'PATCH', headers:sbH({'Prefer':'return=representation'}), body:JSON.stringify(b)}).then(function(r){return r.json();}); }
+function sbDelete(t, q) { return fetch(SB+'/rest/v1/'+t+'?'+q, {method:'DELETE', headers:sbH()}); }
+function sbCount(t, q) {
+  return fetch(SB+'/rest/v1/'+t+'?'+(q||''), {headers:sbH({'Prefer':'count=exact','Range':'0-0'})}).then(function(r){
+    var cr = r.headers.get('content-range');
+    return cr ? parseInt(cr.split('/')[1]) : 0;
+  });
+}
+function sbSignIn(em, pw) {
+  return fetch(SB+'/auth/v1/token?grant_type=password', {method:'POST', headers:{apikey:SK,'Content-Type':'application/json'}, body:JSON.stringify({email:em,password:pw})}).then(function(r){return r.json();});
+}
+function sbSignUp(em, pw) {
+  return fetch(SB+'/auth/v1/signup', {method:'POST', headers:{apikey:SK,'Content-Type':'application/json'}, body:JSON.stringify({email:em,password:pw})}).then(function(r){return r.json();});
+}
+
+// ==================================================
+//  STATE
+// ==================================================
+var S = { token:null, rep:null, leads:[], events:[], logs:[], reps:[], training:[] };
+var csvPending = [];
+var activeDisp = '';
+var cfStep = 0;
+var cfLeadId = null;
+var cfSessionId = null;
+var cfDispActive = '';
+var currentModKey = '';
+var fromGate = false;
+
+// SESSION MANAGER
+var SESSION_KEY = 'riv_active_session';
+var SessionManager = {
+  start: function(leadId, repId, areaCluster) {
+    var existing = this.getActive();
+    if (existing && existing.lead_id === leadId) return Promise.resolve(existing);
+    var dateStr = new Date().toISOString().split('T')[0];
+    var idemKey = repId + ':' + leadId + ':' + dateStr;
+    var deviceId = this.getDeviceId();
+    return sbGet('call_sessions','idempotency_key=eq.'+encodeURIComponent(idemKey)+'&status=eq.active').then(function(rows) {
+      if (rows && rows.length > 0) { SessionManager.persist(rows[0]); return rows[0]; }
+      return fetch(SB+'/rest/v1/call_sessions', {
+        method:'POST', headers:sbH({'Prefer':'return=representation'}),
+        body:JSON.stringify({rep_id:repId,lead_id:leadId,area_cluster:areaCluster||null,status:'active',locked:true,locked_until:new Date(Date.now()+30*60*1000).toISOString(),device_id:deviceId,idempotency_key:idemKey})
+      }).then(function(r){return r.json();}).then(function(r){
+        var sess = Array.isArray(r)?r[0]:r;
+        if (!sess||sess.code){return {id:null,lead_id:leadId,rep_id:repId};}
+        SessionManager.persist(sess);
+        return sbPatch('leads','id=eq.'+leadId,{lifecycle_status:'in_call',assigned_to:repId}).then(function(){return sess;});
+      });
+    }).catch(function(){return {id:null,lead_id:leadId,rep_id:repId};});
+  },
+  complete: function(sessionId, outcome) {
+    if (!sessionId){this.clear();return Promise.resolve();}
+    return sbPatch('call_sessions','id=eq.'+sessionId,{status:'completed',outcome:outcome,locked:false,ended_at:new Date().toISOString()}).then(function(){SessionManager.clear();});
+  },
+  abandon: function(sessionId) {
+    if (!sessionId){this.clear();return Promise.resolve();}
+    return sbPatch('call_sessions','id=eq.'+sessionId,{status:'abandoned',locked:false,ended_at:new Date().toISOString()}).then(function(){SessionManager.clear();});
+  },
+  logEvent: function(sessionId, repId, leadId, eventType) {
+    var minuteBucket = new Date().toISOString().slice(0,16);
+    var idemKey = (sessionId||'nosess')+':'+eventType+':'+minuteBucket;
+    return fetch(SB+'/rest/v1/call_events',{
+      method:'POST',headers:sbH({'Prefer':'return=representation'}),
+      body:JSON.stringify({session_id:sessionId||null,rep_id:repId,lead_id:leadId||null,event_type:eventType,device_id:SessionManager.getDeviceId(),idempotency_key:idemKey})
+    }).then(function(r){if(r.status===409)return null;return r.json();}).catch(function(){});
+  },
+  persist: function(sess) {
+    try{lsSet(SESSION_KEY,JSON.stringify({id:sess.id,lead_id:sess.lead_id,rep_id:sess.rep_id,area_cluster:sess.area_cluster,started_at:sess.started_at,step:0}));}catch(e){}
+  },
+  getActive: function(){try{var r=lsGet(SESSION_KEY);return r?JSON.parse(r):null;}catch(e){return null;}},
+  saveStep: function(step){try{var s=this.getActive();if(s){s.step=step;lsSet(SESSION_KEY,JSON.stringify(s));}}catch(e){}},
+  clear: function(){try{localStorage.removeItem(SESSION_KEY);}catch(e){}},
+  getDeviceId: function(){
+    try{var id=lsGet('riv_device_id');if(!id){id='dev_'+Math.random().toString(36).slice(2)+Date.now().toString(36);lsSet('riv_device_id',id);}return id;}catch(e){return 'unknown';}
+  },
+  recover: function(){
+    var active=this.getActive();
+    if(!active||!active.id)return Promise.resolve(null);
+    return sbGet('call_sessions','id=eq.'+active.id+'&status=eq.active').then(function(rows){
+      if(rows&&rows.length>0)return active;SessionManager.clear();return null;
+    }).catch(function(){SessionManager.clear();return null;});
+  }
+};
+
+// ==================================================
+//  TRAINING MODULES DATA
+// ==================================================
+var MODS = [
+  { key:'philosophy', icon:'Brain', name:'Core Philosophy', desc:'The control system mindset. Read this first.',
+    steps:[
+      {title:'This Is Not a Script',tone:'',script:'',body:'Your job is not to talk. Your job is to guide a homeowner into one of two outcomes \u2014 an appointment or a clean exit \u2014 in under 5 minutes. Everything you say serves that goal.',
+       notes:['Control the flow. You ask questions. You set the pace.','Value before authority. Lead with what you have for them, not who you are.','Questions create compliance. Every question answered is a small yes.','Objections are filters, not conversations. Hold frame or exit.','Every call ends in: Appointment Set OR Clean Exit. No third option.']},
+      {title:'The Golden Rules',tone:'',script:'',body:'These are non-negotiables. Not suggestions.',
+       notes:['If you are talking more than the homeowner, you are losing.','Two objections maximum \u2014 one reframe, then clean exit.','Never call more than once per day per lead.','Never leave more than two voicemails per lead. Total.','Always offer two time options. Never open-ended.','Always repeat appointment day and time back before hanging up.','Log every call immediately. Never batch.','Do not apologize for calling. You have value.']},
+    ]
+  },
+  { key:'callflow', icon:'Phone', name:'The Full Call Flow', desc:'11 steps. Every word has a purpose.',
+    steps:[
+      {title:'Step 1 \u2014 The Hook',tone:'FAST',script:'"Hey [Name], this is [Rep] with R-I-V \u2014 quick question. Did anyone reach out to your address yet about SGIP?"',
+       body:'You have 3 seconds. One pattern-interrupt question stops the hang-up reflex.',
+       notes:['Wait for their answer. Do not fill the silence.','They say no \u2014 ideal. That is why you are calling.','Do NOT explain what SGIP is. The vagueness is intentional.','If they ask "what is SGIP?" \u2014 that is the best outcome. They are curious.']},
+      {title:'Step 2 \u2014 The Pivot',tone:'FAST',script:'"That\'s actually why I\'m calling."',
+       body:'Full stop. Let it land. Do not rush into Step 3.',
+       notes:['The pause after this line is doing more work than any sentence.','They are now waiting for you to explain. You have flipped the dynamic.','Resist the urge to fill the silence.']},
+      {title:'Step 3 \u2014 Context',tone:'NORMAL',script:'"[Name], California\'s been running upgrades through SGIP \u2014 basically it reduces a lot of the extra charges and fees on your Edison bill. Most homeowners we\'ve spoken to in [City] are saving anywhere from $80 to $200 a month depending on their usage."',
+       body:'One idea only: savings. Do not mention solar yet.',
+       notes:['Use their city name \u2014 makes it local and real.','Do not explain the full program.','One concrete number range. Move on.']},
+      {title:'Step 4 \u2014 Soft Authority',tone:'NORMAL',script:'"[Name], I\'m not looking to do anything over the phone \u2014 I\'m just seeing if your home even qualifies for it."',
+       body:'This line removes sales pressure. You are not a threat. They may not qualify \u2014 that creates desire.',
+       notes:['"Not doing anything over the phone" = you are safe.','"If your home even qualifies" = they may not. Desire through scarcity.']},
+      {title:'Step 5 \u2014 Qualify: Ownership',tone:'NORMAL',script:'"You and your spouse own the home at [Address], correct?"',
+       body:'Confirm ownership. Non-owners = clean exit immediately.',
+       notes:['Say the address. Specificity builds credibility.','Including "and your spouse" pre-handles a later objection.','Non-owner: "No problem \u2014 I won\'t take your time." Exit.']},
+      {title:'Step 6 \u2014 Qualify: Roof',tone:'NORMAL',script:'"And the roof is in pretty good condition?"',
+       body:'Short question. They almost always say yes. Another small yes stacked.',
+       notes:['Do not linger. Move immediately to Step 7.']},
+      {title:'Step 7 \u2014 Bill Discovery',tone:'NORMAL',script:'"Let me ask you this, [Name] \u2014 what are you usually running for electricity in the winter months?"\n\n[After answer:] "And what\'s the highest it usually gets to?"',
+       body:'Two questions. Ask them in sequence. Get both numbers.',
+       notes:['Do not react to the number. Stay neutral.','High bill = strong motivation.','Low bill = still qualify, different angle.']},
+      {title:'Step 8 \u2014 Control Statement',tone:'NORMAL',script:'"Yeah, that\'s exactly why I ask \u2014 if we can\'t show savings from day one, it doesn\'t make sense for us to move forward, [Name]."',
+       body:'This establishes your standard, relieves pressure, and implies they likely qualify.',
+       notes:['"Doesn\'t make sense for us" = you have standards. You are selective.','Name at the end anchors the statement.']},
+      {title:'Step 9 \u2014 Appointment Transition',tone:'NORMAL',script:'"What I can do, [Name], is have someone take a quick look and see if your home even qualifies under SGIP. It\'s about 15 to 20 minutes \u2014 nothing crazy."',
+       body:'Soft transition. Low stakes. Scarcity. Pre-handles the time objection.',
+       notes:['"Take a quick look" = low commitment.','"Nothing crazy" = removes the time objection before they raise it.']},
+      {title:'Step 10 \u2014 Time Close',tone:'SLOW',script:'"Are you usually home more afternoons or evenings?"\n\n[After answer:] "I\'ve got [Day] at [Time] or [Day] at [Time] \u2014 which works better for you?"',
+       body:'Always forced choice. Never open-ended. Slow down here.',
+       notes:['First question gives you intel and warms them up.','Lower your voice slightly on the two options.','Silence after the options. Wait. Do not speak first.','Deliberate pacing = authority.']},
+      {title:'Step 11 \u2014 Confirmation Close',tone:'SLOW',script:'"Perfect, [Name] \u2014 I\'ll lock that in. They\'ll just review what your home qualifies for under SGIP and what the savings look like. What\'s the best number to reach you on?"\n\n[After:] "Got it. You\'ll hear from us [Day] at [Time]. Have a good one."',
+       body:'Repeat the day and time back. Every time. End warm and fast.',
+       notes:['You have the appointment. Get off the phone clean.','Do not linger after the appointment is set.']},
+    ]
+  },
+  { key:'objections', icon:'Shield', name:'Objection Handling', desc:'8 objections. Word-for-word comebacks.',
+    steps:[
+      {title:'The Two-Objection Rule',tone:'',script:'',body:'If a homeowner objects twice, you get one final reframe then exit clean. Do not push a third time. Chasing past two objections wastes your time and trains your brain to expect rejection.',
+       notes:['Objection 1 \u2192 Reframe and redirect.','Objection 2 \u2192 Final reframe or clean exit.','Objection 3 \u2192 You are wasting your own time. Exit.']},
+      {title:'"I already have solar"',tone:'',
+       script:'Step 1: "Got it \u2014 are you under NEM 2 or did you ever add battery backup with it?"\n\nIf unsure/older: Continue the flow from Step 3.\nIf modern + optimized: "Perfect \u2014 sounds like you\'re in a solid spot already. I won\'t take up your time."',
+       body:'Do NOT exit immediately. Test the system first.',
+       notes:['The money is in older or underperforming systems.','Do not assume and hang up.']},
+      {title:'"I\'m busy"',tone:'',
+       script:'"Yeah I got you \u2014 I\'ll be quick."\n\nThen immediately: "Real quick \u2014 are you still the homeowner at [Address]?"\n\nIf still pushing: "No problem \u2014 should I reach you this evening or tomorrow morning?"',
+       body:'Busy = engagement resistance. Not a real objection.',
+       notes:['Acknowledge and redirect in one breath.','Forced time choice if they push back a second time.','Never ask "is it okay if I call back?" \u2014 assume yes.']},
+      {title:'"Not interested"',tone:'',
+       script:'"Totally fair \u2014 is that because you already looked into something like this, or just not something you\'re thinking about right now?"',
+       body:'Probe the reason before exiting.',
+       notes:['If already looked: probe what they looked at. May be a different program.','If just not considering: "Most people say that before they see what their home qualifies for. It\'s literally just 20 minutes." One reframe. If no \u2014 exit clean.']},
+      {title:'"Send me information"',tone:'',
+       script:'"Yeah I can \u2014 would you rather see general info or what it would actually look like for your home specifically?"',
+       body:'Redirect to specificity. Generic info is a polite brush-off.',
+       notes:['If they engage: transition to appointment.','If still deflecting: get email, mark callback, move on.']},
+      {title:'"Is this solar?"',tone:'',
+       script:'"It\'s actually an SGIP upgrade \u2014 solar is one part of it but the main benefit most homeowners care about is just the bill reduction. That\'s really what we\'re looking at for your home."',
+       body:'Do not confirm or deny immediately. Reframe to the outcome.',
+       notes:['You have not lied. SGIP does involve solar integration.','You redirected from the label to the value.']},
+      {title:'"I need to talk to my spouse"',tone:'',
+       script:'"That\'s the smart move \u2014 honestly our consultants prefer when both of you are there because everything is specific to your home. When are you both usually available?"',
+       body:'Acknowledge it. Use it to your advantage.',
+       notes:['You validated the objection and used it to set a joint appointment.','Joint appointments close at a higher rate.']},
+      {title:'"How much does this cost?"',tone:'',
+       script:'"That\'s actually what the consultation covers \u2014 it\'s all based on your usage and what your home qualifies for, so it varies. That\'s the whole point of the 20 minutes."',
+       body:'Do not answer with a number. Redirect to the appointment.',
+       notes:['Answering with a number creates a price anchor before the appointment.','Let the consultant handle the numbers in person.']},
+    ]
+  },
+  { key:'tone', icon:'Mic', name:'Tone & Voicemail', desc:'How you say it is as important as what you say.',
+    steps:[
+      {title:'The Three Tone Zones',tone:'',script:'',body:'Most reps learn words. Elite reps learn delivery. Your tone communicates confidence and safety before the homeowner has processed a single word.',
+       notes:['FAST (Steps 1-2): Energetic, forward momentum, minimal pauses. Prevents hang-up.','NORMAL (Steps 3-9): Calm, conversational, one question at a time. Builds trust.','SLOW (Steps 10-11): Deliberate, lower register, pauses between options. Authority.']},
+      {title:'Name Usage Rule',tone:'',script:'',body:'Use the homeowner\'s name strategically. Overuse sounds scripted. Strategic use sounds personal.',
+       notes:['After a value statement: "...saving $80 to $200 a month, [Name]."','Before a transition: "[Name], what I can do is..."','During the close: "Perfect, [Name] \u2014 I\'ll lock that in."','Maximum: once every 2 to 3 exchanges.']},
+      {title:'The SGIP Voicemail',tone:'',
+       script:'"Hey [Name], this is [Rep] with R-I-V \u2014 reaching out because your address came up on our SGIP eligibility list for [City]. Wanted to see if your home qualifies before we close out the area. Give me a call back at [Number] \u2014 again that\'s [Number]. Talk soon."',
+       body:'20 seconds maximum. Creates urgency. Matches the live call frame.',
+       notes:['Say your number twice. Slowly. Both times.','Lead with the area \u2014 creates local relevance.','Do NOT say the word solar.','Maximum 2 voicemails per lead. Total. Ever.','Record it out loud first. If it sounds scripted to you, it is worse to them.']},
+    ]
+  },
+  { key:'mindset', icon:'Fire', name:'Mindset & Daily Habits', desc:'Discipline is the system. Talent is secondary.',
+    steps:[
+      {title:'The Math',tone:'',script:'',body:'80 dials \u2192 20 contacts \u2192 3 appointments. At 2 closes per 10 appointments, that is roughly 1 close every 3 to 4 days of solid calling. The reps who win are not the most talented. They are the most disciplined.',
+       notes:['One close per week. Every week. That is a career.','Do the work every day and the math takes care of itself.']},
+      {title:'Non-Negotiables \u2014 Before Your First Dial',tone:'',script:'',body:'',
+       notes:['Pull your lead list. Know who you are calling.','Read the script once \u2014 out loud. Not in your head.','Stand up or sit with good posture. It changes your voice.','Set your dial goal for the session. Write it down.','Smile before you dial. Every single call.']},
+      {title:'During Your Session',tone:'',script:'',body:'',
+       notes:['Log every call immediately. No batching.','Break every 90 minutes. Protect your energy.','After a tough call \u2014 reset before the next. 10 deep breaths.','Slump? Go back to basics. Just the hook and step 2. Find your rhythm.']},
+      {title:'End of Day Review',tone:'',script:'',body:'',
+       notes:['Review your numbers: dials, contacts, appts, score.','Write one thing you will do differently tomorrow.','Read one section of the playbook before you close the app.','Constant improvement. Every single day.']},
+    ]
+  },
+  { key:'followup', icon:'Loop', name:'Follow-Up & Disqualification', desc:'The fortune is in the follow-up. And the fast exit.',
+    steps:[
+      {title:'The Follow-Up Sequence',tone:'',script:'',body:'Most appointments are not set on the first dial.',
+       notes:['Day 1: First call. Log disposition. Leave VM if no answer.','Day 2: Second attempt \u2014 different time of day.','Day 4: Third attempt + second and FINAL voicemail.','Day 7: Last attempt. No VM. If still no answer, mark and move.','Rule: Never call more than once per day per lead.']},
+      {title:'Scheduled Callback Protocol',tone:'',
+       script:'"Hey [Name], this is [Rep] with R-I-V \u2014 calling you back as we agreed on [Day]. Good timing?"',
+       body:'Call exactly when you said you would. 5 minutes early is fine. 5 minutes late kills trust.',
+       notes:['Log exact date and time immediately when they say call back.','Set your reminder in the app.']},
+      {title:'Disqualification Rules',tone:'',script:'',body:'Fast exits protect your energy. Learn to recognize unqualified leads immediately.',
+       notes:['Exit if: they do not own the home.','Exit if: fully optimized modern solar + battery system.','Exit if: hostile, abusive, or refuse to engage after two attempts.','Exit if: confirmed wrong contact.','Clean exit line: "Got it \u2014 I won\'t take up your time. Appreciate it."','Say it warm. Say it fast. Move to the next lead.']},
+    ]
+  },
+];
+
+// ==================================================
+//  CALL FLOW STEPS (LIVE DIAL REFERENCE)
+// ==================================================
+var CF_STEPS = [
+  {num:'Step 1',title:'The Hook',tone:'FAST',
+   script:'"Hey [Name], this is [Rep] with R-I-V \u2014 quick question. Did anyone reach out to your address yet about SGIP?"',
+   notes:['Wait for answer. Do not fill the silence.','They say no = ideal.','Do NOT explain SGIP. Vagueness is intentional.']},
+  {num:'Step 2',title:'The Pivot',tone:'FAST',
+   script:'"That\'s actually why I\'m calling."',
+   notes:['Full stop. Let it land.','Do not rush. The pause is working.']},
+  {num:'Step 3',title:'Context',tone:'NORMAL',
+   script:'"[Name], California\'s been running upgrades through SGIP \u2014 basically it reduces extra charges on your Edison bill. Most homeowners in [City] are saving $80 to $200 a month."',
+   notes:['One idea: savings.','Use their city name.','Do not mention solar yet.']},
+  {num:'Step 4',title:'Soft Authority',tone:'NORMAL',
+   script:'"I\'m not looking to do anything over the phone \u2014 just seeing if your home even qualifies."',
+   notes:['Removes sales pressure.','May not qualify = creates desire.']},
+  {num:'Step 5',title:'Qualify: Ownership',tone:'NORMAL',
+   script:'"You and your spouse own the home at [Address], correct?"',
+   notes:['Non-owner = clean exit immediately.','Say the actual address.']},
+  {num:'Step 6',title:'Qualify: Roof',tone:'NORMAL',
+   script:'"And the roof is in pretty good condition?"',
+   notes:['Short. They say yes. Another small yes stacked.','Move immediately to Step 7.']},
+  {num:'Step 7',title:'Bill Discovery',tone:'NORMAL',
+   script:'"What are you usually running for electricity in winter months? ... And what\'s the highest it gets to?"',
+   notes:['Two questions in sequence.','Stay neutral on the number.']},
+  {num:'Step 8',title:'Control Statement',tone:'NORMAL',
+   script:'"That\'s exactly why I ask \u2014 if we can\'t show savings from day one, it doesn\'t make sense to move forward, [Name]."',
+   notes:['You have standards. You are selective.','Name at the end anchors the statement.']},
+  {num:'Step 9',title:'Appointment Transition',tone:'NORMAL',
+   script:'"What I can do is have someone take a quick look \u2014 see if your home even qualifies under SGIP. About 15 to 20 minutes, nothing crazy."',
+   notes:['Low stakes framing.','Pre-handles the time objection.']},
+  {num:'Step 10',title:'Time Close',tone:'SLOW',
+   script:'"Are you home more afternoons or evenings? ... I\'ve got [Day] at [Time] or [Day] at [Time] \u2014 which works better?"',
+   notes:['SLOW DOWN HERE.','Silence after the two options. Wait.','Do not speak first.']},
+  {num:'Step 11',title:'Confirmation Close',tone:'SLOW',
+   script:'"Perfect, [Name] \u2014 I\'ll lock that in. What\'s the best number to reach you on? ... Got it. You\'ll hear from us [Day] at [Time]."',
+   notes:['Repeat day and time back.','End warm and fast.','You have the appointment. Get off the phone clean.']},
+];
+
+// ==================================================
+//  BOOT
+// ==================================================
+window.onload = function() {
+  var saved = lsGet('riv_sess');
+  if (saved) {
+    try {
+      var sess = JSON.parse(saved);
+      S.token = sess.token;
+      S.rep = sess.rep;
+      bootApp();
+    } catch(e) { showScreen('s-onboard'); }
+  } else {
+    showScreen('s-onboard');
+  }
+};
+
+function showScreen(id) {
+  ['s-loading','s-onboard','s-training-gate','s-module-reader','s-app'].forEach(function(s) {
+    var el = document.getElementById(s);
+    el.classList.remove('active');
+    el.style.display = 'none';
+  });
+  var target = document.getElementById(id);
+  target.style.display = 'flex';
+  target.classList.add('active');
+}
+
+// ==================================================
+//  AUTH
+// ==================================================
+function authTab(t) {
+  document.getElementById('tab-si').className = 'ob-tab'+(t==='si'?' on':'');
+  document.getElementById('tab-su').className = 'ob-tab'+(t==='su'?' on':'');
+  document.getElementById('f-si').style.display = t==='si'?'':'none';
+  document.getElementById('f-su').style.display = t==='su'?'':'none';
+}
+
+function doSignIn() {
+  var em = gv('si-em'), pw = gv('si-pw');
+  document.getElementById('si-err').textContent = '';
+  if (!em||!pw) { document.getElementById('si-err').textContent='Enter email and password.'; return; }
+  showScreen('s-loading');
+  sbSignIn(em, pw).then(function(r) {
+    if (r.error||!r.access_token) {
+      showScreen('s-onboard');
+      var msg = r.error_description || r.error || 'Sign in failed.';
+      if (msg.toLowerCase().includes('email') && msg.toLowerCase().includes('confirm')) {
+        msg = 'Email not confirmed. Ask admin to disable email confirmation in Supabase, or check your inbox.';
+      } else if (msg.toLowerCase().includes('invalid')) {
+        msg = 'Incorrect email or password. Try again.';
+      }
+      document.getElementById('si-err').textContent = msg;
+      return;
+    }
+    S.token = r.access_token;
+    sbGet('reps','id=eq.'+r.user.id).then(function(rows) {
+      if (!rows||!rows.length) { showScreen('s-onboard'); document.getElementById('si-err').textContent='Profile not found. Contact admin.'; return; }
+      S.rep = rows[0];
+      lsSet('riv_sess', JSON.stringify({token:S.token, rep:S.rep}));
+      bootApp();
+    });
+  }).catch(function(){ showScreen('s-onboard'); document.getElementById('si-err').textContent='Network error. Try again.'; });
+}
+
+function doRegister() {
+  var nm = gv('su-nm'), em = gv('su-em'), pw = gv('su-pw'), rl = gv('su-rl'), rg = gv('su-rg');
+  document.getElementById('su-err').textContent = '';
+  if (!nm||!em||!pw) { document.getElementById('su-err').textContent='All fields required.'; return; }
+  if (pw.length<6) { document.getElementById('su-err').textContent='Password must be 6+ characters.'; return; }
+  showScreen('s-loading');
+  sbSignUp(em, pw).then(function(r) {
+    if (r.error) { showScreen('s-onboard'); document.getElementById('su-err').textContent=r.error.message||r.error; return; }
+    var uid = r.user ? r.user.id : r.id;
+    if (!uid) { showScreen('s-onboard'); document.getElementById('su-err').textContent='Signup error. Try again.'; return; }
+    sbPost('reps', {id:uid, name:nm, email:em, role:rl, region:rg}).then(function() {
+      // Auto sign in immediately \u2014 no email verification needed
+      sbSignIn(em, pw).then(function(sr) {
+        if (sr.access_token) {
+          S.token = sr.access_token;
+          S.rep = {id:uid, name:nm, email:em, role:rl, region:rg};
+          lsSet('riv_sess', JSON.stringify({token:S.token, rep:S.rep}));
+          bootApp();
+        } else {
+          // Fallback: send to sign in screen
+          showScreen('s-onboard');
+          authTab('si');
+          document.getElementById('si-em').value = em;
+          toast('Account created! Sign in now.');
+        }
+      });
+    });
+  }).catch(function(){ showScreen('s-onboard'); document.getElementById('su-err').textContent='Network error.'; });
+}
+
+function doSignOut() {
+  S = {token:null,rep:null,leads:[],events:[],logs:[],reps:[],training:[]};
+  lsRemove('riv_sess');
+  showScreen('s-onboard');
+}
+
+// ==================================================
+//  BOOT APP
+// ==================================================
+function bootApp() {
+  var rep = S.rep;
+  // Check for interrupted active session first (mobile recovery)
+  SessionManager.recover().then(function(activeSession) {
+    sbGet('training_progress','rep_id=eq.'+rep.id).then(function(rows) {
+      S.training = Array.isArray(rows) ? rows : [];
+      var completed = S.training.filter(function(t){return t.completed;}).map(function(t){return t.module;});
+      var allKeys = MODS.map(function(m){return m.key;});
+      var allDone = allKeys.every(function(k){return completed.indexOf(k)>=0;});
+      if (!allDone && rep.role === 'rep') {
+        showTrainingGate();
+      } else {
+        launchApp(activeSession);
+      }
+    });
+  });
+}
+
+// ==================================================
+//  TRAINING GATE
+// ==================================================
+function showTrainingGate() {
+  showScreen('s-training-gate');
+  renderGate();
+}
+
+function renderGate() {
+  var completed = S.training.filter(function(t){return t.completed;}).map(function(t){return t.module;});
+  var allDone = MODS.every(function(m){return completed.indexOf(m.key)>=0;});
+  var html = '';
+  MODS.forEach(function(m) {
+    var done = completed.indexOf(m.key) >= 0;
+    html += '<div class="gate-mod'+(done?' done':'')+'">';
+    html += '<div class="gate-mod-icon">'+m.icon+'</div>';
+    html += '<div class="gate-mod-info"><div class="gate-mod-name">'+m.name+'</div>';
+    html += '<div class="gate-mod-status">'+(done?'\u2713 Completed':'Not started')+'</div></div>';
+    html += '</div>';
+  });
+  document.getElementById('gate-modules').innerHTML = html;
+  var btn = document.getElementById('gate-start-btn');
+  if (allDone) {
+    btn.textContent = 'Enter the App \u2192';
+    btn.className = 'gate-start-btn unlocked';
+  } else {
+    var next = MODS.find(function(m){return completed.indexOf(m.key)<0;});
+    btn.textContent = next ? 'Start: '+next.name+' \u2192' : 'Continue Training \u2192';
+    btn.className = 'gate-start-btn unlocked';
+  }
+}
+
+function startNextModule() {
+  var completed = S.training.filter(function(t){return t.completed;}).map(function(t){return t.module;});
+  var allDone = MODS.every(function(m){return completed.indexOf(m.key)>=0;});
+  if (allDone) { launchApp(); return; }
+  var next = MODS.find(function(m){return completed.indexOf(m.key)<0;});
+  if (next) { fromGate = true; openModuleReader(next.key); }
+}
+
+// ==================================================
+//  MODULE READER
+// ==================================================
+function openModuleReader(key) {
+  currentModKey = key;
+  var mod = MODS.find(function(m){return m.key===key;});
+  if (!mod) return;
+  showScreen('s-module-reader');
+  document.getElementById('mr-title').textContent = mod.name;
+  var html = '';
+  mod.steps.forEach(function(step, i) {
+    html += '<div class="mr-step">';
+    if (step.tone) html += '<div class="tone-badge tone-'+step.tone.toLowerCase()+'">'+step.tone+'</div>';
+    html += '<div class="mr-step-num">Section '+(i+1)+' of '+mod.steps.length+'</div>';
+    html += '<div class="mr-step-title">'+step.title+'</div>';
+    if (step.body) html += '<div class="mr-step-body">'+step.body+'</div>';
+    if (step.script) {
+      step.script.split('\n\n').forEach(function(line) {
+        html += '<div class="mr-script">'+esc(line)+'</div>';
+      });
+    }
+    if (step.notes && step.notes.length) {
+      html += '<ul style="margin-top:10px;padding-left:0;list-style:none">';
+      step.notes.forEach(function(n) {
+        html += '<li style="font-size:.84rem;color:var(--t2);padding:4px 0 4px 16px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:var(--purple)">\u2022</span>'+n+'</li>';
+      });
+      html += '</ul>';
+    }
+    html += '</div>';
+  });
+  var completed = S.training.filter(function(t){return t.completed;}).map(function(t){return t.module;});
+  var isDone = completed.indexOf(key) >= 0;
+  html += '<button class="mr-done-btn'+(isDone?' completed':'')+'" id="mr-done-btn" onclick="markModDone()">'+( isDone?'\u2713 Completed':'Mark Complete \u2713')+'</button>';
+  document.getElementById('mr-content').innerHTML = html;
+  document.getElementById('mr-prog').textContent = (completed.length)+' / '+MODS.length+' done';
+  document.getElementById('mr-content').scrollTop = 0;
+}
+
+function exitModule() {
+  var completed = S.training.filter(function(t){return t.completed;}).map(function(t){return t.module;});
+  var allDone = MODS.every(function(m){return completed.indexOf(m.key)>=0;});
+  if (fromGate && !allDone) {
+    showTrainingGate();
+    renderGate();
+  } else if (fromGate && allDone) {
+    launchApp();
+  } else {
+    showScreen('s-app');
+  }
+}
+
+function markModDone() {
+  var key = currentModKey;
+  // Always upsert \u2014 prevents duplicate key error on double-tap
+  var p = fetch(SB+'/rest/v1/training_progress', {
+    method: 'POST',
+    headers: sbH({'Prefer':'resolution=merge-duplicates,return=representation'}),
+    body: JSON.stringify({rep_id:S.rep.id, module:key, completed:true, completed_at:new Date().toISOString()})
+  }).then(function(r){return r.json();});
+  p.then(function() {
+    var existing = S.training.find(function(t){return t.module===key;});
+    if (!existing) S.training.push({rep_id:S.rep.id, module:key, completed:true});
+    else existing.completed = true;
+    var btn = document.getElementById('mr-done-btn');
+    if (btn) { btn.textContent='\u2713 Completed'; btn.className='mr-done-btn completed'; }
+    var completed = S.training.filter(function(t){return t.completed;}).map(function(t){return t.module;});
+    document.getElementById('mr-prog').textContent = completed.length+' / '+MODS.length+' done';
+    toast('Module completed!');
+    if (fromGate) {
+      var allDone = MODS.every(function(m){return completed.indexOf(m.key)>=0;});
+      setTimeout(function() {
+        if (allDone) { launchApp(); } else { showTrainingGate(); renderGate(); }
+      }, 800);
+    } else {
+      renderTrainingPage();
+    }
+  });
+}
+
+function openMod(key) { fromGate = false; openModuleReader(key); }
+
+// ==================================================
+//  LAUNCH APP
+// ==================================================
+function launchApp(activeSession) {
+  applyLang();
+  var rep = S.rep;
+  showScreen('s-app');
+  var hr = new Date().getHours();
+  document.getElementById('dash-greet').textContent = (hr<12?'Good morning':hr<17?'Good afternoon':'Good evening')+', '+rep.name.split(' ')[0]+'.';
+  document.getElementById('dash-sub').textContent = rep.role==='admin'?'Full system \u2014 all regions.':rep.role==='manager'?'Team overview \u2014 '+rep.region+'.':'Your performance. Make every dial count.';
+  document.getElementById('tb-name').textContent = rep.name;
+  var badge = document.getElementById('tb-role');
+  badge.textContent = rep.role.toUpperCase();
+  badge.className = 'tb-role role-'+rep.role;
+  if (rep.role==='manager'||rep.role==='admin') document.getElementById('nt-territory').style.display='';
+  if (rep.role==='admin') { document.getElementById('nt-admin').style.display=''; document.getElementById('overview-card').style.display=''; }
+  if (rep.role!=='rep') document.getElementById('th-rep').style.display='';
+  loadAll(activeSession);
+  startAutoRefresh();
+}
+
+// ==================================================
+//  LOAD DATA
+// ==================================================
+function loadAll() {
+  var rep = S.rep;
+  var leadsQ = rep.role==='admin'?'order=created_at.desc&limit=500':rep.role==='manager'?'order=created_at.desc&limit=500':'assigned_to=eq.'+rep.id+'&order=created_at.desc';
+  var repsQ = 'order=name.asc';
+  var eventsQ = rep.role==='admin'?'order=created_at.desc&limit=1000':rep.role==='manager'?'order=created_at.desc&limit=500':'rep_id=eq.'+rep.id+'&order=created_at.desc&limit=500';
+  var logsQ = rep.role==='rep'?'rep_id=eq.'+rep.id+'&order=logged_at.desc&limit=200':'order=logged_at.desc&limit=200';
+  Promise.all([
+    sbGet('leads', leadsQ),
+    sbGet('reps', repsQ),
+    sbGet('call_events', eventsQ),
+    sbGet('call_log', logsQ),
+  ]).then(function(res) {
+    S.leads = Array.isArray(res[0])?res[0]:[];
+    S.reps = Array.isArray(res[1])?res[1]:[];
+    S.events = Array.isArray(res[2])?res[2]:[];
+    S.logs = Array.isArray(res[3])?res[3]:[];
+    renderDashboard();
+    renderLeads();
+    renderCallLog();
+    renderTrainingPage();
+    populateCFLeadSel();
+    if (rep.role!=='rep') renderRoster();
+    if (rep.role==='admin') { renderAdmin(); renderAdminLeads(); }
+    // Restore interrupted call flow if session was active on reload
+    if (activeSession && activeSession.id) {
+      cfLeadId = activeSession.lead_id;
+      cfSessionId = activeSession.id;
+      cfStep = activeSession.step || 0;
+      document.getElementById('cf-lead-sel').value = activeSession.lead_id;
+      document.getElementById('cf-container').style.display = '';
+      renderCFStep();
+      goPage('callflow');
+      toast('Call session restored.');
+    }
+  });
+}
+
+// ==================================================
+//  SCORE ENGINE
+// ==================================================
+function calcScore(events) {
+  return events.reduce(function(s,e){ return s+(SCORE_MAP[e.event_type]||0); }, 0);
+}
+function computeToday(events) {
+  var today = new Date().toISOString().split('T')[0];
+  var te = events.filter(function(e){ return e.created_at && e.created_at.startsWith(today); });
+  return {
+    dials: te.filter(function(e){return e.event_type==='dial';}).length,
+    contacts: te.filter(function(e){return e.event_type==='contact';}).length,
+    appts: te.filter(function(e){return e.event_type==='appointment';}).length,
+    score: calcScore(te)
+  };
+}
+
+// ==================================================
+//  DASHBOARD
+// ==================================================
+function renderDashboard() {
+  var rep = S.rep;
+  var myEvents = S.events.filter(function(e){return e.rep_id===rep.id;});
+  var today = computeToday(myEvents);
+  document.getElementById('d-dials').textContent = today.dials;
+  document.getElementById('d-contacts').textContent = today.contacts;
+  document.getElementById('d-appts').textContent = today.appts;
+  document.getElementById('d-score').textContent = calcScore(myEvents);
+  document.getElementById('lb-label').textContent = rep.role==='admin'?'All Regions':rep.region;
+  // Build leaderboard
+  var lb = buildLeaderboard();
+  var lbEl = document.getElementById('lb-list');
+  if (!lb.length) { lbEl.innerHTML = '<p style="color:var(--t3);font-size:.85rem;padding:10px 0">No reps yet.</p>'; }
+  else {
+    lbEl.innerHTML = lb.map(function(r,i) {
+      var rankCls = i===0?'lb-rank gold':i===1?'lb-rank silver':i===2?'lb-rank bronze':'lb-rank';
+      return '<div class="lb-row">'
+        +'<div class="'+rankCls+'">'+(i+1)+'</div>'
+        +'<div class="lb-name">'+esc(r.name)+'<div class="lb-region">'+(r.region||'RIV Remote')+'</div></div>'
+        +'<div class="lb-stats">'
+        +'<div class="lb-s"><strong>'+r.appts+'</strong><span>Appts</span></div>'
+        +'<div class="lb-s"><strong>'+r.contacts+'</strong><span>Contacts</span></div>'
+        +'<div class="lb-s"><strong>'+r.dials+'</strong><span>Dials</span></div>'
+        +'</div>'
+        +'<div class="lb-score">'+r.score+'</div>'
+        +'</div>';
+    }).join('');
+  }
+  if (rep.role==='admin') renderOverview();
+}
+
+function buildLeaderboard() {
+  return S.reps.map(function(rep) {
+    var re = S.events.filter(function(e){return e.rep_id===rep.id;});
+    var td = computeToday(re);
+    return { name:rep.name, region:rep.region, score:calcScore(re), dials:td.dials, contacts:td.contacts, appts:td.appts };
+  }).sort(function(a,b){return b.score-a.score;});
+}
+
+function renderOverview() {
+  var regions = ['Mamba U','Spartan U','Solar X'];
+  document.getElementById('overview-table').innerHTML = '<table><thead><tr><th>Area</th><th>Reps</th><th>Leads</th><th>Score</th><th>Appts</th></tr></thead><tbody>'
+    +regions.map(function(reg){
+      var rr = S.reps.filter(function(r){return (r.region||'')===reg;});
+      var ll = S.leads.filter(function(l){return l.region===reg;}).length;
+      var re = S.events.filter(function(e){ return rr.some(function(r){return r.id===e.rep_id;}); });
+      var appts = re.filter(function(e){return e.event_type==='appointment';}).length;
+      return '<tr><td><strong>'+reg+'</strong></td><td>'+rr.length+'</td><td>'+ll+'</td><td><strong style="color:var(--gold)">'+calcScore(re)+'</strong></td><td><strong style="color:var(--green)">'+appts+'</strong></td></tr>';
+    }).join('')+'</tbody></table>';
+}
+
+// ==================================================
+//  NAV
+// ==================================================
+function goPage(name) {
+  document.querySelectorAll('.nt').forEach(function(t){t.classList.remove('on');});
+  document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
+  var btn = document.querySelector('.nt[data-page="'+name+'"]');
+  if (btn) btn.classList.add('on');
+  var pg = document.getElementById('pg-'+name);
+  if (pg) pg.classList.add('on');
+  var main = document.querySelector('.main');
+  if (main && window.innerWidth < 1200) { main.scrollTop = 0; }
+  if (name==='territory') renderRoster();
+  if (name==='admin') { renderAdmin(); renderAdminLeads(); }
+}
+// ==================================================
+//  LEADS
+// ==================================================
+function renderLeads() {
+  var filter = document.getElementById('lf-filter').value;
+  var search = document.getElementById('lf-search').value.toLowerCase();
+  var leads = S.leads.slice();
+  if (filter!=='all') leads = leads.filter(function(l){return l.status===filter;});
+  if (search) leads = leads.filter(function(l){return ((l.first_name||'')+' '+(l.last_name||'')).toLowerCase().includes(search)||(l.address||'').toLowerCase().includes(search);});
+  var el = document.getElementById('leads-list');
+  if (!leads.length) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">B</div><p>'+(S.rep.role==='rep'?'No leads assigned yet.<br>Contact your manager.':'No leads found.<br>Upload a CSV in Territory.')+'</p></div>';
+    return;
+  }
+  el.innerHTML = leads.map(function(l){
+    var canRs = S.rep.role!=='rep';
+    return '<div class="lc"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">'
+      +'<div><div class="lc-name">'+esc((l.first_name||'')+' '+(l.last_name||''))+'</div>'
+      +'<div class="lc-meta">pin: '+esc([l.address,l.city,l.zip].filter(Boolean).join(', '))+'</div>'
+      +'<div class="lc-meta">tel: '+esc(l.phone||'No phone')+'</div>'
+      +(l.callback_dt?'<div class="lc-meta" style="color:var(--yellow)">cb: '+new Date(l.callback_dt).toLocaleString()+'</div>':'')
+      +(l.last_note?'<div class="lc-meta" style="font-style:italic;margin-top:3px">'+esc(l.last_note)+'</div>':'')
+      +'</div><span class="pill '+sPill(l.status)+'">'+(l.status||'New')+'</span></div>'
+      +'<div class="lc-actions"><button class="btn bpu btn-sm" onclick="openLogMo(\''+l.id+'\')">Log Call</button>'
+      +(canRs?'<button class="btn bou btn-sm" onclick="openRsMo(\''+l.id+'\')">Reassign</button>':'')
+      +'</div></div>';
+  }).join('');
+}
+
+function sPill(s){return {'New':'pb','No Answer':'pgr','Voicemail':'pb','Callback':'py','Not Interested':'pr','Appt Set':'pg'}[s]||'pgr';}
+
+// ==================================================
+//  CALL FLOW
+// ==================================================
+function populateCFLeadSel() {
+  var sel = document.getElementById('cf-lead-sel');
+  var leads = S.leads.filter(function(l){return l.status!=='Not Interested'&&l.status!=='Appt Set';});
+  sel.innerHTML = '<option value="">Select a lead to call...</option>'
+    + leads.map(function(l){return '<option value="'+l.id+'">'+esc((l.first_name||'')+' '+(l.last_name||''))+(l.city?' \u2014 '+l.city:'')+'</option>';}).join('');
+}
+
+function startCallFlow() {
+  var lid = document.getElementById('cf-lead-sel').value;
+  if (!lid) { toast('Select a lead first.'); return; }
+  var lead = S.leads.find(function(l){return l.id===lid;});
+  var areaCluster = lead ? (lead.area_cluster||null) : null;
+  cfLeadId = lid;
+  cfStep = 0;
+  cfDispActive = '';
+  cfSessionId = null;
+  document.getElementById('cf-container').style.display = '';
+  document.getElementById('cf-disp-label').textContent = 'Select disposition above';
+  document.getElementById('cf-notes').value = '';
+  document.getElementById('cf-cb-row').style.display = 'none';
+  document.getElementById('cf-log-panel').style.display = 'none';
+  // Create session in Supabase (idempotent \u2014 safe to call multiple times)
+  SessionManager.start(lid, S.rep.id, areaCluster).then(function(sess) {
+    cfSessionId = sess ? sess.id : null;
+    SessionManager.saveStep(0);
+    renderCFStep();
+  });
+}
+
+function renderCFStep() {
+  var step = CF_STEPS[cfStep];
+  var pct = Math.round(((cfStep+1)/CF_STEPS.length)*100);
+  document.getElementById('cf-prog-fill').style.width = pct+'%';
+  var toneClass = {'FAST':'tone-fast','NORMAL':'tone-norm','SLOW':'tone-slow'}[step.tone]||'';
+  var html = '<div class="cf-step-num">'+step.num+' of '+CF_STEPS.length+'</div>'
+    +'<div class="cf-step-title">'+step.title+'</div>'
+    +(step.tone?'<div class="tone-badge '+toneClass+'">'+step.tone+'</div>':'')
+    +'<div class="cf-script">'+esc(step.script)+'</div>'
+    +'<ul class="cf-notes">'+step.notes.map(function(n){return '<li>'+n+'</li>';}).join('')+'</ul>';
+  document.getElementById('cf-panel').innerHTML = html;
+  document.getElementById('cf-prev').style.opacity = cfStep===0?'0.3':'1';
+  document.getElementById('cf-next').style.display = cfStep===CF_STEPS.length-1?'none':'';
+  // Log panel always visible once call is started
+  document.getElementById('cf-log-panel').style.display = '';
+}
+
+function cfMove(dir) {
+  cfStep = Math.max(0, Math.min(CF_STEPS.length-1, cfStep+dir));
+  SessionManager.saveStep(cfStep);
+  renderCFStep();
+}
+
+function endCall() {
+  if (cfSessionId) SessionManager.abandon(cfSessionId);
+  document.getElementById('cf-container').style.display='none';
+  document.getElementById('cf-lead-sel').value='';
+  cfLeadId = null;
+  cfSessionId = null;
+}
+
+function setDisp(d) {
+  activeDisp = d; cfDispActive = d;
+  var lbl = document.getElementById('disp-label')||document.getElementById('cf-disp-label');
+  var cfLbl = document.getElementById('cf-disp-label');
+  var moLbl = document.getElementById('disp-label');
+  if (cfLbl) cfLbl.textContent = '\u2713 '+d;
+  if (moLbl) moLbl.textContent = '\u2713 '+d;
+  var cbRow = document.getElementById('mo-cb-row')||null;
+  var cfCbRow = document.getElementById('cf-cb-row');
+  if (cbRow) cbRow.style.display = d==='Callback'?'':'none';
+  if (cfCbRow) cfCbRow.style.display = d==='Callback'?'':'none';
+}
+
+function saveCallFromFlow() {
+  if (!cfDispActive) { toast('Select a disposition first.'); return; }
+  if (!cfLeadId) { toast('No lead selected.'); return; }
+  var notes = document.getElementById('cf-notes').value.trim();
+  var cbDt = document.getElementById('cf-cb-dt').value||null;
+  var btn = document.getElementById('cf-save-btn');
+  btn.disabled=true; btn.textContent='Saving...';
+  saveCallCore(cfLeadId, cfDispActive, notes, cbDt, cfSessionId, function() {
+    btn.disabled=false; btn.textContent='Save & Log Call';
+    cfSessionId = null;
+    toast('Call logged: '+cfDispActive);
+    endCall();
+    populateCFLeadSel();
+  });
+}
+
+// ==================================================
+//  LOG MODAL
+// ==================================================
+function openLogMo(lid) {
+  var lead = S.leads.find(function(l){return l.id===lid;});
+  if (!lead) return;
+  activeDisp = '';
+  document.getElementById('mo-lead-id').value = lid;
+  document.getElementById('mo-log-title').textContent = 'Log Call \u2014 '+esc((lead.first_name||'')+' '+(lead.last_name||''));
+  document.getElementById('mo-notes').value = '';
+  document.getElementById('mo-cb-dt').value = '';
+  document.getElementById('disp-label').textContent = 'Select a disposition';
+  document.getElementById('mo-cb-row').style.display = 'none';
+  document.getElementById('mo-log').classList.add('open');
+}
+
+function saveCall() {
+  if (!activeDisp) { toast('Select a disposition first.'); return; }
+  var lid = document.getElementById('mo-lead-id').value;
+  var notes = document.getElementById('mo-notes').value.trim();
+  var cbDt = document.getElementById('mo-cb-dt').value||null;
+  var btn = document.getElementById('mo-save-btn');
+  btn.disabled=true; btn.textContent='Saving...';
+  var lead = S.leads.find(function(l){return l.id===lid;});
+  var areaCluster = lead ? (lead.area_cluster||null) : null;
+  // Create a quick session for leads logged from the modal (not call flow)
+  SessionManager.start(lid, S.rep.id, areaCluster).then(function(sess) {
+    var sessId = sess ? sess.id : null;
+    saveCallCore(lid, activeDisp, notes, cbDt, sessId, function() {
+      btn.disabled=false; btn.textContent='Save Call';
+      closeMo('mo-log');
+      toast('Call logged: '+activeDisp);
+    });
+  });
+}
+
+function saveCallCore(lid, disp, notes, cbDt, sessionId, cb) {
+  var outcomeMap = {
+    'No Answer':'no_answer','Voicemail':'voicemail',
+    'Callback':'callback','Not Interested':'not_interested','Appt Set':'appointment_set'
+  };
+  var eventTypeMap = {
+    'No Answer':'dial','Voicemail':'voicemail',
+    'Callback':'callback','Not Interested':'not_interested','Appt Set':'appointment'
+  };
+  var outcome = outcomeMap[disp]||'no_answer';
+  var eventType = eventTypeMap[disp]||'dial';
+  var leadPatch = {last_note:notes};
+  if (cbDt) leadPatch.callback_dt = cbDt;
+  Promise.all([
+    SessionManager.logEvent(sessionId, S.rep.id, lid, eventType),
+    sbPatch('leads','id=eq.'+lid, leadPatch),
+    sbPost('call_log',{lead_id:lid, rep_id:S.rep.id, session_id:sessionId||null, disposition:disp, notes:notes}),
+  ]).then(function() {
+    if (disp==='Appt Set') {
+      sbPost('appointments',{lead_id:lid,rep_id:S.rep.id,session_id:sessionId||null,status:'scheduled',scheduled_time:cbDt||null});
+    }
+    // Complete session \u2014 this fires the DB trigger which handles lifecycle
+    return SessionManager.complete(sessionId, outcome);
+  }).then(function() {
+    var lead = S.leads.find(function(l){return l.id===lid;});
+    if (lead) { lead.last_note=notes; if(cbDt) lead.callback_dt=cbDt; }
+    // Reload from rep_scores view (completed sessions only)
+    return sbGet('rep_scores','order=total_score.desc').then(function(scores){
+      S.repScores = Array.isArray(scores)?scores:[];
+      renderDashboard();
+      return sbGet('leads', S.rep.role==='admin'?'order=created_at.desc':'assigned_to=eq.'+S.rep.id+'&order=created_at.desc');
+    }).then(function(leads){
+      S.leads = Array.isArray(leads)?leads:[];
+      renderLeads();
+      return sbGet('call_log', S.rep.role==='rep'?'rep_id=eq.'+S.rep.id+'&order=logged_at.desc&limit=200':'order=logged_at.desc&limit=200');
+    }).then(function(logs){
+      S.logs = Array.isArray(logs)?logs:[];
+      renderCallLog();
+      if (cb) cb();
+    });
+  }).catch(function(e){ console.error('saveCallCore error',e); toast('Error saving. Check connection.'); if(cb) cb(); });
+}
+
+// ==================================================
+//  CALL LOG
+// ==================================================
+function renderCallLog() {
+  var tbody = document.getElementById('log-tbody');
+  if (!S.logs.length) { tbody.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--t3);padding:22px">No calls logged yet.</td></tr>'; return; }
+  var repMap = {};
+  S.reps.forEach(function(r){repMap[r.id]=r.name;});
+  var leadMap = {};
+  S.leads.forEach(function(l){leadMap[l.id]=l;});
+  tbody.innerHTML = S.logs.map(function(l){
+    var lead = leadMap[l.lead_id]||{};
+    return '<tr>'
+      +'<td style="white-space:nowrap;font-size:.76rem">'+new Date(l.logged_at).toLocaleString()+'</td>'
+      +'<td><strong>'+esc((lead.first_name||'')+' '+(lead.last_name||''))+'</strong></td>'
+      +'<td><span class="pill '+sPill(l.disposition)+'">'+l.disposition+'</span></td>'
+      +'<td style="font-size:.79rem">'+esc(l.notes||'\u2014')+'</td>'
+      +'<td style="font-size:.79rem">'+esc(repMap[l.rep_id]||'')+'</td>'
+      +'</tr>';
+  }).join('');
+}
+
+// ==================================================
+//  REASSIGN
+// ==================================================
+function openRsMo(lid) {
+  document.getElementById('rs-lid').value = lid;
+  var reps = S.reps.filter(function(r){return r.role==='rep';});
+  document.getElementById('rs-sel').innerHTML = reps.map(function(r){return '<option value="'+r.id+'">'+esc(r.name)+' ('+r.region+')</option>';}).join('');
+  document.getElementById('mo-rs').classList.add('open');
+}
+function saveReassign() {
+  var lid = document.getElementById('rs-lid').value;
+  var rid = document.getElementById('rs-sel').value;
+  sbPatch('leads','id=eq.'+lid,{assigned_to:rid}).then(function(){
+    var l = S.leads.find(function(x){return x.id===lid;});
+    if (l) l.assigned_to = rid;
+    closeMo('mo-rs');
+    toast('Lead reassigned.');
+    renderLeads();
+  });
+}
+function closeMo(id){document.getElementById(id).classList.remove('open');}
+
+// ==================================================
+//  CSV UPLOAD
+// ==================================================
+function handleCSV(event) {
+  var file = event.target.files[0]; if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var lines = e.target.result.split('\n').filter(function(l){return l.trim();});
+    csvPending = [];
+    for (var i=1;i<lines.length;i++) {
+      var c = lines[i].split(',').map(function(x){return x.trim().replace(/^"|"$/g,'');});
+      if (!c[0]&&!c[1]) continue;
+      var fn=c[0]||'',ln=c[1]||'';
+      csvPending.push({first_name:fn,last_name:ln,phone:c[2]||'',address:c[3]||'',city:c[4]||'',state:c[5]||'',zip:c[6]||'',status:'New',last_note:'',detected_language:detectLeadLanguage(fn,ln)});
+    }
+    document.getElementById('csv-msg').textContent = csvPending.length+' leads ready.';
+    document.getElementById('csv-prev').style.display='';
+  };
+  reader.readAsText(file);
+}
+function cancelCSV(){csvPending=[];document.getElementById('csv-prev').style.display='none';document.getElementById('csv-in').value='';}
+function importLeads() {
+  if (!csvPending.length) return;
+  var reps = S.reps.filter(function(r){return r.role==='rep'&&r.region===S.rep.region;});
+  if (!reps.length) { toast('No reps in your region yet.'); return; }
+  var idx=0;
+  csvPending.forEach(function(lead){lead.assigned_to=reps[idx%reps.length].id;idx++;});
+  sbPost('leads',csvPending).then(function(r){
+    if (r&&r.error){toast('Import error: '+r.error.message);return;}
+    toast(csvPending.length+' leads imported.');
+    csvPending=[];document.getElementById('csv-prev').style.display='none';document.getElementById('csv-in').value='';
+    loadAll();
+  });
+}
+
+// ==================================================
+//  TRAINING PAGE
+// ==================================================
+function renderTrainingPage() {
+  var completed = S.training.filter(function(t){return t.completed;}).map(function(t){return t.module;});
+  var done = completed.length;
+  document.getElementById('tp-count').textContent = done+' / '+MODS.length;
+  document.getElementById('tp-bar').style.width = Math.round((done/MODS.length)*100)+'%';
+  document.getElementById('training-list').innerHTML = MODS.map(function(m){
+    var isDone = completed.indexOf(m.key)>=0;
+    return '<div class="mod-card'+(isDone?' done':'')+'" onclick="openMod(\''+m.key+'\')">'
+      +'<div class="mod-icon">'+m.icon+'</div>'
+      +'<div class="mod-info"><div class="mod-name">'+m.name+'</div><div class="mod-desc">'+m.desc+'</div>'
+      +'<div class="mod-status">'+(isDone?'\u2713 Completed':'Not started')+'</div></div>'
+      +'<div style="color:var(--t3)">\u203A</div></div>';
+  }).join('');
+}
+
+// ==================================================
+//  ROSTER
+// ==================================================
+function renderRoster() {
+  var reps = S.reps;
+  var el = document.getElementById('roster-tbl');
+  if (!reps.length){el.innerHTML='<p style="color:var(--t3);font-size:.85rem">No reps yet.</p>';return;}
+  el.innerHTML='<table><thead><tr><th>Name</th><th>Role</th><th>Languages</th><th>Leads</th><th>Score</th></tr></thead><tbody>'
+    +reps.map(function(r){
+      var leads=S.leads.filter(function(l){return l.assigned_to===r.id;}).length;
+      var re=S.events.filter(function(e){return e.rep_id===r.id;});
+      return '<tr><td><strong>'+esc(r.name)+'</strong></td><td><span class="pill '+(r.role==='manager'?'pb':'pgr')+'">'+r.role+'</span></td><td>'+leads+'</td><td><strong style="color:var(--gold)">'+calcScore(re)+'</strong></td></tr>';
+    }).join('')+'</tbody></table>';
+}
+
+// ==================================================
+//  ADMIN
+// ==================================================
+function renderAdmin() {
+  sbGet('reps','order=name.asc').then(function(reps){
+    reps = Array.isArray(reps)?reps:[];
+    sbCount('leads').then(function(lc){
+      sbGet('appointments','order=created_at.desc&limit=1').then(function(){
+        sbCount('appointments').then(function(ac){
+          document.getElementById('adm-reps').textContent=reps.length;
+          document.getElementById('adm-leads').textContent=lc;
+          document.getElementById('adm-appts').textContent=ac;
+          var scores = reps.map(function(r){
+            var re=S.events.filter(function(e){return e.rep_id===r.id;});
+            return calcScore(re);
+          });
+          document.getElementById('adm-top').textContent=scores.length?Math.max.apply(null,scores):0;
+          var el=document.getElementById('admin-reps-tbl');
+          if (!reps.length){el.innerHTML='<p style="color:var(--t3)">No reps yet.</p>';return;}
+          el.innerHTML='<table><thead><tr><th>Name</th><th>Email</th><th>Region</th><th>Role</th><th>Score</th><th>Training</th><th></th></tr></thead><tbody>'
+            +reps.map(function(r){
+              var re=S.events.filter(function(e){return e.rep_id===r.id;});
+              var sc=calcScore(re);
+              return '<tr><td><strong>'+esc(r.name)+'</strong></td><td style="font-size:.76rem">'+esc(r.email)+'</td><td>'+r.region+'</td><td>'+r.role+'</td>'
+                +'<td><strong style="color:var(--gold)">'+sc+'</strong></td>'
+                +'<td><span class="pill '+(r.training_done?'pg':'pgr')+'">'+(r.training_done?'Done':'Pending')+'</span></td>'
+                +'<td><button class="btn btn-sm bou" onclick="removeRep(\''+r.id+'\',\''+esc(r.name)+'\')">Remove</button></td></tr>';
+            }).join('')+'</tbody></table>';
+        });
+      });
+    });
+  });
+}
+
+function adminAddRep() {
+  var nm=gv('ar-nm'),em=gv('ar-em'),rl=gv('ar-rl'),rg=gv('ar-rg');
+  if (!nm||!em){toast('Name and email required.');return;}
+  var tempPw = 'RIV2024!';
+  showScreen('s-loading');
+  sbSignUp(em, tempPw).then(function(r) {
+    if (r.error) { showScreen('s-app'); goPage('admin'); toast('Auth error: '+(r.error.message||r.error)); return; }
+    var uid = r.user ? r.user.id : r.id;
+    if (!uid) { showScreen('s-app'); goPage('admin'); toast('Could not create account. Check email.'); return; }
+    sbPost('reps',{id:uid, name:nm, email:em, role:rl, region:rg}).then(function(res){
+      showScreen('s-app'); goPage('admin');
+      if (res&&res.error){toast('Profile error: '+res.error.message);return;}
+      document.getElementById('ar-nm').value=''; document.getElementById('ar-em').value='';
+      toast(nm+' added! Temp password: RIV2024!');
+      renderAdmin(); loadAll();
+    });
+  }).catch(function(){ showScreen('s-app'); goPage('admin'); toast('Network error. Try again.'); });
+}
+// removeRep is now called only from confirmRemoveRep (3-step)
+function removeRep(id,name) {
+  sbDelete('reps','id=eq.'+id).then(function(){toast(name+' removed.');renderAdmin();loadAll();});
+}
+
+// ==================================================
+//  UTILS
+// ==================================================
+function gv(id){return document.getElementById(id).value.trim();}
+function togglePw(id, btn) {
+  var inp = document.getElementById(id);
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = '8'; }
+  else { inp.type = 'password'; btn.textContent = '1\uFE0F'; }
+}
+function toggleQO(btn) {
+  var panel = document.getElementById('qo-panel');
+  var arrow = document.getElementById('qo-arrow');
+  if (panel.classList.contains('open')) {
+    panel.classList.remove('open');
+    if (arrow) arrow.textContent = '\u25BC';
+  } else {
+    panel.classList.add('open');
+    if (arrow) arrow.textContent = '\u25B2';
+  }
+}
+// Auto-refresh leaderboard every 60 seconds silently
+function startAutoRefresh() {
+  setInterval(function() {
+    var rep = S.rep;
+    if (!rep) return;
+    var repsQ = rep.role==='admin'?'order=name.asc':'region=eq.'+encodeURIComponent(rep.region)+'&order=name.asc';
+    var evQ = rep.role==='admin'?'order=created_at.desc&limit=1000':rep.role==='manager'?'order=created_at.desc&limit=500':'rep_id=eq.'+rep.id+'&order=created_at.desc&limit=500';
+    Promise.all([sbGet('reps',repsQ), sbGet('call_events',evQ)]).then(function(res) {
+      if (Array.isArray(res[0])) S.reps = res[0];
+      if (Array.isArray(res[1])) S.events = res[1];
+      var dashPg = document.getElementById('pg-dashboard');
+      if (dashPg && dashPg.classList.contains('on')) renderDashboard();
+    });
+  }, 60000);
+}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.style.display='block';clearTimeout(window._t);window._t=setTimeout(function(){t.style.display='none';},3000);}
+function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+function lsRemove(k){try{localStorage.removeItem(k);}catch(e){}}
+
+// Modal close on overlay tap
+document.getElementById('mo-log').addEventListener('click',function(e){if(e.target===this)closeMo('mo-log');});
+var moDoc = document.getElementById('mo-doc');
+if (moDoc) moDoc.addEventListener('click',function(e){if(e.target===this)closeMo('mo-doc');});
+
+// Responsive resize handler
+window.addEventListener('resize', function() {
+  var activePg = document.querySelector('.pg.on');
+  if (activePg) {
+    var pgId = activePg.id.replace('pg-','');
+    document.querySelectorAll('.nt').forEach(function(t){
+      t.classList.remove('on');
+      if (t.getAttribute('data-page') === pgId) t.classList.add('on');
+    });
+  }
+});
+document.getElementById('mo-rs').addEventListener('click',function(e){if(e.target===this)closeMo('mo-rs');});
+
+// ==============================================
+//  LANGUAGE SYSTEM
+// ==============================================
+var LANG = 'en';
+
+var STRINGS = {
+  en: {
+    signIn:'Sign In',
+    register:'Register',
+    email:'Email',
+    password:'Password',
+    fullName:'Full Name',
+    createAccount:'Create Account',
+    langSpeak:'Languages You Speak',
+    note:'Your account will be reviewed by your manager.',
+    dashboard:'Dashboard',
+    leads:'My Leads',
+    callflow:'Call Flow',
+    calllog:'Call Log',
+    training:'Training',
+    resources:'Resources',
+    territory:'Territory',
+    admin:'Admin',
+    resTitle:'Resources',
+    resSub:'Scripts, product info, and contacts.',
+    adminTitle:'Admin Panel',
+    adminSub:'Full system - all regions.',
+    addRepTitle:'Add Rep Manually',
+    addRepNote:'Creates a full account. Rep signs in with email + temp password RIV2024!',
+    noLeads:'No leads assigned yet. Contact your manager.',
+    logCall:'Log Call',
+    save:'Save',
+    cancel:'Cancel',
+    selectDisp:'Select a disposition',
+    noAnswer:'No Answer',
+    voicemail:'Voicemail',
+    notInterested:'Not Interested',
+    callback:'Callback',
+    apptSet:'Appt Set',
+    quickObj:'Quick Objections',
+    startCall:'Start Call',
+    endCall:'End Call',
+    step:'Step',
+    of:'of',
+    markComplete:'Mark Complete',
+    completed:'Completed',
+    nextModule:'Next Module',
+    out:'Out'
+  },
+  es: {
+    signIn:'Iniciar Sesion',
+    register:'Registrarse',
+    email:'Correo',
+    password:'Contrasena',
+    fullName:'Nombre Completo',
+    createAccount:'Crear Cuenta',
+    langSpeak:'Idiomas que hablas',
+    note:'Tu cuenta sera revisada por tu gerente.',
+    dashboard:'Panel',
+    leads:'Mis Prospectos',
+    callflow:'Flujo de Llamada',
+    calllog:'Registro',
+    training:'Entrenamiento',
+    resources:'Recursos',
+    territory:'Territorio',
+    admin:'Admin',
+    resTitle:'Recursos',
+    resSub:'Scripts, productos e informacion de contacto.',
+    adminTitle:'Panel de Administracion',
+    adminSub:'Sistema completo - todas las regiones.',
+    addRepTitle:'Agregar Rep Manualmente',
+    addRepNote:'Crea una cuenta completa. El rep inicia sesion con contrasena temporal RIV2024!',
+    noLeads:'Sin prospectos asignados. Contacta a tu gerente.',
+    logCall:'Registrar Llamada',
+    save:'Guardar',
+    cancel:'Cancelar',
+    selectDisp:'Selecciona disposicion',
+    noAnswer:'Sin Respuesta',
+    voicemail:'Buzon de Voz',
+    notInterested:'No Interesado',
+    callback:'Rellamar',
+    apptSet:'Cita Agendada',
+    quickObj:'Objeciones Rapidas',
+    startCall:'Iniciar Llamada',
+    endCall:'Terminar Llamada',
+    step:'Paso',
+    of:'de',
+    markComplete:'Marcar Completo',
+    completed:'Completado',
+    nextModule:'Siguiente Modulo',
+    out:'Salir'
+  },
+  zh: {
+    signIn:'\u767B\u5F55',
+    register:'\u6CE8\u518C',
+    email:'\u90AE\u7BB1',
+    password:'\u5BC6\u7801',
+    fullName:'\u5168\u540D',
+    createAccount:'\u521B\u5EFA\u8D26\u6237',
+    langSpeak:'\u60A8\u4F1A\u8BF4\u7684\u8BED\u8A00',
+    note:'\u60A8\u7684\u8D26\u6237\u5C06\u7531\u60A8\u7684\u7ECF\u7406\u5BA1\u6838\u3002',
+    dashboard:'\u4EEA\u8868\u677F',
+    leads:'\u6211\u7684\u5BA2\u6237',
+    callflow:'\u901A\u8BDD\u6D41\u7A0B',
+    calllog:'\u901A\u8BDD\u8BB0\u5F55',
+    training:'\u57F9\u8BAD',
+    resources:'\u8D44\u6E90',
+    territory:'\u533A\u57DF',
+    admin:'\u7BA1\u7406',
+    resTitle:'\u8D44\u6E90',
+    resSub:'\u811A\u672C\u3001\u4EA7\u54C1\u4FE1\u606F\u548C\u8054\u7CFB\u65B9\u5F0F\u3002',
+    adminTitle:'\u7BA1\u7406\u9762\u677F',
+    adminSub:'\u5168\u7CFB\u7EDF - \u6240\u6709\u533A\u57DF\u3002',
+    addRepTitle:'\u624B\u52A8\u6DFB\u52A0\u4EE3\u8868',
+    addRepNote:'\u521B\u5EFA\u5B8C\u6574\u8D26\u6237\u3002\u4EE3\u8868\u4F7F\u7528\u4E34\u65F6\u5BC6\u7801 RIV2024! \u767B\u5F55\u3002',
+    noLeads:'\u5C1A\u65E0\u5206\u914D\u5BA2\u6237\uFF0C\u8BF7\u8054\u7CFB\u60A8\u7684\u7ECF\u7406\u3002',
+    logCall:'\u8BB0\u5F55\u901A\u8BDD',
+    save:'\u4FDD\u5B58',
+    cancel:'\u53D6\u6D88',
+    selectDisp:'\u9009\u62E9\u7ED3\u679C',
+    noAnswer:'\u65E0\u4EBA\u63A5\u542C',
+    voicemail:'\u8BED\u97F3\u4FE1\u7B71',
+    notInterested:'\u4E0D\u611F\u5174\u8DA3',
+    callback:'\u56DE\u7535',
+    apptSet:'\u5DF2\u9884\u7EA6',
+    quickObj:'\u5FEB\u901F\u5F02\u8BAE\u5904\u7406',
+    startCall:'\u5F00\u59CB\u901A\u8BDD',
+    endCall:'\u7ED3\u675F\u901A\u8BDD',
+    step:'\u7B2C',
+    of:'\u6B65\uFF0C\u5171',
+    markComplete:'\u6807\u8BB0\u5B8C\u6210',
+    completed:'\u5DF2\u5B8C\u6210',
+    nextModule:'\u4E0B\u4E00\u6A21\u5757',
+    out:'\u9000\u51FA'
+  },
+  ar: {
+    signIn:'\u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062F\u062E\u0648\u0644',
+    register:'\u0625\u0646\u0634\u0627\u0621 \u062D\u0633\u0627\u0628',
+    email:'\u0627\u0644\u0628\u0631\u064A\u062F \u0627\u0644\u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A',
+    password:'\u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631',
+    fullName:'\u0627\u0644\u0627\u0633\u0645 \u0627\u0644\u0643\u0627\u0645\u0644',
+    createAccount:'\u0625\u0646\u0634\u0627\u0621 \u0627\u0644\u062D\u0633\u0627\u0628',
+    langSpeak:'\u0627\u0644\u0644\u063A\u0627\u062A \u0627\u0644\u062A\u064A \u062A\u062A\u062D\u062F\u062B\u0647\u0627',
+    note:'\u0633\u064A\u062A\u0645 \u0645\u0631\u0627\u062C\u0639\u0629 \u062D\u0633\u0627\u0628\u0643 \u0645\u0646 \u0642\u0628\u0644 \u0645\u062F\u064A\u0631\u0643.',
+    dashboard:'\u0644\u0648\u062D\u0629 \u0627\u0644\u062A\u062D\u0643\u0645',
+    leads:'\u0639\u0645\u0644\u0627\u0626\u064A',
+    callflow:'\u0645\u0633\u0627\u0631 \u0627\u0644\u0645\u0643\u0627\u0644\u0645\u0629',
+    calllog:'\u0633\u062C\u0644 \u0627\u0644\u0645\u0643\u0627\u0644\u0645\u0627\u062A',
+    training:'\u0627\u0644\u062A\u062F\u0631\u064A\u0628',
+    resources:'\u0627\u0644\u0645\u0648\u0627\u0631\u062F',
+    territory:'\u0627\u0644\u0645\u0646\u0637\u0642\u0629',
+    admin:'\u0627\u0644\u0625\u062F\u0627\u0631\u0629',
+    resTitle:'\u0627\u0644\u0645\u0648\u0627\u0631\u062F',
+    resSub:'\u0627\u0644\u0646\u0635\u0648\u0635 \u0648\u0645\u0639\u0644\u0648\u0645\u0627\u062A \u0627\u0644\u0645\u0646\u062A\u062C.',
+    adminTitle:'\u0644\u0648\u062D\u0629 \u0627\u0644\u0625\u062F\u0627\u0631\u0629',
+    adminSub:'\u0627\u0644\u0646\u0638\u0627\u0645 \u0627\u0644\u0643\u0627\u0645\u0644.',
+    addRepTitle:'\u0625\u0636\u0627\u0641\u0629 \u0645\u0646\u062F\u0648\u0628 \u064A\u062F\u0648\u064A\u0627',
+    addRepNote:'\u0625\u0646\u0634\u0627\u0621 \u062D\u0633\u0627\u0628 \u0643\u0627\u0645\u0644. \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631 \u0627\u0644\u0645\u0624\u0642\u062A\u0629: RIV2024!',
+    noLeads:'\u0644\u0627 \u064A\u0648\u062C\u062F \u0639\u0645\u0644\u0627\u0621 \u0645\u0639\u064A\u0651\u0646\u0648\u0646.',
+    logCall:'\u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u0645\u0643\u0627\u0644\u0645\u0629',
+    save:'\u062D\u0641\u0638',
+    cancel:'\u0625\u0644\u063A\u0627\u0621',
+    selectDisp:'\u0627\u062E\u062A\u0631 \u0627\u0644\u0646\u062A\u064A\u062C\u0629',
+    noAnswer:'\u0644\u0627 \u064A\u0648\u062C\u062F \u0631\u062F',
+    voicemail:'\u0628\u0631\u064A\u062F \u0635\u0648\u062A\u064A',
+    notInterested:'\u063A\u064A\u0631 \u0645\u0647\u062A\u0645',
+    callback:'\u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0627\u062A\u0635\u0627\u0644',
+    apptSet:'\u062A\u0645 \u062A\u062D\u062F\u064A\u062F \u0645\u0648\u0639\u062F',
+    quickObj:'\u0627\u0644\u0627\u0639\u062A\u0631\u0627\u0636\u0627\u062A \u0627\u0644\u0633\u0631\u064A\u0639\u0629',
+    startCall:'\u0628\u062F\u0621 \u0627\u0644\u0645\u0643\u0627\u0644\u0645\u0629',
+    endCall:'\u0625\u0646\u0647\u0627\u0621 \u0627\u0644\u0645\u0643\u0627\u0644\u0645\u0629',
+    step:'\u062E\u0637\u0648\u0629',
+    of:'\u0645\u0646',
+    markComplete:'\u0648\u0636\u0639 \u0639\u0644\u0627\u0645\u0629 \u0645\u0643\u062A\u0645\u0644',
+    completed:'\u0645\u0643\u062A\u0645\u0644',
+    nextModule:'\u0627\u0644\u0648\u062D\u062F\u0629 \u0627\u0644\u062A\u0627\u0644\u064A\u0629',
+    out:'\u062E\u0631\u0648\u062C'
+  }
+};
+
+function L(key) { return (STRINGS[LANG] && STRINGS[LANG][key]) || STRINGS['en'][key] || key; }
+
+function setLang(lang, btn) {
+  LANG = lang;
+  // Update all lang buttons in onboard
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.remove('on');});
+  document.querySelectorAll('.lba').forEach(function(b){b.classList.remove('on');});
+  if (btn) btn.classList.add('on');
+  // Set dir for Arabic
+  document.body.style.direction = lang==='ar'?'rtl':'ltr';
+  applyLang();
+}
+
+function applyLang() {
+  var pairs = [
+    ['lbl-fullname', 'fullName'],['lbl-email','email'],['lbl-password','password'],
+    ['lbl-languages','langSpeak'],['lbl-create-btn','createAccount'],['lbl-ob-note','note'],
+    ['lbl-res-title','resTitle'],['lbl-res-sub','resSub'],
+    ['lbl-admin-title','adminTitle'],['lbl-admin-sub','adminSub'],
+    ['lbl-add-rep-title','addRepTitle'],['lbl-add-rep-note','addRepNote'],
+  ];
+  pairs.forEach(function(p){
+    var el = document.getElementById(p[0]);
+    if (el) el.textContent = L(p[1]);
+  });
+  // Nav tabs
+  var navMap = [
+    ['callflow','callflow'],['calllog','calllog'],['training','training'],
+    ['resources','resources'],['territory','territory'],['admin','admin']
+  ];
+  document.querySelectorAll('.nt').forEach(function(nt, i){
+    var key = navMap[i] ? navMap[i][1] : null;
+    if (key) nt.textContent = L(key);
+  });
+  // Sign in / register tabs
+  var si = document.getElementById('tab-si');
+  var su = document.getElementById('tab-su');
+  if (si) si.textContent = L('signIn');
+  if (su) su.textContent = L('register');
+  // Out button
+  var out = document.querySelector('.btn-logout');
+  if (out) out.textContent = L('out');
+}
+
+// ==============================================
+//  LANGUAGE DETECTION FOR LEAD ROUTING
+// ==============================================
+var HISPANIC_SURNAMES = ['garcia','rodriguez','martinez','hernandez','lopez','gonzalez','perez','sanchez','ramirez','torres','flores','rivera','gomez','diaz','reyes','morales','jimenez','cruz','ortiz','gutierrez','chavez','ramos','mendoza','ruiz','alvarez','castillo','vargas','romero','medina','aguilar','suarez','molina','guerrero','cabrera','salazar','delgado','navarro','rojas','fuentes','montoya','Miranda','blanco','barba','quiroz','arias','tapia','navarro','valenzuela','cardenas','lorton','merida'];
+var CHINESE_SURNAMES = ['wang','li','zhang','liu','chen','yang','huang','zhao','wu','zhou','sun','xu','zhu','ma','hu','lin','guo','he','luo','wei','song','xiao','tang','han','cao','deng','jiang','yu','dong','xie','lu','peng','cheng','ye','shen','shi','su','liang','zou','gu','meng','fen','hao','pan','fu','kong','jin','gao','wang','yuan','lu'];
+var ARABIC_SURNAMES = ['khan','ahmed','ali','hassan','hussein','ibrahim','mahmoud','omar','rahman','siddiqui','sheikh','chaudhry','malik','azad','shraim','sanini','ogunnupe','aziz','amin','nasser','fahad','karimi','saad','mansour'];
+var VIETNAMESE_SURNAMES = ['nguyen','tran','le','pham','hoang','huynh','vu','dang','bui','do','ho','ngo','duong','ly','lam','phan','truong','vo','dao'];
+var KOREAN_SURNAMES = ['kim','lee','park','choi','jung','kang','cho','\uC724','lim','han','oh','seo','shin','kwon','jang'];
+var TAGALOG_SURNAMES = ['santos','reyes','cruz','garcia','dela','delos','bautista','aquino','mendoza','flores','ramos','villanueva','dela cruz','san','santiago'];
+
+function detectLeadLanguage(firstName, lastName) {
+  var ln = (lastName||'').toLowerCase().trim();
+  var fn = (firstName||'').toLowerCase().trim();
+  if (HISPANIC_SURNAMES.indexOf(ln)>=0 || HISPANIC_SURNAMES.indexOf(fn)>=0) return 'Spanish';
+  if (CHINESE_SURNAMES.indexOf(ln)>=0) return 'Mandarin';
+  if (ARABIC_SURNAMES.indexOf(ln)>=0) return 'Arabic';
+  if (VIETNAMESE_SURNAMES.indexOf(ln)>=0) return 'Vietnamese';
+  if (KOREAN_SURNAMES.indexOf(ln)>=0) return 'Korean';
+  if (TAGALOG_SURNAMES.indexOf(ln)>=0) return 'Tagalog';
+  return 'English';
+}
+
+function findBestRepForLang(detectedLang, reps) {
+  // English leads: every rep speaks English, so just round-robin
+  if (detectedLang === 'English') {
+    return reps[Math.floor(Math.random()*reps.length)];
+  }
+  // Non-English: find reps who speak that language
+  var match = reps.filter(function(r){
+    var langs = r.languages ? r.languages.split(',').map(function(l){return l.trim();}) : ['English'];
+    return langs.indexOf(detectedLang) >= 0;
+  });
+  if (match.length > 0) {
+    // Among matching reps, pick the one with fewest leads (load balance)
+    return match.reduce(function(best, r) {
+      var rLeads = (S.leads||[]).filter(function(l){return l.assigned_to===r.id;}).length;
+      var bLeads = (S.leads||[]).filter(function(l){return l.assigned_to===best.id;}).length;
+      return rLeads < bLeads ? r : best;
+    });
+  }
+  // No language match: fall back to least-loaded rep
+  return reps.reduce(function(best, r) {
+    var rLeads = (S.leads||[]).filter(function(l){return l.assigned_to===r.id;}).length;
+    var bLeads = (S.leads||[]).filter(function(l){return l.assigned_to===best.id;}).length;
+    return rLeads < bLeads ? r : best;
+  });
+}
+
+// ==============================================
+//  UPDATED doRegister \u2014 fix duplicate + languages
+// ==============================================
+function doRegister() {
+  var nm = gv('su-nm'), em = gv('su-em'), pw = gv('su-pw');
+  document.getElementById('su-err').textContent = '';
+  if (!nm||!em||!pw) { document.getElementById('su-err').textContent = L('fullName')+' / '+L('email')+' / '+L('password')+' required.'; return; }
+  if (pw.length<6) { document.getElementById('su-err').textContent='Password must be 6+ characters.'; return; }
+  // Collect selected languages
+  var langChecks = document.querySelectorAll('#su-langs input:checked');
+  var extraLangs = Array.from(langChecks).map(function(c){return c.value;});
+  // English is always included \u2014 it is the baseline for every rep
+  var langs = ['English'].concat(extraLangs).join(',');
+  showScreen('s-loading');
+  sbSignUp(em, pw).then(function(r) {
+    if (r.error) {
+      var msg = r.error.message || r.error;
+      // Handle duplicate email \u2014 try to just sign them in
+      if (msg.toLowerCase().includes('already') || msg.toLowerCase().includes('registered')) {
+        showScreen('s-onboard');
+        document.getElementById('su-err').textContent = 'Email already registered. Please sign in instead.';
+        authTab('si');
+        document.getElementById('si-em').value = em;
+        return;
+      }
+      showScreen('s-onboard');
+      document.getElementById('su-err').textContent = msg;
+      return;
+    }
+    var uid = r.user ? r.user.id : r.id;
+    if (!uid) { showScreen('s-onboard'); document.getElementById('su-err').textContent='Signup error. Try again.'; return; }
+    sbPost('reps', {id:uid, name:nm, email:em, role:'rep', languages:langs}).then(function(repRes) {
+      // Auto sign in
+      sbSignIn(em, pw).then(function(sr) {
+        if (sr.access_token) {
+          S.token = sr.access_token;
+          S.rep = {id:uid, name:nm, email:em, role:'rep', languages:langs};
+          lsSet('riv_sess', JSON.stringify({token:S.token, rep:S.rep}));
+          bootApp();
+        } else {
+          showScreen('s-onboard');
+          authTab('si');
+          document.getElementById('si-em').value = em;
+          toast('Account created! Sign in now.');
+        }
+      });
+    });
+  }).catch(function(){ showScreen('s-onboard'); document.getElementById('su-err').textContent='Network error.'; });
+}
+
+// ==============================================
+//  UPDATED adminAddRep \u2014 fix duplicate handling
+// ==============================================
+function adminAddRep() {
+  var nm=gv('ar-nm'), em=gv('ar-em'), rl=gv('ar-rl'), lang=gv('ar-lang')||'English';
+  if (!nm||!em){toast('Name and email required.');return;}
+  var tempPw = 'RIV2024!';
+  showScreen('s-loading');
+  sbSignUp(em, tempPw).then(function(r) {
+    if (r.error) {
+      var msg = r.error.message||r.error||'';
+      // Duplicate \u2014 check if rep profile already exists
+      if (msg.toLowerCase().includes('already')||msg.toLowerCase().includes('registered')) {
+        // Try to find existing auth user and just create rep profile
+        showScreen('s-app'); goPage('admin');
+        toast('Email exists. Check if rep already registered \u2014 have them sign in.');
+        return;
+      }
+      showScreen('s-app'); goPage('admin');
+      toast('Error: '+msg);
+      return;
+    }
+    var uid = r.user ? r.user.id : r.id;
+    if (!uid) { showScreen('s-app'); goPage('admin'); toast('Could not create account.'); return; }
+    sbPost('reps',{id:uid, name:nm, email:em, role:rl, languages:lang}).then(function(res){
+      showScreen('s-app'); goPage('admin');
+      if (res&&res.error){toast('Profile error: '+res.error.message);return;}
+      document.getElementById('ar-nm').value=''; document.getElementById('ar-em').value='';
+      toast(nm+' added! Temp password: RIV2024!');
+      renderAdmin(); loadAll();
+    });
+  }).catch(function(){ showScreen('s-app'); goPage('admin'); toast('Network error.'); });
+}
+
+// ==============================================
+//  UPDATED importLeads \u2014 language-based routing
+// ==============================================
+function importLeads() {
+  if (!csvPending.length) return;
+  var reps = S.reps.filter(function(r){return r.role==='rep';});
+  if (!reps.length) { toast('No reps yet.'); return; }
+  // Assign each lead to best language-matched rep
+  csvPending.forEach(function(lead) {
+    var detectedLang = detectLeadLanguage(lead.first_name, lead.last_name);
+    lead.detected_language = detectedLang;
+    var bestRep = findBestRepForLang(detectedLang, reps);
+    lead.assigned_to = bestRep.id;
+    lead.lifecycle_status = 'new';
+  });
+  sbPost('leads', csvPending).then(function(r){
+    if (r&&r.error){toast('Import error: '+r.error.message);return;}
+    toast(csvPending.length+' leads imported with language routing.');
+    csvPending=[];
+    document.getElementById('csv-prev').style.display='none';
+    document.getElementById('csv-in').value='';
+    loadAll();
+  });
+}
+
+// ==============================================
+//  ADMIN LEADS VIEW
+// ==============================================
+function renderAdminLeads() {
+  var filter = document.getElementById('adm-lf') ? document.getElementById('adm-lf').value : 'all';
+  var search = document.getElementById('adm-ls') ? document.getElementById('adm-ls').value.toLowerCase() : '';
+  var leads = S.leads.slice();
+  if (filter !== 'all') leads = leads.filter(function(l){return (l.lifecycle_status||l.status||'new')===filter;});
+  if (search) leads = leads.filter(function(l){
+    return ((l.first_name||'')+' '+(l.last_name||'')).toLowerCase().includes(search)||(l.address||'').toLowerCase().includes(search)||(l.city||'').toLowerCase().includes(search);
+  });
+  var el = document.getElementById('adm-leads-list');
+  var count = document.getElementById('adm-lead-count');
+  if (count) count.textContent = leads.length+' leads';
+  if (!el) return;
+  if (!leads.length) { el.innerHTML='<p style="color:var(--t3);padding:12px 0;font-size:.85rem">No leads found.</p>'; return; }
+  var repMap = {};
+  S.reps.forEach(function(r){repMap[r.id]=r.name;});
+  el.innerHTML = '<table><thead><tr><th>Name</th><th>City</th><th>Phone</th><th>Status</th><th>Lang</th><th>Rep</th></tr></thead><tbody>'
+    +leads.slice(0,100).map(function(l){
+      return '<tr><td><strong>'+esc((l.first_name||'')+' '+(l.last_name||''))+'</strong></td>'
+        +'<td style="font-size:.76rem">'+esc(l.city||'')+'</td>'
+        +'<td style="font-size:.76rem">'+esc(l.phone||'\u2014')+'</td>'
+        +'<td><span class="pill '+sPill(l.lifecycle_status||l.status||'New')+'">'+esc(l.lifecycle_status||l.status||'New')+'</span></td>'
+        +'<td style="font-size:.75rem">'+esc(l.detected_language||'\u2014')+'</td>'
+        +'<td style="font-size:.76rem">'+esc(repMap[l.assigned_to]||'\u2014')+'</td></tr>';
+    }).join('')+'</tbody></table>';
+}
+
+// ==============================================
+//  UPDATED renderAdmin \u2014 safe remove + leads view
+// ==============================================
+function renderAdmin() {
+  // Only admin can see full admin panel
+  if (!S.rep || S.rep.role !== 'admin') {
+    document.getElementById('adm-stats-grid').style.display = 'none';
+    document.getElementById('adm-leads-card').style.display = 'none';
+    return;
+  }
+  sbGet('reps','order=name.asc').then(function(reps){
+    reps = Array.isArray(reps)?reps:[];
+    sbCount('leads').then(function(lc){
+      sbCount('appointments').then(function(ac){
+        document.getElementById('adm-reps').textContent = reps.length;
+        document.getElementById('adm-leads').textContent = lc;
+        document.getElementById('adm-appts').textContent = ac;
+        var scores = reps.map(function(r){
+          var re = S.events.filter(function(e){return e.rep_id===r.id;});
+          return calcScore(re);
+        });
+        document.getElementById('adm-top').textContent = scores.length?Math.max.apply(null,scores):0;
+        var el = document.getElementById('admin-reps-tbl');
+        if (!reps.length){el.innerHTML='<p style="color:var(--t3)">No reps yet.</p>';return;}
+        el.innerHTML='<table><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Languages</th><th>Score</th><th></th></tr></thead><tbody>'
+          +reps.map(function(r){
+            var re=S.events.filter(function(e){return e.rep_id===r.id;});
+            var sc=calcScore(re);
+            return '<tr><td><strong>'+esc(r.name)+'</strong></td><td style="font-size:.76rem">'+esc(r.email)+'</td>'
+              +'<td>'+r.role+'</td><td style="font-size:.76rem">'+esc(r.languages||'English')+'</td>'
+              +'<td><strong style="color:var(--gold)">'+sc+'</strong></td>'
+              +'<td><button class="btn btn-sm brd" onclick="confirmRemoveRep(\''+r.id+'\',\''+esc(r.name)+'\')">Remove</button></td></tr>';
+          }).join('')+'</tbody></table>';
+        // Load leads for admin
+        renderAdminLeads();
+      });
+    });
+  });
+}
+
+// ==============================================
+//  3-STEP REMOVE CONFIRMATION
+// ==============================================
+var removeTarget = null;
+function confirmRemoveRep(id, name) {
+  removeTarget = {id:id, name:name};
+  if (!confirm('Are you sure you want to remove '+name+'? This cannot be undone.')) return;
+  // Second confirmation
+  if (!confirm('FINAL WARNING: Remove '+name+' permanently?')) return;
+  removeRep(id, name);
+}
+function removeRep(id, name) {
+  sbDelete('reps','id=eq.'+id).then(function(){toast(name+' removed.');renderAdmin();loadAll();});
+}
+
+// ==============================================
+//  DOCUMENT VIEWER (Resources)
+// ==============================================
+var DOCS_DATA = {
+  playbook: {
+    titleB64: "RnVsbCBDYWxsIENlbnRlciBQbGF5Ym9vaw==",
+    bodyB64: "PGgzIHN0eWxlPSJmb250LWZhbWlseTonUGxheWZhaXIgRGlzcGxheScsc2VyaWY7Y29sb3I6IzVjM2Q4ZjttYXJnaW4tYm90dG9tOjEycHgiPkNvcmUgUGhpbG9zb3BoeTwvaDM+CjxwPllvdXIgam9iIGlzIG5vdCB0byB0YWxrLiBZb3VyIGpvYiBpcyB0byBndWlkZSBhIGhvbWVvd25lciB0byBvbmUgb2YgdHdvIG91dGNvbWVzIGluIHVuZGVyIDUgbWludXRlczogYW4gYXBwb2ludG1lbnQgb3IgYSBjbGVhbiBleGl0LjwvcD4KPHVsIHN0eWxlPSJtYXJnaW46MTBweCAwIDE2cHggMTZweCI+PGxpPkNvbnRyb2wgdGhlIGZsb3cuIFlvdSBhc2sgcXVlc3Rpb25zLiBZb3Ugc2V0IHRoZSBwYWNlLjwvbGk+PGxpPlZhbHVlIGJlZm9yZSBhdXRob3JpdHkuIExlYWQgd2l0aCB3aGF0IHlvdSBoYXZlIGZvciB0aGVtLjwvbGk+PGxpPlF1ZXN0aW9ucyBjcmVhdGUgY29tcGxpYW5jZS4gRXZlcnkgcXVlc3Rpb24gYW5zd2VyZWQgaXMgYSBzbWFsbCB5ZXMuPC9saT48bGk+RXZlcnkgY2FsbCBlbmRzIGluOiBBcHBvaW50bWVudCBTZXQgT1IgQ2xlYW4gRXhpdC4gTm8gdGhpcmQgb3B0aW9uLjwvbGk+PC91bD4KPGgzIHN0eWxlPSJmb250LWZhbWlseTonUGxheWZhaXIgRGlzcGxheScsc2VyaWY7Y29sb3I6IzVjM2Q4ZjttYXJnaW46MTZweCAwIDEwcHgiPlRoZSAxMS1TdGVwIENhbGwgRmxvdzwvaDM+CjxwPjxzdHJvbmc+U3RlcCAxIC0gSG9vayAoRkFTVCk6PC9zdHJvbmc+ICJIZXkgW05hbWVdLCB0aGlzIGlzIFtSZXBdIHdpdGggUi1JLVYgLSBxdWljayBxdWVzdGlvbi4gRGlkIGFueW9uZSByZWFjaCBvdXQgdG8geW91ciBhZGRyZXNzIHlldCBhYm91dCBTR0lQPyI8L3A+CjxwPjxzdHJvbmc+U3RlcCAyIC0gUGl2b3QgKEZBU1QpOjwvc3Ryb25nPiAiVGhhdCdzIGFjdHVhbGx5IHdoeSBJJ20gY2FsbGluZy4iIEZ1bGwgc3RvcC4gTGV0IGl0IGxhbmQuPC9wPgo8cD48c3Ryb25nPlN0ZXAgMyAtIENvbnRleHQgKE5PUk1BTCk6PC9zdHJvbmc+ICJDYWxpZm9ybmlhJ3MgYmVlbiBydW5uaW5nIHVwZ3JhZGVzIHRocm91Z2ggU0dJUCAtIGJhc2ljYWxseSBpdCByZWR1Y2VzIGV4dHJhIGNoYXJnZXMgb24geW91ciBFZGlzb24gYmlsbC4gTW9zdCBob21lb3duZXJzIGluIFtDaXR5XSBhcmUgc2F2aW5nICQ4MCB0byAkMjAwIGEgbW9udGguIjwvcD4KPHA+PHN0cm9uZz5TdGVwIDQgLSBTb2Z0IEF1dGhvcml0eSAoTk9STUFMKTo8L3N0cm9uZz4gIkknbSBub3QgbG9va2luZyB0byBkbyBhbnl0aGluZyBvdmVyIHRoZSBwaG9uZSAtIGp1c3Qgc2VlaW5nIGlmIHlvdXIgaG9tZSBldmVuIHF1YWxpZmllcy4iPC9wPgo8cD48c3Ryb25nPlN0ZXAgNSAtIFF1YWxpZnkgT3duZXJzaGlwIChOT1JNQUwpOjwvc3Ryb25nPiAiWW91IGFuZCB5b3VyIHNwb3VzZSBvd24gdGhlIGhvbWUgYXQgW0FkZHJlc3NdLCBjb3JyZWN0PyI8L3A+CjxwPjxzdHJvbmc+U3RlcCA2IC0gUXVhbGlmeSBSb29mIChOT1JNQUwpOjwvc3Ryb25nPiAiQW5kIHRoZSByb29mIGlzIGluIHByZXR0eSBnb29kIGNvbmRpdGlvbj8iPC9wPgo8cD48c3Ryb25nPlN0ZXAgNyAtIEJpbGwgRGlzY292ZXJ5IChOT1JNQUwpOjwvc3Ryb25nPiAiV2hhdCBhcmUgeW91IHVzdWFsbHkgcnVubmluZyBmb3IgZWxlY3RyaWNpdHkgaW4gd2ludGVyPyBBbmQgd2hhdCdzIHRoZSBoaWdoZXN0IGl0IGdldHMgdG8/IjwvcD4KPHA+PHN0cm9uZz5TdGVwIDggLSBDb250cm9sIFN0YXRlbWVudCAoTk9STUFMKTo8L3N0cm9uZz4gIklmIHdlIGNhbid0IHNob3cgc2F2aW5ncyBmcm9tIGRheSBvbmUsIGl0IGRvZXNuJ3QgbWFrZSBzZW5zZSB0byBtb3ZlIGZvcndhcmQsIFtOYW1lXS4iPC9wPgo8cD48c3Ryb25nPlN0ZXAgOSAtIEFwcG9pbnRtZW50IFRyYW5zaXRpb24gKE5PUk1BTCk6PC9zdHJvbmc+ICJIYXZlIHNvbWVvbmUgdGFrZSBhIHF1aWNrIGxvb2sgLSBzZWUgaWYgeW91ciBob21lIHF1YWxpZmllcyB1bmRlciBTR0lQLiBBYm91dCAxNSB0byAyMCBtaW51dGVzLCBub3RoaW5nIGNyYXp5LiI8L3A+CjxwPjxzdHJvbmc+U3RlcCAxMCAtIFRpbWUgQ2xvc2UgKFNMT1cpOjwvc3Ryb25nPiAiQXJlIHlvdSBob21lIG1vcmUgYWZ0ZXJub29ucyBvciBldmVuaW5ncz8gSSd2ZSBnb3QgW0RheV0gYXQgW1RpbWVdIG9yIFtEYXldIGF0IFtUaW1lXSAtIHdoaWNoIHdvcmtzIGJldHRlcj8iPC9wPgo8cD48c3Ryb25nPlN0ZXAgMTEgLSBDb25maXJtYXRpb24gQ2xvc2UgKFNMT1cpOjwvc3Ryb25nPiAiUGVyZmVjdCwgW05hbWVdIC0gSSdsbCBsb2NrIHRoYXQgaW4uIFdoYXQncyB0aGUgYmVzdCBudW1iZXI/IFlvdSdsbCBoZWFyIGZyb20gdXMgW0RheV0gYXQgW1RpbWVdLiI8L3A+CjxoMyBzdHlsZT0iZm9udC1mYW1pbHk6J1BsYXlmYWlyIERpc3BsYXknLHNlcmlmO2NvbG9yOiM1YzNkOGY7bWFyZ2luOjE2cHggMCAxMHB4Ij5Hb2xkZW4gUnVsZXM8L2gzPgo8dWwgc3R5bGU9Im1hcmdpbjowIDAgMjBweCAxNnB4Ij48bGk+SWYgeW91IHRhbGsgbW9yZSB0aGFuIHRoZSBob21lb3duZXIsIHlvdSBhcmUgbG9zaW5nLjwvbGk+PGxpPlR3byBvYmplY3Rpb25zIG1heGltdW0gLSBvbmUgcmVmcmFtZSwgdGhlbiBjbGVhbiBleGl0LjwvbGk+PGxpPkFsd2F5cyBvZmZlciB0d28gdGltZSBvcHRpb25zLiBOZXZlciBvcGVuLWVuZGVkLjwvbGk+PGxpPlJlcGVhdCBhcHBvaW50bWVudCBkYXkgYW5kIHRpbWUgYmFjayBiZWZvcmUgaGFuZ2luZyB1cC48L2xpPjxsaT5Mb2cgZXZlcnkgY2FsbCBpbW1lZGlhdGVseS4gTmV2ZXIgYmF0Y2guPC9saT48L3VsPg=="
+  },
+  objections: {
+    titleB64: "U0dJUCBPYmplY3Rpb24gQ2hlYXQgU2hlZXQ=",
+    bodyB64: "PGgzIHN0eWxlPSJmb250LWZhbWlseTonUGxheWZhaXIgRGlzcGxheScsc2VyaWY7Y29sb3I6IzVjM2Q4ZjttYXJnaW4tYm90dG9tOjE0cHgiPkFsbCA4IE9iamVjdGlvbnMgLSBXb3JkIGZvciBXb3JkPC9oMz4KPGRpdiBzdHlsZT0iYmFja2dyb3VuZDojZmJlYWVhO2JvcmRlci1sZWZ0OjNweCBzb2xpZCAjYzAzOTJiO2JvcmRlci1yYWRpdXM6MCA4cHggOHB4IDA7cGFkZGluZzoxMnB4IDE0cHg7bWFyZ2luLWJvdHRvbToxMHB4Ij48c3Ryb25nIHN0eWxlPSJjb2xvcjojYzAzOTJiIj4iTm90IGludGVyZXN0ZWQiPC9zdHJvbmc+PGJyPiJGYWlyIC0gaXMgdGhhdCBiZWNhdXNlIHlvdSBhbHJlYWR5IGxvb2tlZCBpbnRvIHRoaXMsIG9yIGp1c3Qgbm90IHNvbWV0aGluZyB5b3UncmUgdGhpbmtpbmcgYWJvdXQgcmlnaHQgbm93PyI8L2Rpdj4KPGRpdiBzdHlsZT0iYmFja2dyb3VuZDojZmRmNmUzO2JvcmRlci1sZWZ0OjNweCBzb2xpZCAjYjg4NjBiO2JvcmRlci1yYWRpdXM6MCA4cHggOHB4IDA7cGFkZGluZzoxMnB4IDE0cHg7bWFyZ2luLWJvdHRvbToxMHB4Ij48c3Ryb25nIHN0eWxlPSJjb2xvcjojYjg4NjBiIj4iSSdtIGJ1c3kiPC9zdHJvbmc+PGJyPiJJIGdvdCB5b3UgLSBJJ2xsIGJlIHF1aWNrLiBSZWFsIHF1aWNrIC0gYXJlIHlvdSBzdGlsbCB0aGUgaG9tZW93bmVyIGF0IFtBZGRyZXNzXT8iPC9kaXY+CjxkaXYgc3R5bGU9ImJhY2tncm91bmQ6I2ZiZWFlYTtib3JkZXItbGVmdDozcHggc29saWQgI2MwMzkyYjtib3JkZXItcmFkaXVzOjAgOHB4IDhweCAwO3BhZGRpbmc6MTJweCAxNHB4O21hcmdpbi1ib3R0b206MTBweCI+PHN0cm9uZyBzdHlsZT0iY29sb3I6I2MwMzkyYiI+IkFscmVhZHkgaGF2ZSBzb2xhciI8L3N0cm9uZz48YnI+IkdvdCBpdCAtIGFyZSB5b3UgdW5kZXIgTkVNIDIgb3IgZGlkIHlvdSBhZGQgYmF0dGVyeSBiYWNrdXA/IiBbSWYgdW5zdXJlOiBjb250aW51ZSB0aGUgZmxvd108L2Rpdj4KPGRpdiBzdHlsZT0iYmFja2dyb3VuZDojZWFmMmZiO2JvcmRlci1sZWZ0OjNweCBzb2xpZCAjMWE1Mjc2O2JvcmRlci1yYWRpdXM6MCA4cHggOHB4IDA7cGFkZGluZzoxMnB4IDE0cHg7bWFyZ2luLWJvdHRvbToxMHB4Ij48c3Ryb25nIHN0eWxlPSJjb2xvcjojMWE1Mjc2Ij4iU2VuZCBtZSBpbmZvcm1hdGlvbiI8L3N0cm9uZz48YnI+IldvdWxkIHlvdSByYXRoZXIgc2VlIGdlbmVyYWwgaW5mbyBvciB3aGF0IGl0IGxvb2tzIGxpa2UgZm9yIHlvdXIgaG9tZSBzcGVjaWZpY2FsbHk/IjwvZGl2Pgo8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kOiNlZGU4ZjU7Ym9yZGVyLWxlZnQ6M3B4IHNvbGlkICM1YzNkOGY7Ym9yZGVyLXJhZGl1czowIDhweCA4cHggMDtwYWRkaW5nOjEycHggMTRweDttYXJnaW4tYm90dG9tOjEwcHgiPjxzdHJvbmcgc3R5bGU9ImNvbG9yOiM1YzNkOGYiPiJJcyB0aGlzIHNvbGFyPyI8L3N0cm9uZz48YnI+Ikl0J3MgYW4gU0dJUCB1cGdyYWRlIC0gc29sYXIgaXMgcGFydCBvZiBpdCBidXQgdGhlIG1haW4gYmVuZWZpdCBpcyBqdXN0IHRoZSBiaWxsIHJlZHVjdGlvbi4iPC9kaXY+CjxkaXYgc3R5bGU9ImJhY2tncm91bmQ6I2U2ZjRlZDtib3JkZXItbGVmdDozcHggc29saWQgIzJkN2E0Zjtib3JkZXItcmFkaXVzOjAgOHB4IDhweCAwO3BhZGRpbmc6MTJweCAxNHB4O21hcmdpbi1ib3R0b206MTBweCI+PHN0cm9uZyBzdHlsZT0iY29sb3I6IzJkN2E0ZiI+Ik5lZWQgdG8gdGFsayB0byBteSBzcG91c2UiPC9zdHJvbmc+PGJyPiJTbWFydCBtb3ZlIC0gb3VyIGNvbnN1bHRhbnRzIHByZWZlciBib3RoIG9mIHlvdSB0aGVyZS4gV2hlbiBhcmUgeW91IGJvdGggdXN1YWxseSBhdmFpbGFibGU/IjwvZGl2Pgo8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kOiNmZGY2ZTM7Ym9yZGVyLWxlZnQ6M3B4IHNvbGlkICNiODg2MGI7Ym9yZGVyLXJhZGl1czowIDhweCA4cHggMDtwYWRkaW5nOjEycHggMTRweDttYXJnaW4tYm90dG9tOjEwcHgiPjxzdHJvbmcgc3R5bGU9ImNvbG9yOiNiODg2MGIiPiJIb3cgbXVjaCBkb2VzIGl0IGNvc3Q/Ijwvc3Ryb25nPjxicj4iVGhhdCdzIHdoYXQgdGhlIGNvbnN1bHRhdGlvbiBjb3ZlcnMgLSBpdCdzIGJhc2VkIG9uIHlvdXIgdXNhZ2UuIFRoYXQncyB0aGUgd2hvbGUgcG9pbnQgb2YgdGhlIDIwIG1pbnV0ZXMuIjwvZGl2Pgo8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kOiNlYWYyZmI7Ym9yZGVyLWxlZnQ6M3B4IHNvbGlkICMxYTUyNzY7Ym9yZGVyLXJhZGl1czowIDhweCA4cHggMDtwYWRkaW5nOjEycHggMTRweDttYXJnaW4tYm90dG9tOjEwcHgiPjxzdHJvbmcgc3R5bGU9ImNvbG9yOiMxYTUyNzYiPiJUaGlua2luZyBvZiBtb3ZpbmciPC9zdHJvbmc+PGJyPiJIb21lcyB3aXRoIHNvbGFyIHNlbGwgZmFzdGVyIGFuZCBhdCBhIGhpZ2hlciBwcmljZS4gV29ydGggc2VlaW5nIHdoYXQgeW91IHF1YWxpZnkgZm9yIGJlZm9yZSB5b3UgbGlzdC4iPC9kaXY+CjxkaXYgc3R5bGU9Im1hcmdpbi10b3A6MTZweDtwYWRkaW5nOjE0cHg7YmFja2dyb3VuZDojZjJmMGVjO2JvcmRlci1yYWRpdXM6OHB4Ij48c3Ryb25nPlR3by1PYmplY3Rpb24gUnVsZTo8L3N0cm9uZz4gVHdvIG1heC4gT25lIHJlZnJhbWUgdGhlbiBleGl0OiAiR290IGl0IC0gSSB3b24ndCB0YWtlIHVwIHlvdXIgdGltZS4gQXBwcmVjaWF0ZSBpdC4iPC9kaXY+"
+  },
+  product: {
+    titleB64: "U29sYXIgUHJvZHVjdCBPdmVydmlldw==",
+    bodyB64: "PGgzIHN0eWxlPSJmb250LWZhbWlseTonUGxheWZhaXIgRGlzcGxheScsc2VyaWY7Y29sb3I6IzVjM2Q4ZjttYXJnaW4tYm90dG9tOjEycHgiPldoYXQgV2UgT2ZmZXI8L2gzPgo8cD5SLUktViBTb2xhciBjb25uZWN0cyBob21lb3duZXJzIHdpdGggQ2FsaWZvcm5pYSdzIFNHSVAgKFNlbGYtR2VuZXJhdGlvbiBJbmNlbnRpdmUgUHJvZ3JhbSkgLSBhIHN0YXRlLWJhY2tlZCBwcm9ncmFtIHRoYXQgaGVscHMgcXVhbGlmeWluZyBob21lcyByZWR1Y2UgZWxlY3RyaWNpdHkgY29zdHMgdGhyb3VnaCBzb2xhciBhbmQgc3RvcmFnZSB1cGdyYWRlcy48L3A+CjxoMyBzdHlsZT0iZm9udC1mYW1pbHk6J1BsYXlmYWlyIERpc3BsYXknLHNlcmlmO2NvbG9yOiM1YzNkOGY7bWFyZ2luOjE2cHggMCAxMHB4Ij5LZXkgQmVuZWZpdHM8L2gzPgo8dWwgc3R5bGU9Im1hcmdpbjowIDAgMTZweCAxNnB4Ij48bGk+Tm8gdXBmcm9udCBjb3N0IC0gJDAgZG93biBmaW5hbmNpbmcgYXZhaWxhYmxlPC9saT48bGk+SW1tZWRpYXRlIHNhdmluZ3MgZnJvbSBkYXkgb25lPC9saT48bGk+UHJvdGVjdGlvbiBmcm9tIGZ1dHVyZSByYXRlIGluY3JlYXNlczwvbGk+PGxpPkJhdHRlcnkgYmFja3VwIG9wdGlvbnMgLSBwb3dlciBkdXJpbmcgb3V0YWdlczwvbGk+PGxpPkluY3JlYXNlZCBob21lIHZhbHVlIC0gc29sYXIgaG9tZXMgc2VsbCBmYXN0ZXI8L2xpPjwvdWw+CjxoMyBzdHlsZT0iZm9udC1mYW1pbHk6J1BsYXlmYWlyIERpc3BsYXknLHNlcmlmO2NvbG9yOiM1YzNkOGY7bWFyZ2luOjE2cHggMCAxMHB4Ij5RdWFsaWZpY2F0aW9uIFJlcXVpcmVtZW50czwvaDM+Cjx1bCBzdHlsZT0ibWFyZ2luOjAgMCAxNnB4IDE2cHgiPjxsaT5NdXN0IG93biB0aGUgaG9tZSAob24gdGl0bGUpPC9saT48bGk+Um9vZiBpbiBnb29kIGNvbmRpdGlvbjwvbGk+PGxpPkNyZWRpdCBzY29yZSA2NjArICh2YXJpZXMgYnkgZmluYW5jaW5nIHR5cGUpPC9saT48bGk+U0NFLCBQRyZhbXA7RSwgb3IgU0RHJmFtcDtFIHV0aWxpdHkgY3VzdG9tZXI8L2xpPjwvdWw+CjxoMyBzdHlsZT0iZm9udC1mYW1pbHk6J1BsYXlmYWlyIERpc3BsYXknLHNlcmlmO2NvbG9yOiM1YzNkOGY7bWFyZ2luOjE2cHggMCAxMHB4Ij5GaW5hbmNpbmcgT3B0aW9uczwvaDM+Cjx1bCBzdHlsZT0ibWFyZ2luOjAgMCAyMHB4IDE2cHgiPjxsaT48c3Ryb25nPkxvYW48L3N0cm9uZz4gLSBvd24gdGhlIHN5c3RlbSwgbWF4aW1pemUgbG9uZy10ZXJtIHNhdmluZ3M8L2xpPjxsaT48c3Ryb25nPlBQQTwvc3Ryb25nPiAtIHBheSBwZXIga1doIHByb2R1Y2VkLCBvZnRlbiBsb3dlciB0aGFuIHV0aWxpdHkgcmF0ZTwvbGk+PGxpPjxzdHJvbmc+TGVhc2U8L3N0cm9uZz4gLSBmaXhlZCBtb250aGx5IHBheW1lbnQsIG5vIG93bmVyc2hpcDwvbGk+PC91bD4="
+  },
+  comp: {
+    titleB64: "UGF5IFN0cnVjdHVyZSAmIENvbXAgUGxhbg==",
+    bodyB64: "PGgzIHN0eWxlPSJmb250LWZhbWlseTonUGxheWZhaXIgRGlzcGxheScsc2VyaWY7Y29sb3I6IzVjM2Q4ZjttYXJnaW4tYm90dG9tOjEycHgiPlItSS1WIENhbGwgQ2VudGVyIENvbXBlbnNhdGlvbjwvaDM+CjxwIHN0eWxlPSJjb2xvcjojNWE1MzRhO21hcmdpbi1ib3R0b206MTZweCI+UGVyZm9ybWFuY2UtYmFzZWQgY29tcGVuc2F0aW9uLiBUaGUgbW9yZSBhcHBvaW50bWVudHMgeW91IHNldCB0aGF0IHNpdCBhbmQgY2xvc2UsIHRoZSBtb3JlIHlvdSBlYXJuLjwvcD4KPGgzIHN0eWxlPSJmb250LWZhbWlseTonUGxheWZhaXIgRGlzcGxheScsc2VyaWY7Y29sb3I6IzVjM2Q4ZjttYXJnaW4tYm90dG9tOjEwcHgiPlNldHRlciBQYXkgVGllcnM8L2gzPgo8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlO2ZvbnQtc2l6ZTouODRyZW07bWFyZ2luLWJvdHRvbToxNnB4Ij4KPHRoZWFkPjx0ciBzdHlsZT0iYmFja2dyb3VuZDojNWMzZDhmIj48dGggc3R5bGU9InBhZGRpbmc6OXB4IDEwcHg7dGV4dC1hbGlnbjpsZWZ0O2NvbG9yOndoaXRlIj5UaWVyPC90aD48dGggc3R5bGU9InBhZGRpbmc6OXB4IDEwcHg7dGV4dC1hbGlnbjpsZWZ0O2NvbG9yOndoaXRlIj5BcHB0cy9Nb250aDwvdGg+PHRoIHN0eWxlPSJwYWRkaW5nOjlweCAxMHB4O3RleHQtYWxpZ246bGVmdDtjb2xvcjp3aGl0ZSI+UGVyIEFwcHQ8L3RoPjx0aCBzdHlsZT0icGFkZGluZzo5cHggMTBweDt0ZXh0LWFsaWduOmxlZnQ7Y29sb3I6d2hpdGUiPkJvbnVzPC90aD48L3RyPjwvdGhlYWQ+Cjx0Ym9keT4KPHRyIHN0eWxlPSJiYWNrZ3JvdW5kOiNmOGY3ZjQiPjx0ZCBzdHlsZT0icGFkZGluZzo5cHggMTBweCI+Um9va2llPC90ZD48dGQgc3R5bGU9InBhZGRpbmc6OXB4IDEwcHgiPjEtMTA8L3RkPjx0ZCBzdHlsZT0icGFkZGluZzo5cHggMTBweCI+Q29udGFjdCBtYW5hZ2VyPC90ZD48dGQgc3R5bGU9InBhZGRpbmc6OXB4IDEwcHgiPi08L3RkPjwvdHI+Cjx0cj48dGQgc3R5bGU9InBhZGRpbmc6OXB4IDEwcHgiPlJpc2luZzwvdGQ+PHRkIHN0eWxlPSJwYWRkaW5nOjlweCAxMHB4Ij4xMS0yMDwvdGQ+PHRkIHN0eWxlPSJwYWRkaW5nOjlweCAxMHB4Ij5Db250YWN0IG1hbmFnZXI8L3RkPjx0ZCBzdHlsZT0icGFkZGluZzo5cHggMTBweCI+UGVyZm9ybWFuY2UgYm9udXM8L3RkPjwvdHI+Cjx0ciBzdHlsZT0iYmFja2dyb3VuZDojZjhmN2Y0Ij48dGQgc3R5bGU9InBhZGRpbmc6OXB4IDEwcHgiPkVsaXRlPC90ZD48dGQgc3R5bGU9InBhZGRpbmc6OXB4IDEwcHgiPjIxKzwvdGQ+PHRkIHN0eWxlPSJwYWRkaW5nOjlweCAxMHB4Ij5Db250YWN0IG1hbmFnZXI8L3RkPjx0ZCBzdHlsZT0icGFkZGluZzo5cHggMTBweCI+TW9udGhseSArIHRyaXAgZWxpZ2libGU8L3RkPjwvdHI+CjwvdGJvZHk+PC90YWJsZT4KPGgzIHN0eWxlPSJmb250LWZhbWlseTonUGxheWZhaXIgRGlzcGxheScsc2VyaWY7Y29sb3I6IzVjM2Q4ZjttYXJnaW4tYm90dG9tOjEwcHgiPldoYXQgQ291bnRzPC9oMz4KPHVsIHN0eWxlPSJtYXJnaW46MCAwIDE2cHggMTZweCI+PGxpPkFwcG9pbnRtZW50IG11c3QgPHN0cm9uZz5zaXQ8L3N0cm9uZz4gLSBob21lb3duZXIgaXMgaG9tZSBhdCBzY2hlZHVsZWQgdGltZTwvbGk+PGxpPk11c3QgYmUgd2l0aCBhIHF1YWxpZnlpbmcgaG9tZW93bmVyPC9saT48bGk+Qm90aCBkZWNpc2lvbiBtYWtlcnMgcHJlc2VudCB3aGVuIHBvc3NpYmxlPC9saT48L3VsPgo8aDMgc3R5bGU9ImZvbnQtZmFtaWx5OidQbGF5ZmFpciBEaXNwbGF5JyxzZXJpZjtjb2xvcjojNWMzZDhmO21hcmdpbi1ib3R0b206MTBweCI+RGFpbHkgR29hbHM8L2gzPgo8dWwgc3R5bGU9Im1hcmdpbjowIDAgMTZweCAxNnB4Ij48bGk+ODAgZGlhbHMgcGVyIHNlc3Npb248L2xpPjxsaT4yMCBsaXZlIGNvbnRhY3RzPC9saT48bGk+MyBhcHBvaW50bWVudHMgc2V0PC9saT48L3VsPgo8aDMgc3R5bGU9ImZvbnQtZmFtaWx5OidQbGF5ZmFpciBEaXNwbGF5JyxzZXJpZjtjb2xvcjojNWMzZDhmO21hcmdpbi1ib3R0b206MTBweCI+Qm9udXNlcyBhbmQgQ29tcGV0aXRpb25zPC9oMz4KPHVsIHN0eWxlPSJtYXJnaW46MCAwIDIwcHggMTZweCI+PGxpPldlZWtseSBsZWFkZXJib2FyZCAtIHRvcCBzZXR0ZXIgZWFybnMgYm9udXM8L2xpPjxsaT5Nb250aGx5IHRyaXAgY29tcGV0aXRpb24gLSB0b3AgcGVyZm9ybWVycyBlYXJuIHRyYXZlbCByZXdhcmRzPC9saT48bGk+Q29udGFjdCB5b3VyIG1hbmFnZXIgZm9yIGN1cnJlbnQgY29tcGV0aXRpb24gZGV0YWlsczwvbGk+PC91bD4="
+  },
+};
+
+function openDoc(key) {
+  var docSet = DOCS_DATA[key];
+  if (!docSet) return;
+  var title = decodeURIComponent(escape(atob(docSet.titleB64)));
+  var body = decodeURIComponent(escape(atob(docSet.bodyB64)));
+  document.getElementById('doc-title').textContent = title;
+  var content = document.getElementById('doc-content');
+  content.innerHTML = body;
+  content.scrollTop = 0;
+  document.getElementById('mo-doc').classList.add('open');
+}
+
+
+// ==============================================
+//  LANG CHECKBOX STYLING
+// ==============================================
+document.addEventListener('change', function(e) {
+  if (e.target && e.target.closest && e.target.closest('.lang-check')) {
+    var lc = e.target.closest('.lang-check');
+    if (e.target.checked) lc.classList.add('sel');
+    else lc.classList.remove('sel');
+  }
+});
+
+// ==============================================
+//  UPDATED loadAll \u2014 load admin leads too
+// ==============================================
+
+</script>
+</body>
+</html>
